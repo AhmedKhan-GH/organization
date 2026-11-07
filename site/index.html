@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sternbild</title>
+<meta name="description" content="Sternbild is an organization dedicated to advancing human-centered values with AI.">
+<meta name="theme-color" content="#12110f">
+<link rel="icon" href="assets/sternbild-32.png" sizes="32x32">
+<link rel="icon" href="assets/sternbild-logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/sternbild-180.png">
+<meta property="og:title" content="Sternbild">
+<meta property="og:description" content="Sternbild is an organization dedicated to advancing human-centered values with AI.">
+<meta property="og:image" content="https://sternbild.org/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<script>
+  // The opening plays once per browser session, and never over a link into the page; ?gate always replays it.
+  try {
+    const replay = new URLSearchParams(location.search).has("gate");
+    const seen = sessionStorage.getItem("sternbild.entered") === "1";
+    document.documentElement.classList.add(!replay && (seen || location.hash) ? "entered" : "gated");
+  } catch { document.documentElement.classList.add("gated"); }
+</script>
+<style>
+  @font-face { font-family: "Sternbild Display"; src: url("assets/fonts/SternbildDisplay-Regular.woff2") format("woff2"); font-display: swap; }
+  @font-face { font-family: "Plex Condensed"; src: url("assets/fonts/IBMPlexSansCondensed-Regular.ttf") format("truetype"); font-display: swap; }
+
+  /* The Sternbild palette. */
+  :root {
+    --deep: #12110f;
+    --ground: #181715;
+    --plate: #201f1c;
+    --plate-hover: #2a2925;
+    --rule: #4b4945;
+    --rule-faint: #2c2b28;
+    --parchment: #e8e0d0;
+    --secondary: #c1baaa;
+    --faint: #8f897c;
+    --bronze: #b38b59;
+    --bronze-hover: #c49b68;
+    --light: #fff6e8;            /* the gate's one colour of light */
+    --max: 1160px;
+    --display: "Sternbild Display", "Plex Condensed", sans-serif;
+    --text: "Plex Condensed", -apple-system, "Helvetica Neue", sans-serif;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; background: var(--deep); }
+  [id] { scroll-margin-top: 64px; }   /* anchors land below the sticky masthead */
+  html.gated { overflow: hidden; }
+  body { margin: 0; background: var(--deep); color: var(--parchment); font: 17px/1.65 var(--text); -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; height: auto; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 28px; }
+
+  /* ---- The gate: the Loggia opening (login.css), on its own night ground. ---- */
+  .gate { display: none; }
+  html.gated .gate, .gate.is-settling { display: block; }
+  .gate {
+    --gate-rise: 0px;
+    --beam-level: .74;
+    --portal-open: 0; --portal-pitch: 0deg; --portal-width: 1;
+    --portal-face: 0; --portal-light: 0; --portal-shadow: 1;
+    /* 40% of the ground's (24, 23, 21), keeping its warm charcoal proportions. */
+    --seal-shadow-ink: rgb(9.6 9.2 8.4);
+    position: fixed; inset: 0; overflow: hidden; background: var(--deep); isolation: isolate; z-index: 100;
+  }
+  .portal-atmosphere { position: absolute; inset: 0; pointer-events: none; }
+  .portal-definitions { position: absolute; }
+  .portal-glare { position: absolute; inset: 0; pointer-events: none; visibility: hidden; z-index: 2; mix-blend-mode: plus-lighter; }
+  .portal-glare canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  @supports not (mix-blend-mode: plus-lighter) { .portal-glare { mix-blend-mode: screen; } }
+  .is-opening.has-glare .portal-glare { visibility: visible; }
+  .is-opening.has-glare .portal-beam-face { opacity: 0; }
+  .portal-source, .portal-ray-bearing { position: absolute; width: 0; height: 0; }
+  .portal-ray-plane { position: absolute; perspective-origin: 50% 100%; }
+  .portal-ray-swing {
+    width: 100%; height: 100%; transform-origin: 50% 100%;
+    /* Fan first; then every shaft tips about the same horizontal world axis. */
+    transform: scaleZ(var(--ray-depth)) rotateX(var(--portal-pitch)) rotateZ(var(--ray-angle)) scaleX(var(--portal-width));
+  }
+  .portal-beam-camera { position: absolute; width: 0; height: 0; perspective-origin: 0 0; }
+  .portal-beam-face {
+    position: absolute; display: block; overflow: visible; transform-origin: 50% 50%;
+    transform: rotateX(var(--portal-pitch)) rotateZ(var(--ray-angle)) translateY(var(--cap-distance)) rotateX(90deg) scale(calc(var(--cap-max) * var(--portal-face)));
+    opacity: var(--portal-light);
+  }
+  .portal-ascent { transform: translateY(calc(var(--portal-rise) * var(--portal-open))); }
+  .portal-hover-lift { transform: translateY(var(--gate-rise)); transition: transform 600ms cubic-bezier(.2, .65, .3, 1); }
+  .portal-ray-bearing { opacity: var(--beam-level); }
+  .portal-breath { display: block; width: 100%; height: 100%; overflow: visible; animation: portal-breathe var(--beam-cycle) ease-in-out var(--beam-phase) infinite; will-change: opacity; }
+  .login-object {
+    --seal-tilt-x: 0deg; --seal-tilt-y: 0deg; --shadow-x: 0px; --shadow-y: 0px;
+    position: absolute; left: 50%; top: var(--gate-center-y); width: var(--seal-size); aspect-ratio: 1; transform: translate(-50%, -50%);
+  }
+  .login-perspective { perspective: 1000px; }
+  .login-tilt { transform: rotateX(var(--seal-tilt-x)) rotateY(var(--seal-tilt-y)); transition: transform 900ms cubic-bezier(.2, .65, .3, 1); }
+  .login-drift { animation: seal-drift 7.5s ease-in-out infinite; }
+  .portal-trigger {
+    position: relative; display: block; width: 100%; margin: 0; padding: 0; border: 0; background: transparent;
+    line-height: 0; appearance: none; cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  .portal-trigger:disabled { cursor: default; }
+  .portal-trigger:focus-visible { outline: 1px solid rgb(255 246 232 / .75); outline-offset: 8px; }
+  /* The seal and its name glow softly, as the logo and the title do on the site. */
+  .login-seal { display: block; width: 100%; height: auto; user-select: none;
+                filter: drop-shadow(0 0 7px rgba(255, 255, 255, .32)) drop-shadow(0 0 22px rgba(255, 255, 255, .16)); }
+  .login-name {
+    position: absolute; left: 50%; top: var(--name-top); width: max-content; margin: 0; transform: translateX(-50%); pointer-events: none;
+    font: 400 var(--name-size)/1.1 var(--display); letter-spacing: .3em; text-indent: .3em; text-transform: uppercase; color: #fff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, .35), 0 0 22px rgba(255, 255, 255, .22), 0 0 48px rgba(255, 255, 255, .12);
+  }
+  /* What to do: one quiet line under the seal, still; the whole screen opens. */
+  .gate { cursor: pointer; }
+  .gate-hint {
+    /* directly under the seal, midway between its base and the name */
+    position: absolute; left: 50%; top: calc((var(--gate-center-y) + var(--seal-size) * .3704 + var(--name-top)) / 2); margin: 0;
+    transform: translate(-50%, -50%);
+    font: clamp(14px, 1.15vw, 17px)/1 var(--display); letter-spacing: .34em; padding-left: .34em; text-transform: uppercase; white-space: nowrap; color: #fff;
+    opacity: .75; pointer-events: none;
+  }
+  .gate-hint .touch { display: none; }
+  @media (hover: none) { .gate-hint .fine { display: none; } .gate-hint .touch { display: inline; } }
+  .is-opening .gate-hint { opacity: 0; transition: opacity .3s ease; }
+  .login-shadow-offset {
+    position: absolute; left: 10%; top: calc(100% + 14px); width: 80%; pointer-events: none;
+    transform: translate(var(--shadow-x), var(--shadow-y)); transition: transform 900ms cubic-bezier(.2, .65, .3, 1), opacity 600ms ease;
+  }
+  .login-shadow { display: block; width: 100%; overflow: visible; animation: seal-shadow 7.5s ease-in-out infinite; }
+  /* A static dither softens the dark gradients without visible grain. */
+  .portal-dither {
+    position: absolute; inset: 0; pointer-events: none; opacity: .02; mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n' color-interpolation-filters='sRGB' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0' intercept='1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .gate.is-opening { --beam-level: 1; }
+  .is-opening .portal-ray-bearing { transition: opacity 600ms ease; }
+  .is-opening .portal-atmosphere { z-index: 1; }
+  .is-opening .login-drift, .is-opening .portal-breath, .is-opening .login-shadow { animation-play-state: paused; }
+  .is-opening:not(.is-reduced) .login-shadow-offset {
+    transition: none; opacity: var(--portal-shadow); transform: translate(var(--shadow-x), var(--shadow-y)) scale(calc(1 + var(--portal-open) * .4));
+  }
+  /* The exposed scene is gone; only uniform light adjusts away from the night site. */
+  .gate.is-settling { pointer-events: none; background: #fffff7; opacity: 0; animation: portal-settle var(--portal-adjust-ms, 400ms) cubic-bezier(.2, .55, .35, 1) both; }
+  @keyframes portal-breathe { 0%, 100% { opacity: .58; } 50% { opacity: 1; } }
+  @keyframes seal-drift { 0%, 100% { transform: translateY(-5px); } 50% { transform: translateY(5px); } }
+  @keyframes seal-shadow { 0%, 100% { transform: scale(1.16, 1); opacity: .18; } 50% { transform: scale(.86, .85); opacity: .36; } }
+  @keyframes portal-settle { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes portal-white-fade { from { opacity: 0; } to { opacity: 1; } }
+  .is-reduced .portal-ascent { transform: none; }
+  .is-reduced .portal-ray-swing { transform: rotateZ(var(--ray-angle)); }
+  .is-reduced.is-opening .portal-beam-face {
+    transform: rotateX(-86deg) rotateZ(var(--ray-angle)) translateY(var(--cap-distance)) rotateX(90deg) scale(var(--cap-max));
+    animation: portal-white-fade 160ms ease-in forwards;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .portal-glare { display: none; }
+    .gate { --gate-rise: 0px !important; }
+    .login-drift, .portal-breath { animation: none; transform: none; }
+    .portal-breath { opacity: .8; }
+    .login-shadow { animation: none; transform: none; opacity: .27; }
+    .login-tilt, .login-shadow-offset, .portal-hover-lift { transform: none; transition: none; }
+  }
+
+  /* ---- The site ---- */
+  .mast { position: sticky; top: 0; z-index: 20; background: rgba(18, 17, 15, .82); backdrop-filter: blur(12px); border-bottom: 1px solid var(--rule-faint); }
+  .mast .wrap { display: flex; align-items: center; gap: 30px; height: 64px; max-width: none; padding: 0 32px; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand img { width: 38px; height: 38px; }
+  .brand span { font: 17px/1 var(--display); letter-spacing: .3em; padding-top: 2px; }
+  .mast .links { display: flex; gap: 28px; margin-left: auto; color: var(--secondary); font: 13px/1 var(--display); letter-spacing: .18em; text-transform: uppercase; }
+  .mast .links a:hover { color: var(--parchment); }
+
+  /* The two flows, drawn on the seal's own construction: five rays at 0, 18 and 36 degrees either side of the
+     upright, rising from one point on the horizon. The apps you learn in sit on the inner arc, the apps you work in
+     on the outer, each pair on one outer ray with its direction marked in bronze. Positions are in the drawing's
+     units (1600 by 1000), so the HTML and the SVG share one frame. */
+  .chart { position: relative; overflow: hidden; background: radial-gradient(120% 90% at 50% 100%, #1b1a17 0%, var(--deep) 62%); }
+  .sky { position: relative; width: min(100%, calc((100svh - 64px - 178px) * 1.6)); min-width: 760px; aspect-ratio: 16 / 10; margin: 0 auto; container-type: inline-size; }
+  /* The name under the logo, and the mission under the name; the sky above is sized to leave them room on the first screen. */
+  .title-block { position: relative; text-align: center; padding: 10px 18px 54px; }
+  .title-block h1 { margin: 0; font: clamp(40px, 5.6vw, 84px)/1 var(--display); font-weight: normal; letter-spacing: .3em; padding-left: .3em; text-transform: uppercase; color: #fff;
+                    text-shadow: 0 0 10px rgba(255, 255, 255, .35), 0 0 28px rgba(255, 255, 255, .22), 0 0 60px rgba(255, 255, 255, .12); }
+  .mission { margin: 20px auto 0; max-width: 680px; color: #fff; font-size: clamp(17px, 1.6vw, 21px); text-wrap: balance; }
+  .sky > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; will-change: transform; }
+  .sky > svg.beam { will-change: opacity; animation: sky-breathe var(--beam-cycle) ease-in-out var(--beam-phase) infinite; }
+  @keyframes sky-breathe { 0%, 100% { opacity: .58; } 50% { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .sky > svg.beam { animation: none; opacity: .8; } }
+  .construction { fill: none; stroke: #6a655a; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+  .arc-label { font-family: var(--display); font-size: 15px; letter-spacing: .34em; fill: var(--bronze); text-anchor: middle; }
+  .flow-line { stroke: var(--bronze); stroke-width: 2; vector-effect: non-scaling-stroke; }
+  .flow-head { fill: var(--bronze); }
+  .group { display: contents; }
+  .node { position: absolute; left: var(--x); top: var(--y); width: 7.5%; transform: translate(-50%, -50%); }
+  .node img { width: 100%; height: auto; filter: drop-shadow(0 1.2cqw 2cqw rgba(0, 0, 0, .55)); transition: transform .3s cubic-bezier(.2, .65, .3, 1); }
+  .node:hover img, .node:focus-visible img { transform: translateY(-.4cqw); }
+  .node .text { position: absolute; top: 50%; transform: translateY(-50%); width: 17cqw; display: flex; flex-direction: column; gap: .5cqw; }
+  .node.west .text { right: calc(100% + 1.5cqw); text-align: right; align-items: flex-end; }
+  .node.east .text { left: calc(100% + 1.5cqw); }
+  .node .step { display: none; }
+  .node .name { font: 1.7cqw/1 var(--display); letter-spacing: .22em; text-transform: uppercase; transition: color .15s; }
+  .node .role { font-size: clamp(12px, 1.12cqw, 17px); line-height: 1.35; color: var(--faint); }
+  .node:hover .name, .node:focus-visible .name { color: var(--bronze-hover); }
+  .node:focus-visible { outline: none; }
+  .node:focus-visible img { outline: 1px solid var(--bronze); outline-offset: .6cqw; }
+  .note { position: absolute; top: 59.54%; width: 17cqw; margin: 0; transform: translateY(-50%); font-size: clamp(12px, 1.08cqw, 16px); line-height: 1.5; color: var(--secondary); }
+  /* A halo in the sky's colour keeps the rings from running through the notes, as a map keeps its lines off its labels. */
+  .node.r { width: 6%; }
+  .node.hub { width: 7.5%; }
+  .node.r .step { display: block; font: clamp(9px, .72cqw, 12px)/1 var(--display); letter-spacing: .26em; color: var(--bronze); text-transform: uppercase; }
+  .node.r.lead { width: 6.6%; }
+  .node.south .text { top: calc(100% + 1.2cqw); left: 50%; transform: translateX(-50%); width: 24cqw; text-align: center; align-items: center; }
+  .note, .node .text { text-shadow: 0 0 2px #161512, 0 0 4px #161512, 0 0 7px #161512, 0 0 10px #161512; }
+  .note.west { right: 68.70%; text-align: right; }
+  .note.east { left: 68.70%; }
+  .down { display: none; }
+
+  /* The index: one ruled row per app. */
+  .index { padding: 110px 0 0; background: var(--deep); }
+  .label { display: flex; align-items: center; gap: 14px; margin-bottom: 30px; }
+  .label::before { content: ""; width: 28px; height: 1px; background: var(--bronze); }
+  .eyebrow { font: 13px/1 var(--display); letter-spacing: .26em; color: var(--bronze); text-transform: uppercase; }
+  .rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+  .rows a { display: grid; grid-template-columns: 64px minmax(200px, .9fr) minmax(0, 1.6fr) 40px; gap: 28px; align-items: center;
+            padding: 26px 8px; border-bottom: 1px solid var(--rule-faint); transition: background .15s; }
+  .rows a:hover { background: #161513; }
+  .rows img { width: 64px; height: 64px; }
+  .rows .title { display: flex; flex-direction: column; gap: 8px; }
+  .rows .name { font: 19px/1 var(--display); letter-spacing: .22em; text-transform: uppercase; }
+  .rows .role { color: var(--faint); font-size: 15px; line-height: 1.35; }
+  .rows .desc { color: var(--secondary); font-size: 16px; }
+  .rows .go { justify-self: end; color: var(--faint); font-size: 20px; transition: color .15s, transform .15s; }
+  .rows a:hover .go { color: var(--bronze-hover); transform: translateX(3px); }
+
+  /* Research: the projects without marks yet stand in empty hexagons, the research projects' frame. Alioth leads on its own row;
+     the other four share the row beneath. */
+  .research { padding: 110px 0 0; background: var(--deep); }
+  .projects { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+              border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule-faint); }
+  .projects li { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 34px 24px 34px 8px; }
+  .projects li + li:not(.lead) { border-left: 1px solid var(--rule-faint); padding-left: 24px; }
+  .projects li.lead + li { border-left: 0; padding-left: 8px; }
+  .projects img { width: 88px; height: 88px; margin-bottom: 14px; }
+  .projects img[src$="placeholder-hexagon.svg"] { opacity: .9; }
+  .projects .kicker { font: 11px/1 var(--display); letter-spacing: .26em; color: var(--bronze); text-transform: uppercase; }
+  .projects .name { font: 19px/1 var(--display); letter-spacing: .22em; text-transform: uppercase; }
+  .projects .role { color: var(--faint); font-size: 15px; line-height: 1.35; }
+  .projects .desc { color: var(--secondary); font-size: 16px; line-height: 1.55; margin-top: 4px; max-width: 34ch; }
+  .projects li.lead { grid-column: 1 / -1; display: grid; grid-template-columns: 128px minmax(0, 1fr); column-gap: 36px; row-gap: 10px;
+                      align-items: center; padding: 44px 8px; border-bottom: 1px solid var(--rule-faint);
+                      background: linear-gradient(90deg, rgba(179, 139, 89, .07), rgba(179, 139, 89, 0) 60%); }
+  .projects li.lead img { width: 128px; height: 128px; margin: 0; grid-row: 1 / span 4; }
+  .projects li.lead .name { font-size: 28px; letter-spacing: .24em; }
+  .projects li.lead .role { font-size: 16px; }
+  .projects li.lead .desc { font-size: 18px; max-width: 56ch; }
+
+  footer { margin-top: 140px; border-top: 1px solid var(--rule-faint); background: var(--deep); padding: 56px 0 44px; color: var(--faint); font-size: 14px; }
+  .foot { display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between; align-items: flex-start; }
+  .house { display: flex; align-items: center; gap: 20px; }
+  .house img { width: 72px; height: 72px; }
+  .house-text { display: flex; flex-direction: column; gap: 10px; }
+  .house-name { font: 24px/1 var(--display); letter-spacing: .3em; color: var(--parchment); }
+  .house-url { font: 15px/1 var(--text); letter-spacing: .04em; color: var(--faint); }
+  .cols { display: flex; gap: 72px; }
+  .cols div { display: flex; flex-direction: column; gap: 12px; }
+  .col-h { font: 12px/1 var(--display); letter-spacing: .24em; text-transform: uppercase; color: var(--bronze); margin-bottom: 4px; }
+  .cols a { color: var(--secondary); }
+  .cols a:hover { color: var(--parchment); }
+  .colophon { margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--rule-faint); }
+
+
+  /* Phones and narrow windows: the drawing gives way to the two flows read top to bottom. */
+  @media (max-width: 820px) {
+    .mast .wrap { padding: 0 18px; }
+    .mast .links { gap: 18px; }
+    .mast .links .wide { display: none; }
+    .chart { display: flex; flex-direction: column; }
+    .title-block { order: -1; padding: 52px 18px 0; }
+    .sky { width: auto; min-width: 0; aspect-ratio: auto; padding: 56px 18px 24px; display: flex; flex-direction: column; gap: 56px; container-type: normal; }
+    .sky > svg { display: none; }
+    .group { display: flex; flex-direction: column; }
+    .node, .note { position: static; transform: none; width: auto; }
+    .node { display: grid; grid-template-columns: 76px 1fr; gap: 18px; align-items: center; }
+    .node img { filter: none; }
+    .node .text, .node.west .text { position: static; transform: none; width: auto; text-align: left; align-items: flex-start; gap: 6px; }
+    .node .step { display: block; font: 11px/1 var(--display); letter-spacing: .26em; color: var(--bronze); text-transform: uppercase; }
+    .node .name { font-size: 20px; }
+    .node .role { font-size: 15px; }
+    .note, .note.west { order: 4; margin-top: 18px; text-align: left; font-size: 15px; }
+    .node.learn { order: 1; }
+    .node.r, .node.hub { display: none; }
+    .down { display: block; order: 2; width: 76px; height: 40px; }
+    .down line { stroke: var(--bronze); stroke-width: 1.5; }
+    .down path { fill: var(--bronze); }
+    .node.work { order: 3; }
+    .index { padding-top: 72px; }
+    .rows a { grid-template-columns: 52px 1fr; gap: 6px 18px; padding: 22px 4px; }
+    .rows img { width: 52px; height: 52px; grid-row: span 2; align-self: start; }
+    .rows .desc { grid-column: 2; font-size: 15px; }
+    .rows .go { display: none; }
+    .research { padding-top: 72px; }
+    .projects { grid-template-columns: minmax(0, 1fr); }
+    .projects li, .projects li + li:not(.lead), .projects li.lead + li { display: grid; grid-template-columns: 64px minmax(0, 1fr);
+      column-gap: 18px; row-gap: 6px; padding: 24px 4px; border-left: 0; }
+    .projects li + li { border-top: 1px solid var(--rule-faint); }
+    .projects img, .projects li.lead img { width: 64px; height: 64px; margin: 0; grid-row: 1 / span 4; align-self: start; }
+    .projects li.lead { grid-template-columns: 64px minmax(0, 1fr); padding: 28px 4px; column-gap: 18px; }
+    .projects li.lead .name { font-size: 22px; }
+    .projects .desc, .projects li.lead .desc { font-size: 15px; }
+    .wrap { padding: 0 18px; }
+    .cols { gap: 48px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate" role="dialog" aria-label="Sternbild">
+  <svg class="portal-definitions" width="0" height="0" aria-hidden="true"><defs id="portal-defs"></defs></svg>
+  <div class="portal-atmosphere" aria-hidden="true">
+    <div class="portal-source"><div class="portal-hover-lift"><div class="portal-ascent"><div class="login-drift"><div class="portal-beam-level"></div></div></div></div></div>
+  </div>
+  <div class="login-object">
+    <div class="login-shadow-offset" aria-hidden="true">
+      <svg class="login-shadow" viewBox="0 0 200 50">
+        <defs><filter id="seal-ground-shadow" x="-40%" y="-100%" width="180%" height="300%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="10 4"/></filter></defs>
+        <ellipse cx="100" cy="25" rx="66" ry="9" fill="var(--seal-shadow-ink)" filter="url(#seal-ground-shadow)"/>
+      </svg>
+    </div>
+    <div class="portal-hover-lift"><div class="portal-ascent"><div class="login-perspective"><div class="login-tilt"><div class="login-drift">
+      <button class="portal-trigger" type="button" aria-label="Enter Sternbild"><img class="login-seal" src="assets/sternbild-seal.svg" alt="" draggable="false"></button>
+    </div></div></div></div></div>
+  </div>
+  <p class="login-name" aria-hidden="true">Sternbild</p>
+  <p class="gate-hint" aria-hidden="true"><span class="fine">Click to enter</span><span class="touch">Tap to enter</span></p>
+  <div class="portal-glare" aria-hidden="true"><canvas></canvas></div>
+  <div class="portal-dither" aria-hidden="true"></div>
+</div>
+
+<div id="site">
+<header class="mast">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="assets/sternbild-logo.svg" alt=""><span>STERNBILD</span></a>
+    <nav class="links" aria-label="Sternbild">
+      <a href="#apps">Apps</a>
+      <a class="wide" href="#research">Research</a>
+      <a class="wide" href="https://github.com/AhmedKhan-GH">GitHub ↗</a>
+      <a href="mailto:emailahmedebadkhan@gmail.com">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="chart" aria-label="Alidade then Astrolabe, Compass then Caliper, and the research projects">
+    <div class="sky">
+      <!-- The logo's five beams, continued past its border (from each crown spike's base along its ray from (800, 940),
+           widening 0.05 per unit as inside the logo), one drawing each so that each breathes on its own layer, as the
+           opening's beams do: the browser fades a finished picture rather than redrawing the glow. -->
+      <svg class="beam" viewBox="0 0 1600 1000" aria-hidden="true" style="--beam-cycle:13.2s;--beam-phase:-7.1s"><polygon points="769.1,900.1 -60.1,-128.9 49.1,-208.3 771.6,898.3" fill="url(#beam0)" filter="url(#beam-light)"/></svg>
+      <svg class="beam" viewBox="0 0 1600 1000" aria-hidden="true" style="--beam-cycle:9.6s;--beam-phase:-3.3s"><polygon points="785.3,899.7 314.7,-335.2 443.0,-376.9 788.1,898.7" fill="url(#beam1)" filter="url(#beam-light)"/></svg>
+      <svg class="beam" viewBox="0 0 1600 1000" aria-hidden="true" style="--beam-cycle:11.7s;--beam-phase:-9.2s"><polygon points="798.5,899.2 732.5,-420.7 867.4,-420.7 801.5,899.2" fill="url(#beam2)" filter="url(#beam-light)"/></svg>
+      <svg class="beam" viewBox="0 0 1600 1000" aria-hidden="true" style="--beam-cycle:14s;--beam-phase:-1.4s"><polygon points="811.8,898.7 1156.9,-376.9 1285.3,-335.2 814.6,899.7" fill="url(#beam3)" filter="url(#beam-light)"/></svg>
+      <svg class="beam" viewBox="0 0 1600 1000" aria-hidden="true" style="--beam-cycle:8.8s;--beam-phase:-4.8s"><polygon points="828.4,898.3 1550.8,-208.3 1660.0,-128.9 830.8,900.1" fill="url(#beam4)" filter="url(#beam-light)"/></svg>
+      <svg viewBox="0 0 1600 1000" aria-hidden="true">
+        <defs>
+          <linearGradient id="beam0" gradientUnits="userSpaceOnUse" x1="696.4" y1="797.4" x2="117.0" y2="0.0"><stop offset="0" stop-color="#e9f0ff" stop-opacity=".12"/><stop offset=".5" stop-color="#e9f0ff" stop-opacity=".092"/><stop offset="1" stop-color="#e9f0ff" stop-opacity=".055"/></linearGradient>
+          <linearGradient id="beam1" gradientUnits="userSpaceOnUse" x1="739.6" y1="754.2" x2="494.5" y2="0.0"><stop offset="0" stop-color="#e9f0ff" stop-opacity=".12"/><stop offset=".5" stop-color="#e9f0ff" stop-opacity=".092"/><stop offset="1" stop-color="#e9f0ff" stop-opacity=".055"/></linearGradient>
+          <linearGradient id="beam2" gradientUnits="userSpaceOnUse" x1="800.0" y1="717.9" x2="800.0" y2="0.0"><stop offset="0" stop-color="#e9f0ff" stop-opacity=".12"/><stop offset=".5" stop-color="#e9f0ff" stop-opacity=".092"/><stop offset="1" stop-color="#e9f0ff" stop-opacity=".055"/></linearGradient>
+          <linearGradient id="beam3" gradientUnits="userSpaceOnUse" x1="860.3" y1="754.2" x2="1105.4" y2="0.0"><stop offset="0" stop-color="#e9f0ff" stop-opacity=".12"/><stop offset=".5" stop-color="#e9f0ff" stop-opacity=".092"/><stop offset="1" stop-color="#e9f0ff" stop-opacity=".055"/></linearGradient>
+          <linearGradient id="beam4" gradientUnits="userSpaceOnUse" x1="903.5" y1="797.4" x2="1482.9" y2="0.0"><stop offset="0" stop-color="#e9f0ff" stop-opacity=".12"/><stop offset=".5" stop-color="#e9f0ff" stop-opacity=".092"/><stop offset="1" stop-color="#e9f0ff" stop-opacity=".055"/></linearGradient>
+          <linearGradient id="horizon" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1600" y2="0">
+            <stop offset="0" stop-color="#6a655a" stop-opacity=".55"/><stop offset=".5" stop-color="#6a655a"/><stop offset="1" stop-color="#6a655a" stop-opacity=".55"/>
+          </linearGradient>
+          <!-- The beams' light: softened edges, and a faint wider glow of the same light around them. -->
+          <filter id="beam-light" filterUnits="userSpaceOnUse" x="-60" y="-40" width="1720" height="1000" color-interpolation-filters="sRGB">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="soft"/>
+            <feGaussianBlur in="SourceGraphic" stdDeviation="20" result="wide"/>
+            <feComponentTransfer in="wide" result="glow"><feFuncA type="linear" slope=".85"/></feComponentTransfer>
+            <feMerge><feMergeNode in="glow"/><feMergeNode in="soft"/></feMerge>
+          </filter>
+          <!-- A faint glow of the beams' light around the logo. -->
+          <filter id="seal-glow" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="16" result="soft"/>
+            <feFlood flood-color="#fff6e8" flood-opacity=".2"/>
+            <feComposite in2="soft" operator="in" result="glow"/>
+            <feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <marker id="head" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+            <path class="flow-head" d="M0 0.5 L12 6 L0 11.5 Z"/>
+          </marker>
+        </defs>
+        <!-- The horizon (dimming a little to either side), and three rings about the point, each a little fainter outwards: through the apps you learn in, the apps you work in, and
+             the research projects, Alioth at the top on the upright. -->
+        <g class="construction">
+          <line x1="-400" y1="940" x2="2000" y2="940" stroke="url(#horizon)"/>
+          <path d="M 530 940 A 270 270 0 0 1 1070 940" stroke-opacity="1"/>
+          <path d="M 230 940 A 570 570 0 0 1 1370 940" stroke-opacity=".86"/>
+          <path d="M -30 940 A 830 830 0 0 1 1630 940" stroke-opacity=".72"/>
+        </g>
+        <!-- The logo standing on the horizon: its rays' meeting point, (512, 851.1) in the logo file's 1024 units, is the
+             beams' origin, so its crown spikes and stars lie along the five beams. At .328 it sits below the two lower apps. -->
+        <image class="seal-base" href="assets/sternbild-logo.svg" x="632.2" y="661.1" width="335.5" height="335.5" filter="url(#seal-glow)"/>
+        <text class="arc-label" x="800" y="652">LEARN</text>
+        <text class="arc-label" x="800" y="298">WORK</text>
+        <text class="arc-label" x="800" y="34">RESEARCH</text>
+        <line class="flow-line" x1="598.98" y1="663.32" x2="511.99" y2="543.58" marker-end="url(#head)"/>
+        <line class="flow-line" x1="1001.02" y1="663.32" x2="1088.01" y2="543.58" marker-end="url(#head)"/>
+      </svg>
+
+      <div class="node south hub" style="--x:50.000%;--y:37.000%">
+        <img src="assets/loggia-icon.svg" alt="" width="120" height="120">
+        <span class="text"><span class="name">Loggia</span><span class="role">Containerized agent orchestrator</span></span>
+      </div>
+      <a class="node r south lead" href="#research" style="--x:50.000%;--y:11.000%">
+        <img src="assets/alioth-icon.svg" alt="" width="120" height="120">
+        <span class="text"><span class="step">Project</span><span class="name">Alioth</span><span class="role">Artificial intelligence research</span></span>
+      </a>
+      <a class="node r west" href="#research" style="--x:19.509%;--y:26.852%">
+        <img src="assets/polaris-icon.svg" alt="" width="120" height="120">
+        <span class="text"><span class="step">Project</span><span class="name">Polaris</span><span class="role">Business systems</span></span>
+      </a>
+      <a class="node r west" href="#research" style="--x:33.970%;--y:15.062%">
+        <img src="assets/quasar-icon.svg" alt="" width="120" height="120">
+        <span class="text"><span class="step">Project</span><span class="name">Quasar</span><span class="role">Quantitative finance</span></span>
+      </a>
+      <a class="node r east" href="#research" style="--x:80.491%;--y:26.852%">
+        <img src="assets/orion-icon.svg" alt="" width="120" height="120">
+        <span class="text"><span class="step">Project</span><span class="name">Orion</span><span class="role">Applied machine learning</span></span>
+      </a>
+      <a class="node r east" href="#research" style="--x:66.030%;--y:15.062%">
+        <img src="assets/nebula-icon.svg" alt="" width="120" height="120">
+        <span class="text"><span class="step">Project</span><span class="name">Nebula</span><span class="role">Semiconductor design</span></span>
+      </a>
+
+      <div class="group">
+        <a class="node west learn" href="https://ahmedkhan-gh.github.io/alidade/" style="--x:40.081%;--y:72.157%">
+          <img src="assets/alidade-icon.svg" alt="" width="120" height="120">
+          <span class="text"><span class="step">Learn</span><span class="name">Alidade</span><span class="role">Learning harness</span></span>
+        </a>
+        <svg class="down" viewBox="0 0 76 40" aria-hidden="true"><line x1="38" y1="4" x2="38" y2="28"/><path d="M38 36 L32.5 25 L43.5 25 Z"/></svg>
+        <a class="node west work" href="https://ahmedkhan-gh.github.io/astrolabe/" style="--x:29.060%;--y:47.886%">
+          <img src="assets/astrolabe-icon.svg?v=2" alt="" width="120" height="120">
+          <span class="text"><span class="step">Work</span><span class="name">Astrolabe</span><span class="role">Intelligence augmented productivity framework</span></span>
+        </a>
+        <p class="note west">Learn the niche of your field in Alidade, and then do the work at speed in Astrolabe.</p>
+      </div>
+
+      <div class="group">
+        <a class="node east learn" href="https://ahmedkhan-gh.github.io/compass/" style="--x:59.919%;--y:72.157%">
+          <img src="assets/compass-icon.svg" alt="" width="120" height="120">
+          <span class="text"><span class="step">Learn</span><span class="name">Compass</span><span class="role">Practice platform</span></span>
+        </a>
+        <svg class="down" viewBox="0 0 76 40" aria-hidden="true"><line x1="38" y1="4" x2="38" y2="28"/><path d="M38 36 L32.5 25 L43.5 25 Z"/></svg>
+        <a class="node east work" href="https://ahmedkhan-gh.github.io/caliper/" style="--x:70.940%;--y:47.886%">
+          <img src="assets/caliper-icon.svg" alt="" width="120" height="120">
+          <span class="text"><span class="step">Work</span><span class="name">Caliper</span><span class="role">Machine learning visualization framework</span></span>
+        </a>
+        <p class="note east">Learn technical skills in Compass, then apply them to machine learning in Caliper.</p>
+      </div>
+    </div>
+    <div class="title-block">
+      <h1>Sternbild</h1>
+      <p class="mission">An organization dedicated to advancing human-centered values with AI.</p>
+    </div>
+  </section>
+
+  <section class="index" id="apps">
+    <div class="wrap">
+      <div class="label"><span class="eyebrow">Apps</span></div>
+      <ul class="rows">
+        <li><a href="https://ahmedkhan-gh.github.io/alidade/"><img src="assets/alidade-icon.svg" alt="" width="64" height="64">
+          <span class="title"><span class="name">Alidade</span><span class="role">Learning harness</span></span>
+          <span class="desc">Learn any subject, at any depth. Lessons adapt to your understanding in real time.</span>
+          <span class="go" aria-hidden="true">→</span></a></li>
+        <li><a href="https://ahmedkhan-gh.github.io/astrolabe/"><img src="assets/astrolabe-icon.svg?v=2" alt="" width="64" height="64">
+          <span class="title"><span class="name">Astrolabe</span><span class="role">Intelligence augmented productivity framework</span></span>
+          <span class="desc">One app for specialized work. Move between your tools, with agents where you choose.</span>
+          <span class="go" aria-hidden="true">→</span></a></li>
+        <li><a href="https://ahmedkhan-gh.github.io/compass/"><img src="assets/compass-icon.svg" alt="" width="64" height="64">
+          <span class="title"><span class="name">Compass</span><span class="role">Practice platform</span></span>
+          <span class="desc">Practice technical skills from the absolute basics. Understand first, then accelerate.</span>
+          <span class="go" aria-hidden="true">→</span></a></li>
+        <li><a href="https://ahmedkhan-gh.github.io/caliper/"><img src="assets/caliper-icon.svg" alt="" width="64" height="64">
+          <span class="title"><span class="name">Caliper</span><span class="role">Machine learning visualization framework</span></span>
+          <span class="desc">A native app for interpretability. Observe models directly from the GPU in real time.</span>
+          <span class="go" aria-hidden="true">→</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="research" id="research">
+    <div class="wrap">
+      <div class="label"><span class="eyebrow">Research</span></div>
+      <ul class="projects">
+        <li class="lead"><img src="assets/alioth-icon.svg" alt="" width="128" height="128"><span class="kicker">Project</span><span class="name">Alioth</span><span class="role">Artificial intelligence research</span>
+          <span class="desc">Foundational work on how models learn, what they represent inside, how to align them, and how to run them efficiently.</span></li>
+        <li><img src="assets/polaris-icon.svg" alt="" width="88" height="88"><span class="kicker">Project</span><span class="name">Polaris</span><span class="role">Business systems</span>
+          <span class="desc">Ontology-driven business systems, and the security to protect their data at scale.</span></li>
+        <li><img src="assets/nebula-icon.svg" alt="" width="88" height="88"><span class="kicker">Project</span><span class="name">Nebula</span><span class="role">Semiconductor design</span>
+          <span class="desc">From first hardware programs to a full GPU for graphics and machine learning.</span></li>
+        <li><img src="assets/orion-icon.svg" alt="" width="88" height="88"><span class="kicker">Project</span><span class="name">Orion</span><span class="role">Applied machine learning</span>
+          <span class="desc">Machine learning applied to robotics and biotechnology.</span></li>
+        <li><img src="assets/quasar-icon.svg" alt="" width="88" height="88"><span class="kicker">Project</span><span class="name">Quasar</span><span class="role">Quantitative finance</span>
+          <span class="desc">The mathematics of physics applied to trading, from random walks to how orders move prices.</span></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="house"><img src="assets/sternbild-logo.svg" alt=""><span class="house-text"><span class="house-name">STERNBILD</span><span class="house-url">sternbild.org</span></span></div>
+      <div class="cols">
+        <div><span class="col-h">Apps</span>
+          <a href="https://ahmedkhan-gh.github.io/alidade/">Alidade</a><a href="https://ahmedkhan-gh.github.io/astrolabe/">Astrolabe</a>
+          <a href="https://ahmedkhan-gh.github.io/compass/">Compass</a><a href="https://ahmedkhan-gh.github.io/caliper/">Caliper</a></div>
+        <div><span class="col-h">Sternbild</span>
+          <a href="https://github.com/AhmedKhan-GH">GitHub ↗</a><a href="mailto:emailahmedebadkhan@gmail.com">Contact</a></div>
+      </div>
+    </div>
+    <div class="colophon">© 2026 Ahmed Khan</div>
+  </div>
+</footer>
+</div>
+
+<script src="assets/gate.js"></script>
+</body>
+</html>
