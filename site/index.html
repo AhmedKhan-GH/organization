@@ -205,9 +205,11 @@
   .note { position: absolute; top: 59.54%; width: 17cqw; margin: 0; transform: translateY(-50%); font-size: clamp(12px, 1.08cqw, 16px); line-height: 1.5; color: var(--secondary); }
   /* A halo in the sky's colour keeps the rings from running through the notes, as a map keeps its lines off its labels. */
   .node.r { width: 6%; }
-  .node.hub { width: 7.5%; }
   .node.r .step { display: block; font: clamp(9px, .72cqw, 12px)/1 var(--display); letter-spacing: .26em; color: var(--bronze); text-transform: uppercase; }
-  .node.r.lead { width: 6.6%; }
+  .node.r.lead { width: 8.6%; }
+  .node.r.lead .text { top: calc(100% + .6cqw); }
+  .node.r.lead .name { font-size: 2.4cqw; }
+  .node.r.lead .role { font-size: clamp(13px, 1.3cqw, 19px); }
   .node.south .text { top: calc(100% + 1.2cqw); left: 50%; transform: translateX(-50%); width: 24cqw; text-align: center; align-items: center; }
   .note, .node .text { text-shadow: 0 0 2px #161512, 0 0 4px #161512, 0 0 7px #161512, 0 0 10px #161512; }
   .note.west { right: 68.70%; text-align: right; }
@@ -287,7 +289,7 @@
     .node .role { font-size: 15px; }
     .note, .note.west { order: 4; margin-top: 18px; text-align: left; font-size: 15px; }
     .node.learn { order: 1; }
-    .node.r, .node.hub { display: none; }
+    .node.r { display: none; }
     .down { display: block; order: 2; width: 76px; height: 40px; }
     .down line { stroke: var(--bronze); stroke-width: 1.5; }
     .down path { fill: var(--bronze); }
@@ -399,45 +401,41 @@
              beams' origin, so its crown spikes and stars lie along the five beams. At .328 it sits below the two lower apps. -->
         <image class="seal-base" href="assets/sternbild-logo.svg" x="632.2" y="661.1" width="335.5" height="335.5" filter="url(#seal-glow)"/>
         <text class="arc-label" x="800" y="652">LEARN</text>
-        <text class="arc-label" x="800" y="298">WORK</text>
+        <text class="arc-label" x="800" y="352">WORK</text>
         <text class="arc-label" x="800" y="34">RESEARCH</text>
         <line class="flow-line" x1="598.98" y1="663.32" x2="511.99" y2="543.58" marker-end="url(#head)"/>
         <line class="flow-line" x1="1001.02" y1="663.32" x2="1088.01" y2="543.58" marker-end="url(#head)"/>
       </svg>
 
-      <div class="node south hub" style="--x:50.000%;--y:37.000%">
-        <img src="assets/loggia-icon.svg" alt="" width="120" height="120">
-        <span class="text"><span class="name">Loggia</span><span class="role">Containerized agent orchestrator</span></span>
-      </div>
       <a class="node r south lead" href="#research" style="--x:50.000%;--y:11.000%">
-        <img src="assets/alioth-icon.svg" alt="" width="120" height="120">
+        <img src="assets/alioth-icon.svg?v=20261107" alt="" width="120" height="120">
         <span class="text"><span class="step">Project</span><span class="name">Alioth</span><span class="role">Artificial intelligence research</span></span>
       </a>
       <a class="node r west" href="#research" style="--x:19.509%;--y:26.852%">
-        <img src="assets/polaris-icon.svg" alt="" width="120" height="120">
+        <img src="assets/polaris-icon.svg?v=20261107" alt="" width="120" height="120">
         <span class="text"><span class="step">Project</span><span class="name">Polaris</span><span class="role">Business systems</span></span>
       </a>
       <a class="node r west" href="#research" style="--x:33.970%;--y:15.062%">
-        <img src="assets/quasar-icon.svg" alt="" width="120" height="120">
+        <img src="assets/quasar-icon.svg?v=20261107" alt="" width="120" height="120">
         <span class="text"><span class="step">Project</span><span class="name">Quasar</span><span class="role">Quantitative finance</span></span>
       </a>
       <a class="node r east" href="#research" style="--x:80.491%;--y:26.852%">
-        <img src="assets/orion-icon.svg" alt="" width="120" height="120">
+        <img src="assets/orion-icon.svg?v=20261107" alt="" width="120" height="120">
         <span class="text"><span class="step">Project</span><span class="name">Orion</span><span class="role">Applied machine learning</span></span>
       </a>
       <a class="node r east" href="#research" style="--x:66.030%;--y:15.062%">
-        <img src="assets/nebula-icon.svg" alt="" width="120" height="120">
+        <img src="assets/nebula-icon.svg?v=20261107" alt="" width="120" height="120">
         <span class="text"><span class="step">Project</span><span class="name">Nebula</span><span class="role">Semiconductor design</span></span>
       </a>
 
       <div class="group">
         <a class="node west learn" href="https://ahmedkhan-gh.github.io/alidade/" style="--x:40.081%;--y:72.157%">
-          <img src="assets/alidade-icon.svg" alt="" width="120" height="120">
+          <img src="assets/alidade-icon.svg?v=20261107l" alt="" width="120" height="120">
           <span class="text"><span class="step">Learn</span><span class="name">Alidade</span><span class="role">Learning harness</span></span>
         </a>
         <svg class="down" viewBox="0 0 76 40" aria-hidden="true"><line x1="38" y1="4" x2="38" y2="28"/><path d="M38 36 L32.5 25 L43.5 25 Z"/></svg>
         <a class="node west work" href="https://ahmedkhan-gh.github.io/astrolabe/" style="--x:29.060%;--y:47.886%">
-          <img src="assets/astrolabe-icon.svg?v=2" alt="" width="120" height="120">
+          <img src="assets/astrolabe-icon.svg?v=20261107h" alt="" width="120" height="120">
           <span class="text"><span class="step">Work</span><span class="name">Astrolabe</span><span class="role">Intelligence augmented productivity framework</span></span>
         </a>
         <p class="note west">Learn the niche of your field in Alidade, and then do the work at speed in Astrolabe.</p>
@@ -445,12 +443,12 @@
 
       <div class="group">
         <a class="node east learn" href="https://ahmedkhan-gh.github.io/compass/" style="--x:59.919%;--y:72.157%">
-          <img src="assets/compass-icon.svg" alt="" width="120" height="120">
+          <img src="assets/compass-icon.svg?v=20261107" alt="" width="120" height="120">
           <span class="text"><span class="step">Learn</span><span class="name">Compass</span><span class="role">Practice platform</span></span>
         </a>
         <svg class="down" viewBox="0 0 76 40" aria-hidden="true"><line x1="38" y1="4" x2="38" y2="28"/><path d="M38 36 L32.5 25 L43.5 25 Z"/></svg>
         <a class="node east work" href="https://ahmedkhan-gh.github.io/caliper/" style="--x:70.940%;--y:47.886%">
-          <img src="assets/caliper-icon.svg" alt="" width="120" height="120">
+          <img src="assets/caliper-icon.svg?v=20261107" alt="" width="120" height="120">
           <span class="text"><span class="step">Work</span><span class="name">Caliper</span><span class="role">Machine learning visualization framework</span></span>
         </a>
         <p class="note east">Learn technical skills in Compass, then apply them to machine learning in Caliper.</p>
@@ -466,19 +464,19 @@
     <div class="wrap">
       <div class="label"><span class="eyebrow">Apps</span></div>
       <ul class="rows">
-        <li><a href="https://ahmedkhan-gh.github.io/alidade/"><img src="assets/alidade-icon.svg" alt="" width="64" height="64">
+        <li><a href="https://ahmedkhan-gh.github.io/alidade/"><img src="assets/alidade-icon.svg?v=20261107l" alt="" width="64" height="64">
           <span class="title"><span class="name">Alidade</span><span class="role">Learning harness</span></span>
           <span class="desc">Learn any subject, at any depth. Lessons adapt to your understanding in real time.</span>
           <span class="go" aria-hidden="true">→</span></a></li>
-        <li><a href="https://ahmedkhan-gh.github.io/astrolabe/"><img src="assets/astrolabe-icon.svg?v=2" alt="" width="64" height="64">
+        <li><a href="https://ahmedkhan-gh.github.io/astrolabe/"><img src="assets/astrolabe-icon.svg?v=20261107h" alt="" width="64" height="64">
           <span class="title"><span class="name">Astrolabe</span><span class="role">Intelligence augmented productivity framework</span></span>
           <span class="desc">One app for specialized work. Move between your tools, with agents where you choose.</span>
           <span class="go" aria-hidden="true">→</span></a></li>
-        <li><a href="https://ahmedkhan-gh.github.io/compass/"><img src="assets/compass-icon.svg" alt="" width="64" height="64">
+        <li><a href="https://ahmedkhan-gh.github.io/compass/"><img src="assets/compass-icon.svg?v=20261107" alt="" width="64" height="64">
           <span class="title"><span class="name">Compass</span><span class="role">Practice platform</span></span>
           <span class="desc">Practice technical skills from the absolute basics. Understand first, then accelerate.</span>
           <span class="go" aria-hidden="true">→</span></a></li>
-        <li><a href="https://ahmedkhan-gh.github.io/caliper/"><img src="assets/caliper-icon.svg" alt="" width="64" height="64">
+        <li><a href="https://ahmedkhan-gh.github.io/caliper/"><img src="assets/caliper-icon.svg?v=20261107" alt="" width="64" height="64">
           <span class="title"><span class="name">Caliper</span><span class="role">Machine learning visualization framework</span></span>
           <span class="desc">A native app for interpretability. Observe models directly from the GPU in real time.</span>
           <span class="go" aria-hidden="true">→</span></a></li>
@@ -490,15 +488,15 @@
     <div class="wrap">
       <div class="label"><span class="eyebrow">Research</span></div>
       <ul class="projects">
-        <li class="lead"><img src="assets/alioth-icon.svg" alt="" width="128" height="128"><span class="kicker">Project</span><span class="name">Alioth</span><span class="role">Artificial intelligence research</span>
+        <li class="lead"><img src="assets/alioth-icon.svg?v=20261107" alt="" width="128" height="128"><span class="kicker">Project</span><span class="name">Alioth</span><span class="role">Artificial intelligence research</span>
           <span class="desc">Foundational work on how models learn, what they represent inside, how to align them, and how to run them efficiently.</span></li>
-        <li><img src="assets/polaris-icon.svg" alt="" width="88" height="88"><span class="kicker">Project</span><span class="name">Polaris</span><span class="role">Business systems</span>
+        <li><img src="assets/polaris-icon.svg?v=20261107" alt="" width="88" height="88"><span class="kicker">Project</span><span class="name">Polaris</span><span class="role">Business systems</span>
           <span class="desc">Ontology-driven business systems, and the security to protect their data at scale.</span></li>
-        <li><img src="assets/nebula-icon.svg" alt="" width="88" height="88"><span class="kicker">Project</span><span class="name">Nebula</span><span class="role">Semiconductor design</span>
+        <li><img src="assets/nebula-icon.svg?v=20261107" alt="" width="88" height="88"><span class="kicker">Project</span><span class="name">Nebula</span><span class="role">Semiconductor design</span>
           <span class="desc">From first hardware programs to a full GPU for graphics and machine learning.</span></li>
-        <li><img src="assets/orion-icon.svg" alt="" width="88" height="88"><span class="kicker">Project</span><span class="name">Orion</span><span class="role">Applied machine learning</span>
+        <li><img src="assets/orion-icon.svg?v=20261107" alt="" width="88" height="88"><span class="kicker">Project</span><span class="name">Orion</span><span class="role">Applied machine learning</span>
           <span class="desc">Machine learning applied to robotics and biotechnology.</span></li>
-        <li><img src="assets/quasar-icon.svg" alt="" width="88" height="88"><span class="kicker">Project</span><span class="name">Quasar</span><span class="role">Quantitative finance</span>
+        <li><img src="assets/quasar-icon.svg?v=20261107" alt="" width="88" height="88"><span class="kicker">Project</span><span class="name">Quasar</span><span class="role">Quantitative finance</span>
           <span class="desc">The mathematics of physics applied to trading, from random walks to how orders move prices.</span></li>
       </ul>
     </div>
