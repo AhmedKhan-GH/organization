@@ -180,7 +180,7 @@
   .title-block { position: relative; text-align: center; padding: 10px 18px 54px; }
   .title-block h1 { margin: 0; font: clamp(40px, 5.6vw, 84px)/1 var(--display); font-weight: normal; letter-spacing: .3em; padding-left: .3em; text-transform: uppercase; color: #fff;
                     text-shadow: 0 0 10px rgba(255, 255, 255, .35), 0 0 28px rgba(255, 255, 255, .22), 0 0 60px rgba(255, 255, 255, .12); }
-  .mission { margin: 20px auto 0; max-width: 680px; color: #fff; font-size: clamp(17px, 1.6vw, 21px); text-wrap: balance; }
+  .mission { margin: 20px auto 0; color: #fff; font-size: clamp(17px, 1.6vw, 21px); white-space: nowrap; }
   .sky > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; will-change: transform; }
   .sky > svg.beam { will-change: opacity; animation: sky-breathe var(--beam-cycle) ease-in-out var(--beam-phase) infinite; }
   @keyframes sky-breathe { 0%, 100% { opacity: .58; } 50% { opacity: 1; } }
@@ -196,7 +196,7 @@
   .node .text { position: absolute; top: 50%; transform: translateY(-50%); width: 17cqw; display: flex; flex-direction: column; gap: .5cqw; }
   .node.west .text { right: calc(100% + 1.5cqw); text-align: right; align-items: flex-end; }
   .node.east .text { left: calc(100% + 1.5cqw); }
-  .node .step { display: none; }
+  .node .step { display: block; font: clamp(9px, .72cqw, 12px)/1 var(--display); letter-spacing: .26em; color: var(--bronze); text-transform: uppercase; }
   .node .name { font: 1.7cqw/1 var(--display); letter-spacing: .22em; text-transform: uppercase; transition: color .15s; }
   .node .role { font-size: clamp(12px, 1.12cqw, 17px); line-height: 1.35; color: var(--faint); }
   .node:hover .name, .node:focus-visible .name { color: var(--bronze-hover); }
@@ -210,6 +210,10 @@
   .node.r.lead .text { top: calc(100% + .6cqw); }
   .node.r.lead .name { font-size: 2.4cqw; }
   .node.r.lead .role { font-size: clamp(13px, 1.3cqw, 19px); }
+  .node.core { width: 8.6%; }
+  .node.core .name { font-size: 2.4cqw; }
+  .node.core .role { font-size: clamp(13px, 1.3cqw, 19px); }
+  .node.core .step { display: block; font: clamp(9px, .72cqw, 12px)/1 var(--display); letter-spacing: .26em; color: var(--bronze); text-transform: uppercase; }
   .node.south .text { top: calc(100% + 1.2cqw); left: 50%; transform: translateX(-50%); width: 24cqw; text-align: center; align-items: center; }
   .note, .node .text { text-shadow: 0 0 2px #161512, 0 0 4px #161512, 0 0 7px #161512, 0 0 10px #161512; }
   .note.west { right: 68.70%; text-align: right; }
@@ -224,7 +228,7 @@
   .rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
   .rows a { display: grid; grid-template-columns: 64px minmax(200px, .9fr) minmax(0, 1.6fr) 40px; gap: 28px; align-items: center;
             padding: 26px 8px; border-bottom: 1px solid var(--rule-faint); transition: background .15s; }
-  .rows a:hover { background: #161513; }
+  .rows a[href]:hover { background: #161513; }
   .rows img { width: 64px; height: 64px; }
   .rows .title { display: flex; flex-direction: column; gap: 8px; }
   .rows .name { font: 19px/1 var(--display); letter-spacing: .22em; text-transform: uppercase; }
@@ -254,6 +258,8 @@
   .projects li.lead .name { font-size: 28px; letter-spacing: .24em; }
   .projects li.lead .role { font-size: 16px; }
   .projects li.lead .desc { font-size: 18px; max-width: 56ch; }
+  .projects a.card { display: contents; color: inherit; text-decoration: none; }
+  .projects li:has(a.card:hover) .name { color: var(--bronze-hover); }
 
   footer { margin-top: 140px; border-top: 1px solid var(--rule-faint); background: var(--deep); padding: 56px 0 44px; color: var(--faint); font-size: 14px; }
   .foot { display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between; align-items: flex-start; }
@@ -294,6 +300,11 @@
     .down line { stroke: var(--bronze); stroke-width: 1.5; }
     .down path { fill: var(--bronze); }
     .node.work { order: 3; }
+    .node.core { width: auto; }
+    .node.core .text { transform: none; width: auto; text-align: left; align-items: flex-start; }
+    .node.core .name { font-size: 20px; }
+    .node.core .role { font-size: 15px; }
+    .node.core .step { font-size: 11px; }
     .index { padding-top: 72px; }
     .rows a { grid-template-columns: 52px 1fr; gap: 6px 18px; padding: 22px 4px; }
     .rows img { width: 52px; height: 52px; grid-row: span 2; align-self: start; }
@@ -390,7 +401,7 @@
           </marker>
         </defs>
         <!-- The horizon (dimming a little to either side), and three rings about the point, each a little fainter outwards: through the apps you learn in, the apps you work in, and
-             the research projects, Alioth at the top on the upright. -->
+             the research projects. On the upright, Alioth sits between the second and third rings and Constellation between the first and second. -->
         <g class="construction">
           <line x1="-400" y1="940" x2="2000" y2="940" stroke="url(#horizon)"/>
           <path d="M 530 940 A 270 270 0 0 1 1070 940" stroke-opacity="1"/>
@@ -400,14 +411,9 @@
         <!-- The logo standing on the horizon: its rays' meeting point, (512, 851.1) in the logo file's 1024 units, is the
              beams' origin, so its crown spikes and stars lie along the five beams. At .328 it sits below the two lower apps. -->
         <image class="seal-base" href="assets/sternbild-logo.svg" x="632.2" y="661.1" width="335.5" height="335.5" filter="url(#seal-glow)"/>
-        <text class="arc-label" x="800" y="652">LEARN</text>
-        <text class="arc-label" x="800" y="352">WORK</text>
-        <text class="arc-label" x="800" y="34">RESEARCH</text>
-        <line class="flow-line" x1="598.98" y1="663.32" x2="511.99" y2="543.58" marker-end="url(#head)"/>
-        <line class="flow-line" x1="1001.02" y1="663.32" x2="1088.01" y2="543.58" marker-end="url(#head)"/>
       </svg>
 
-      <a class="node r south lead" href="#research" style="--x:50.000%;--y:11.000%">
+      <a class="node r south lead" href="#research" style="--x:50.000%;--y:18.800%">
         <img src="assets/alioth-icon.svg?v=20261107" alt="" width="120" height="120">
         <span class="text"><span class="step">Project</span><span class="name">Alioth</span><span class="role">Artificial intelligence research</span></span>
       </a>
@@ -416,7 +422,7 @@
         <span class="text"><span class="step">Project</span><span class="name">Polaris</span><span class="role">Business systems</span></span>
       </a>
       <a class="node r west" href="#research" style="--x:33.970%;--y:15.062%">
-        <img src="assets/quasar-icon.svg?v=20261107" alt="" width="120" height="120">
+        <img src="assets/quasar-icon.svg?v=20261107t" alt="" width="120" height="120">
         <span class="text"><span class="step">Project</span><span class="name">Quasar</span><span class="role">Quantitative finance</span></span>
       </a>
       <a class="node r east" href="#research" style="--x:80.491%;--y:26.852%">
@@ -428,58 +434,69 @@
         <span class="text"><span class="step">Project</span><span class="name">Nebula</span><span class="role">Semiconductor design</span></span>
       </a>
 
+      <!-- Constellation, the organization's central knowledge base, on the upright between the first and second rings -->
+      <div class="node south core" style="--x:50.000%;--y:47.000%">
+        <img src="assets/constellation-icon.svg?v=20261107g" alt="" width="120" height="120">
+        <span class="text"><span class="step">Project</span><span class="name">Constellation</span><span class="role">Central knowledge base</span></span>
+      </div>
+
       <div class="group">
         <a class="node west learn" href="https://ahmedkhan-gh.github.io/alidade/" style="--x:40.081%;--y:72.157%">
           <img src="assets/alidade-icon.svg?v=20261107l" alt="" width="120" height="120">
-          <span class="text"><span class="step">Learn</span><span class="name">Alidade</span><span class="role">Learning harness</span></span>
+          <span class="text"><span class="step">Project</span><span class="name">Alidade</span><span class="role">Learning harness</span></span>
         </a>
-        <svg class="down" viewBox="0 0 76 40" aria-hidden="true"><line x1="38" y1="4" x2="38" y2="28"/><path d="M38 36 L32.5 25 L43.5 25 Z"/></svg>
         <a class="node west work" href="https://ahmedkhan-gh.github.io/astrolabe/" style="--x:29.060%;--y:47.886%">
           <img src="assets/astrolabe-icon.svg?v=20261107h" alt="" width="120" height="120">
-          <span class="text"><span class="step">Work</span><span class="name">Astrolabe</span><span class="role">Intelligence augmented productivity framework</span></span>
+          <span class="text"><span class="step">Project</span><span class="name">Astrolabe</span><span class="role">AI augmented productivity framework</span></span>
         </a>
-        <p class="note west">Learn the niche of your field in Alidade, and then do the work at speed in Astrolabe.</p>
       </div>
 
       <div class="group">
         <a class="node east learn" href="https://ahmedkhan-gh.github.io/compass/" style="--x:59.919%;--y:72.157%">
-          <img src="assets/compass-icon.svg?v=20261107" alt="" width="120" height="120">
-          <span class="text"><span class="step">Learn</span><span class="name">Compass</span><span class="role">Practice platform</span></span>
+          <img src="assets/compass-icon.svg?v=20261107c" alt="" width="120" height="120">
+          <span class="text"><span class="step">Project</span><span class="name">Compass</span><span class="role">Practice platform</span></span>
         </a>
-        <svg class="down" viewBox="0 0 76 40" aria-hidden="true"><line x1="38" y1="4" x2="38" y2="28"/><path d="M38 36 L32.5 25 L43.5 25 Z"/></svg>
         <a class="node east work" href="https://ahmedkhan-gh.github.io/caliper/" style="--x:70.940%;--y:47.886%">
           <img src="assets/caliper-icon.svg?v=20261107" alt="" width="120" height="120">
-          <span class="text"><span class="step">Work</span><span class="name">Caliper</span><span class="role">Machine learning visualization framework</span></span>
+          <span class="text"><span class="step">Project</span><span class="name">Caliper</span><span class="role">Machine learning visualization framework</span></span>
         </a>
-        <p class="note east">Learn technical skills in Compass, then apply them to machine learning in Caliper.</p>
       </div>
     </div>
     <div class="title-block">
       <h1>Sternbild</h1>
-      <p class="mission">An organization dedicated to advancing human-centered values with AI.</p>
+      <p class="mission">Dedicated to advancing human values in an age of AI</p>
+      <script>
+        /* The subtitle runs exactly as wide as the name above it: its size is set from the name's drawn width
+           (the last letter's trailing letter-spacing left out), on load, once the fonts are in, and on resize. */
+        (() => {
+          const h = document.querySelector('.title-block h1'), m = document.querySelector('.title-block .mission');
+          const width = el => { const r = document.createRange(); r.selectNodeContents(el); return r.getBoundingClientRect().width; };
+          const fit = () => {
+            m.style.fontSize = '';
+            const target = width(h) - (parseFloat(getComputedStyle(h).letterSpacing) || 0);
+            const base = parseFloat(getComputedStyle(m).fontSize), now = width(m);
+            if (target > 0 && now > 0) m.style.fontSize = (base * target / now).toFixed(2) + 'px';
+          };
+          fit(); document.fonts && document.fonts.ready.then(fit); addEventListener('resize', fit);
+        })();
+      </script>
     </div>
   </section>
 
   <section class="index" id="apps">
     <div class="wrap">
       <div class="label"><span class="eyebrow">Apps</span></div>
-      <ul class="rows">
-        <li><a href="https://ahmedkhan-gh.github.io/alidade/"><img src="assets/alidade-icon.svg?v=20261107l" alt="" width="64" height="64">
-          <span class="title"><span class="name">Alidade</span><span class="role">Learning harness</span></span>
-          <span class="desc">Learn any subject, at any depth. Lessons adapt to your understanding in real time.</span>
-          <span class="go" aria-hidden="true">→</span></a></li>
-        <li><a href="https://ahmedkhan-gh.github.io/astrolabe/"><img src="assets/astrolabe-icon.svg?v=20261107h" alt="" width="64" height="64">
-          <span class="title"><span class="name">Astrolabe</span><span class="role">Intelligence augmented productivity framework</span></span>
-          <span class="desc">One app for specialized work. Move between your tools, with agents where you choose.</span>
-          <span class="go" aria-hidden="true">→</span></a></li>
-        <li><a href="https://ahmedkhan-gh.github.io/compass/"><img src="assets/compass-icon.svg?v=20261107" alt="" width="64" height="64">
-          <span class="title"><span class="name">Compass</span><span class="role">Practice platform</span></span>
-          <span class="desc">Practice technical skills from the absolute basics. Understand first, then accelerate.</span>
-          <span class="go" aria-hidden="true">→</span></a></li>
-        <li><a href="https://ahmedkhan-gh.github.io/caliper/"><img src="assets/caliper-icon.svg?v=20261107" alt="" width="64" height="64">
-          <span class="title"><span class="name">Caliper</span><span class="role">Machine learning visualization framework</span></span>
-          <span class="desc">A native app for interpretability. Observe models directly from the GPU in real time.</span>
-          <span class="go" aria-hidden="true">→</span></a></li>
+      <ul class="projects">
+        <li class="lead"><img src="assets/constellation-icon.svg?v=20261107g" alt="" width="128" height="128"><span class="kicker">Project</span><span class="name">Constellation</span><span class="role">Central knowledge base</span>
+          <span class="desc">The central knowledge base for the organization, exhaustively exploring a broad range of curated subjects and resources.</span></li>
+        <li><a class="card" href="https://ahmedkhan-gh.github.io/alidade/"><img src="assets/alidade-icon.svg?v=20261107l" alt="" width="88" height="88"><span class="kicker">Project</span><span class="name">Alidade</span><span class="role">Learning harness</span>
+          <span class="desc">Learn any subject, at any depth. Lessons adapt to your understanding in real time.</span></a></li>
+        <li><a class="card" href="https://ahmedkhan-gh.github.io/astrolabe/"><img src="assets/astrolabe-icon.svg?v=20261107h" alt="" width="88" height="88"><span class="kicker">Project</span><span class="name">Astrolabe</span><span class="role">AI augmented productivity framework</span>
+          <span class="desc">One app for specialized work. Move between your tools, with agents where you choose.</span></a></li>
+        <li><a class="card" href="https://ahmedkhan-gh.github.io/compass/"><img src="assets/compass-icon.svg?v=20261107c" alt="" width="88" height="88"><span class="kicker">Project</span><span class="name">Compass</span><span class="role">Practice platform</span>
+          <span class="desc">Practice technical skills from the absolute basics. Understand first, then accelerate.</span></a></li>
+        <li><a class="card" href="https://ahmedkhan-gh.github.io/caliper/"><img src="assets/caliper-icon.svg?v=20261107" alt="" width="88" height="88"><span class="kicker">Project</span><span class="name">Caliper</span><span class="role">Machine learning visualization framework</span>
+          <span class="desc">A native app for interpretability. Observe models directly from the GPU in real time.</span></a></li>
       </ul>
     </div>
   </section>
@@ -496,7 +513,7 @@
           <span class="desc">From first hardware programs to a full GPU for graphics and machine learning.</span></li>
         <li><img src="assets/orion-icon.svg?v=20261107" alt="" width="88" height="88"><span class="kicker">Project</span><span class="name">Orion</span><span class="role">Applied machine learning</span>
           <span class="desc">Machine learning applied to robotics and biotechnology.</span></li>
-        <li><img src="assets/quasar-icon.svg?v=20261107" alt="" width="88" height="88"><span class="kicker">Project</span><span class="name">Quasar</span><span class="role">Quantitative finance</span>
+        <li><img src="assets/quasar-icon.svg?v=20261107t" alt="" width="88" height="88"><span class="kicker">Project</span><span class="name">Quasar</span><span class="role">Quantitative finance</span>
           <span class="desc">The mathematics of physics applied to trading, from random walks to how orders move prices.</span></li>
       </ul>
     </div>

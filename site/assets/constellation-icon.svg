@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <filter id="filter-1" filterUnits="userSpaceOnUse" x="60" y="60" width="904" height="904" data-vc-blend="multiply" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="8"/><feOffset dx="0" dy="14" result="shadow"/><feFlood flood-color="#000000" flood-opacity="0.3"/><feComposite in2="shadow" operator="in" result="paint"/><feMerge><feMergeNode in="paint"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="linear-gradient-1" x1="512" y1="100" x2="512" y2="924" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#36332d"/>
+      <stop offset="0.5" stop-color="#211f1b"/>
+      <stop offset="1" stop-color="#141311"/>
+    </linearGradient>
+    <filter id="filter-2" filterUnits="userSpaceOnUse" x="281.56" y="212.2" width="460.88" height="587.6" data-vc-blend="multiply" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="8" result="shadow"/><feFlood flood-color="#050403" flood-opacity="0.35"/><feComposite in2="shadow" operator="in" result="paint"/><feMerge><feMergeNode in="paint"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="linear-gradient-2" x1="512" y1="241.04" x2="512" y2="802.64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f6f0e4"/>
+      <stop offset="0.5" stop-color="#e8e0d0"/>
+      <stop offset="1" stop-color="#cfc3aa"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="512" y1="704.72" x2="512" y2="748.88" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d8b27a"/>
+      <stop offset="0.55" stop-color="#b38b59"/>
+      <stop offset="1" stop-color="#8d6a3e"/>
+    </linearGradient>
+  </defs>
+  <title>Astrolabe</title>
+  <g id="Astrolabe_app_icon" data-name="Astrolabe app icon">
+    <g filter="url(#filter-1)">
+      <path id="Tile" d="M264.8 100 L759.2 100 L924 264.8 L924 759.2 L759.2 924 L264.8 924 L100 759.2 L100 264.8 Z" fill="url(#linear-gradient-1)"/>
+    </g>
+    <path id="Border" d="M269.465 111.261 L754.535 111.261 L912.739 269.465 L912.739 754.535 L754.535 912.739 L269.465 912.739 L111.261 754.535 L111.261 269.465 Z" fill="none" stroke="#e8e0d0" stroke-width="22.523"/>
+    <g filter="url(#filter-2)">
+      <g id="Astrolabe">
+        <g>
+          <path id="Cover" d="M353.339 269.84 L385.979 237.2 L638.021 237.2 L670.661 269.84 Z M347.84 654.8 L347.84 278.48 L676.16 278.48 L676.16 654.8 Z M306.56 316.619 L339.2 283.979 L339.2 649.301 L306.56 616.661 Z M684.8 649.301 L684.8 283.979 L717.44 316.619 L717.44 616.661 Z M559.181 402.69 L555.874 406.469 C555.682 406.688 555.441 406.811 555.151 406.837 L550.15 407.292 L553.928 410.6 C554.147 410.792 554.27 411.033 554.297 411.322 L554.752 416.324 L558.06 412.545 C558.251 412.326 558.492 412.203 558.782 412.177 L563.784 411.722 L560.005 408.414 C559.786 408.222 559.663 407.982 559.636 407.691 Z M512 412.512 L508.153 421.488 C507.93 422.008 507.559 422.38 507.038 422.602 L498.063 426.449 L507.038 430.296 C507.559 430.519 507.93 430.89 508.153 431.411 L512 440.386 L515.847 431.411 C516.069 430.89 516.441 430.519 516.962 430.296 L525.937 426.449 L516.962 422.602 C516.441 422.38 516.069 422.008 515.847 421.488 Z M472.255 425.577 L471.8 430.578 C471.773 430.868 471.651 431.109 471.432 431.3 L467.653 434.608 L472.654 435.063 C472.944 435.09 473.185 435.213 473.377 435.432 L476.684 439.21 L477.14 434.209 C477.166 433.919 477.289 433.678 477.508 433.486 L481.286 430.178 L476.285 429.724 C475.995 429.697 475.754 429.575 475.562 429.355 Z M551.745 425.577 L548.438 429.355 C548.246 429.575 548.005 429.697 547.715 429.724 L542.714 430.178 L546.492 433.486 C546.711 433.678 546.834 433.919 546.86 434.209 L547.316 439.21 L550.623 435.432 C550.815 435.213 551.056 435.09 551.346 435.063 L556.347 434.608 L552.568 431.3 C552.349 431.109 552.227 430.868 552.2 430.578 Z M596.866 431.092 L592.552 433.663 C592.302 433.812 592.035 433.855 591.751 433.79 L586.854 432.678 L589.426 436.991 C589.575 437.241 589.617 437.508 589.553 437.792 L588.44 442.689 L592.754 440.118 C593.004 439.969 593.271 439.926 593.555 439.991 L598.452 441.104 L595.88 436.79 C595.731 436.54 595.689 436.273 595.753 435.989 Z M436.4 443.846 L437.513 448.743 C437.577 449.027 437.535 449.293 437.386 449.544 L434.814 453.857 L439.712 452.744 C439.995 452.68 440.262 452.722 440.513 452.871 L444.826 455.443 L443.713 450.546 C443.649 450.262 443.691 449.995 443.84 449.745 L446.412 445.431 L441.514 446.544 C441.231 446.609 440.964 446.566 440.713 446.417 Z M587.6 443.846 L583.287 446.417 C583.036 446.566 582.769 446.609 582.486 446.544 L577.588 445.431 L580.16 449.745 C580.309 449.995 580.351 450.262 580.287 450.546 L579.174 455.443 L583.487 452.871 C583.738 452.722 584.005 452.68 584.288 452.744 L589.186 453.857 L586.614 449.544 C586.465 449.293 586.423 449.027 586.487 448.743 Z M512 448.35 L509.81 512.062 L502.122 512.062 L489.851 479.732 L495.513 500.549 L476.201 495.356 L454.656 468.973 L490.717 525.003 L490.717 516.442 L510.407 516.442 L512 528.388 L513.593 516.442 L533.283 516.442 L533.283 525.003 L569.344 468.973 L547.799 495.356 L528.487 500.549 L534.149 479.732 L521.878 512.062 L514.19 512.062 Z M489.843 512.062 L479.221 499.055 L496.359 503.663 L498.644 512.062 Z M527.641 503.663 L544.779 499.055 L534.157 512.062 L525.356 512.062 Z M385.979 696.08 L353.339 663.44 L670.661 663.44 L638.021 696.08 Z" fill="url(#linear-gradient-2)"/>
+          <path id="Cornerpiece" d="M306.56 237.2 L373.76 237.2 L306.56 304.4 Z" fill="url(#linear-gradient-2)"/>
+          <path id="Cornerpiece-2" data-name="Cornerpiece" d="M717.44 237.2 L650.24 237.2 L717.44 304.4 Z" fill="url(#linear-gradient-2)"/>
+          <path id="Cornerpiece-3" data-name="Cornerpiece" d="M306.56 696.08 L373.76 696.08 L306.56 628.88 Z" fill="url(#linear-gradient-2)"/>
+          <path id="Cornerpiece-4" data-name="Cornerpiece" d="M717.44 696.08 L650.24 696.08 L717.44 628.88 Z" fill="url(#linear-gradient-2)"/>
+          <path id="Pages" d="M320 716.56 L320 704.72 L704 704.72 L704 716.56 Z M320 731.28 L320 722.32 L704 722.32 L704 731.28 Z M320 748.88 L320 737.04 L704 737.04 L704 748.88 Z" fill="url(#linear-gradient-3)"/>
+          <path id="Back_board" data-name="Back board" d="M306.56 757.52 L717.44 757.52 L717.44 774.8 L306.56 774.8 Z" fill="url(#linear-gradient-2)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
