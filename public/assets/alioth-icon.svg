@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <filter id="filter-1" filterUnits="userSpaceOnUse" x="115.198" y="60" width="793.604" height="904" data-vc-blend="multiply" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="8"/><feOffset dx="0" dy="14" result="shadow"/><feFlood flood-color="#000000" flood-opacity="0.3"/><feComposite in2="shadow" operator="in" result="paint"/><feMerge><feMergeNode in="paint"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="linear-gradient-1" x1="512" y1="100" x2="512" y2="924" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#36332d"/>
+      <stop offset="0.5" stop-color="#211f1b"/>
+      <stop offset="1" stop-color="#141311"/>
+    </linearGradient>
+    <filter id="filter-2" filterUnits="userSpaceOnUse" x="187.933" y="162" width="648.135" height="700" data-vc-blend="multiply" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="8" result="shadow"/><feFlood flood-color="#050403" flood-opacity="0.35"/><feComposite in2="shadow" operator="in" result="paint"/><feMerge><feMergeNode in="paint"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="linear-gradient-2" x1="512" y1="170" x2="512" y2="854" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d8b27a"/>
+      <stop offset="0.55" stop-color="#b38b59"/>
+      <stop offset="1" stop-color="#8d6a3e"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="512" y1="468" x2="512" y2="556" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f6f0e4"/>
+      <stop offset="0.5" stop-color="#e8e0d0"/>
+      <stop offset="1" stop-color="#cfc3aa"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="512" y1="172" x2="512" y2="852" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f6f0e4"/>
+      <stop offset="0.5" stop-color="#e8e0d0"/>
+      <stop offset="1" stop-color="#cfc3aa"/>
+    </linearGradient>
+  </defs>
+  <title>Alioth</title>
+  <g id="Layer_1" data-name="Layer 1">
+    <g filter="url(#filter-1)">
+      <path id="Tile" d="M512 100 L868.802 306 L868.802 718 L512 924 L155.198 718 L155.198 306 Z" fill="url(#linear-gradient-1)"/>
+    </g>
+    <path id="Border" d="M512 113.004 L857.541 312.502 L857.541 711.498 L512 910.996 L166.459 711.498 L166.459 312.502 Z" fill="none" stroke="#e8e0d0" stroke-width="22.523"/>
+    <g filter="url(#filter-2)">
+      <g id="Alioth">
+        <path id="Mirror_segment" data-name="Mirror segment" d="M582.437 380 L547.218 441 L476.782 441 L441.563 380 L476.782 319 L547.218 319 Z" fill="url(#linear-gradient-2)" opacity="0.5"/>
+        <path id="Mirror_segment-2" data-name="Mirror segment" d="M582.437 248 L547.218 309 L476.782 309 L441.563 248 L476.782 187 L547.218 187 Z" fill="url(#linear-gradient-2)" opacity="0.24"/>
+        <path id="Mirror_segment-3" data-name="Mirror segment" d="M696.752 446 L661.534 507 L591.097 507 L555.879 446 L591.097 385 L661.534 385 Z" fill="url(#linear-gradient-2)" opacity="0.5"/>
+        <path id="Mirror_segment-4" data-name="Mirror segment" d="M811.067 380 L775.849 441 L705.412 441 L670.194 380 L705.412 319 L775.849 319 Z" fill="url(#linear-gradient-2)" opacity="0.24"/>
+        <path id="Mirror_segment-5" data-name="Mirror segment" d="M696.752 578 L661.534 639 L591.097 639 L555.879 578 L591.097 517 L661.534 517 Z" fill="url(#linear-gradient-2)" opacity="0.5"/>
+        <path id="Mirror_segment-6" data-name="Mirror segment" d="M811.067 644 L775.849 705 L705.412 705 L670.194 644 L705.412 583 L775.849 583 Z" fill="url(#linear-gradient-2)" opacity="0.24"/>
+        <path id="Mirror_segment-7" data-name="Mirror segment" d="M582.437 644 L547.218 705 L476.782 705 L441.563 644 L476.782 583 L547.218 583 Z" fill="url(#linear-gradient-2)" opacity="0.5"/>
+        <path id="Mirror_segment-8" data-name="Mirror segment" d="M582.437 776 L547.218 837 L476.782 837 L441.563 776 L476.782 715 L547.218 715 Z" fill="url(#linear-gradient-2)" opacity="0.24"/>
+        <path id="Mirror_segment-9" data-name="Mirror segment" d="M468.121 578 L432.903 639 L362.466 639 L327.248 578 L362.466 517 L432.903 517 Z" fill="url(#linear-gradient-2)" opacity="0.5"/>
+        <path id="Mirror_segment-10" data-name="Mirror segment" d="M353.806 644 L318.588 705 L248.151 705 L212.933 644 L248.151 583 L318.588 583 Z" fill="url(#linear-gradient-2)" opacity="0.24"/>
+        <path id="Mirror_segment-11" data-name="Mirror segment" d="M468.121 446 L432.903 507 L362.466 507 L327.248 446 L362.466 385 L432.903 385 Z" fill="url(#linear-gradient-2)" opacity="0.5"/>
+        <path id="Mirror_segment-12" data-name="Mirror segment" d="M353.806 380 L318.588 441 L248.151 441 L212.933 380 L248.151 319 L318.588 319 Z" fill="url(#linear-gradient-2)" opacity="0.24"/>
+        <path id="Mirror_segment-13" data-name="Mirror segment" d="M811.067 512 L775.849 573 L705.412 573 L670.194 512 L705.412 451 L775.849 451 Z" fill="url(#linear-gradient-2)" opacity="0.37"/>
+        <path id="Mirror_segment-14" data-name="Mirror segment" d="M696.752 710 L661.534 771 L591.097 771 L555.879 710 L591.097 649 L661.534 649 Z" fill="url(#linear-gradient-2)" opacity="0.37"/>
+        <path id="Mirror_segment-15" data-name="Mirror segment" d="M468.121 710 L432.903 771 L362.466 771 L327.248 710 L362.466 649 L432.903 649 Z" fill="url(#linear-gradient-2)" opacity="0.37"/>
+        <path id="Mirror_segment-16" data-name="Mirror segment" d="M353.806 512 L318.588 573 L248.151 573 L212.933 512 L248.151 451 L318.588 451 Z" fill="url(#linear-gradient-2)" opacity="0.37"/>
+        <path id="Mirror_segment-17" data-name="Mirror segment" d="M468.121 314 L432.903 375 L362.466 375 L327.248 314 L362.466 253 L432.903 253 Z" fill="url(#linear-gradient-2)" opacity="0.37"/>
+        <path id="Mirror_segment-18" data-name="Mirror segment" d="M696.752 314 L661.534 375 L591.097 375 L555.879 314 L591.097 253 L661.534 253 Z" fill="url(#linear-gradient-2)" opacity="0.37"/>
+        <path id="Alioth-2" data-name="Alioth" d="M562.807 512 L537.403 556 L486.597 556 L461.193 512 L486.597 468 L537.403 468 Z" fill="url(#linear-gradient-3)"/>
+        <path id="Spike" d="M501 457 C504.52 378.1 509.58 293.94 512 194 C514.42 293.94 519.48 378.1 523 457 C512 457 512 457 501 457 Z" fill="url(#linear-gradient-4)"/>
+        <path id="Spike-2" data-name="Spike" d="M554.131 474.974 C624.221 438.572 699.635 400.874 787.396 353 C702.055 405.066 631.701 451.528 565.131 494.026 C559.631 484.5 559.631 484.5 554.131 474.974 Z" fill="url(#linear-gradient-4)"/>
+        <path id="Spike-3" data-name="Spike" d="M565.131 529.974 C631.701 572.472 702.055 618.934 787.396 671 C699.635 623.126 624.221 585.428 554.131 549.026 C559.631 539.5 559.631 539.5 565.131 529.974 Z" fill="url(#linear-gradient-4)"/>
+        <path id="Spike-4" data-name="Spike" d="M523 567 C519.48 645.9 514.42 730.06 512 830 C509.58 730.06 504.52 645.9 501 567 C512 567 512 567 523 567 Z" fill="url(#linear-gradient-4)"/>
+        <path id="Spike-5" data-name="Spike" d="M469.869 549.026 C399.779 585.428 324.365 623.126 236.604 671 C321.945 618.934 392.299 572.472 458.869 529.974 C464.369 539.5 464.369 539.5 469.869 549.026 Z" fill="url(#linear-gradient-4)"/>
+        <path id="Spike-6" data-name="Spike" d="M458.869 494.026 C392.299 451.528 321.945 405.066 236.604 353 C324.365 400.874 399.779 438.572 469.869 474.974 C464.369 484.5 464.369 484.5 458.869 494.026 Z" fill="url(#linear-gradient-4)"/>
+        <path id="Spike-7" data-name="Spike" d="M573.807 505 C614.665 507.24 658.247 510.46 710 512 C658.247 513.54 614.665 516.76 573.807 519 C573.807 512 573.807 512 573.807 505 Z" fill="url(#linear-gradient-4)"/>
+        <path id="Spike-8" data-name="Spike" d="M450.193 519 C409.335 516.76 365.753 513.54 314 512 C365.753 510.46 409.335 507.24 450.193 505 C450.193 512 450.193 512 450.193 519 Z" fill="url(#linear-gradient-4)"/>
+      </g>
+    </g>
+  </g>
+</svg>

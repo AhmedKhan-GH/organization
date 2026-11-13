@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <filter id="filter-1" filterUnits="userSpaceOnUse" x="40" y="40" width="944" height="944" data-vc-blend="multiply" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="8"/><feOffset dx="0" dy="14" result="shadow"/><feFlood flood-color="#000000" flood-opacity="0.3"/><feComposite in2="shadow" operator="in" result="paint"/><feMerge><feMergeNode in="paint"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="linear-gradient-1" x1="512" y1="100" x2="512" y2="924" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#36332d"/>
+      <stop offset="0.5" stop-color="#211f1b"/>
+      <stop offset="1" stop-color="#141311"/>
+    </linearGradient>
+  </defs>
+  <title>Placeholder hexagon</title>
+  <g filter="url(#filter-1)"><path id="Tile" d="M512.000 100.000 L868.802 306.000 L868.802 718.000 L512.000 924.000 L155.198 718.000 L155.198 306.000 Z" fill="url(#linear-gradient-1)"/></g>
+  <path id="Border" d="M512.000 113.004 L857.541 312.502 L857.541 711.498 L512.000 910.996 L166.459 711.498 L166.459 312.502 Z" fill="none" stroke="#e8e0d0" stroke-width="22.523"/>
+</svg>

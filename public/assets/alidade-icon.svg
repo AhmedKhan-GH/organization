@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <filter id="filter-1" filterUnits="userSpaceOnUse" x="60" y="60" width="904" height="904" data-vc-blend="multiply" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="8"/><feOffset dx="0" dy="14" result="shadow"/><feFlood flood-color="#000000" flood-opacity="0.3"/><feComposite in2="shadow" operator="in" result="paint"/><feMerge><feMergeNode in="paint"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="linear-gradient-1" x1="512" y1="100" x2="512" y2="924" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#36332d"/>
+      <stop offset="0.5" stop-color="#211f1b"/>
+      <stop offset="1" stop-color="#141311"/>
+    </linearGradient>
+    <filter id="filter-2" filterUnits="userSpaceOnUse" x="221.794" y="250.887" width="576.744" height="556.014" data-vc-blend="multiply" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dx="0" dy="8" result="shadow"/><feFlood flood-color="#050403" flood-opacity="0.35"/><feComposite in2="shadow" operator="in" result="paint"/><feMerge><feMergeNode in="paint"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <linearGradient id="linear-gradient-2" x1="512" y1="219.6" x2="512" y2="804.4" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f6f0e4"/>
+      <stop offset="0.5" stop-color="#e8e0d0"/>
+      <stop offset="1" stop-color="#cfc3aa"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="512" y1="305.6" x2="512" y2="718.4" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d8b27a"/>
+      <stop offset="0.55" stop-color="#b38b59"/>
+      <stop offset="1" stop-color="#8d6a3e"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="512" y1="285.96" x2="512" y2="345.96" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d8b27a"/>
+      <stop offset="0.55" stop-color="#b38b59"/>
+      <stop offset="1" stop-color="#8d6a3e"/>
+    </linearGradient>
+  </defs>
+  <title>current.svg</title>
+  <g id="Alidade_app_icon" data-name="Alidade app icon">
+    <g filter="url(#filter-1)">
+      <path id="Tile" d="M264.8 100 L759.2 100 L924 264.8 L924 759.2 L759.2 924 L264.8 924 L100 759.2 L100 264.8 Z" fill="url(#linear-gradient-1)"/>
+    </g>
+    <path id="Border" d="M269.465 111.261 L754.535 111.261 L912.739 269.465 L912.739 754.535 L754.535 912.739 L269.465 912.739 L111.261 754.535 L111.261 269.465 Z" fill="none" stroke="#e8e0d0" stroke-width="22.523"/>
+    <g filter="url(#filter-2)">
+      <g id="Alidade">
+        <g>
+          <g id="Telescope_pivot___exact_Caliper_hinge_ring_and_pin___ring" data-name="Telescope pivot — exact Caliper hinge ring and pin · ring">
+            <path id="Telescope_pivot___exact_Caliper_hinge_ring_and_pin___ring-2" data-name="Telescope pivot — exact Caliper hinge ring and pin · ring" d="M470.09 315.963 C470.09 293.83 488.033 275.887 510.166 275.887 C532.3 275.887 550.242 293.83 550.242 315.963 C550.242 338.097 532.3 356.039 510.166 356.039 C488.033 356.039 470.09 338.097 470.09 315.963 Z M510.166 292.583 C497.254 292.583 486.786 303.051 486.786 315.963 C486.786 328.876 497.254 339.344 510.166 339.344 C523.079 339.344 533.547 328.876 533.547 315.963 C533.547 303.051 523.079 292.583 510.166 292.583 Z" fill="url(#linear-gradient-2)"/>
+          </g>
+          <g id="Telescope_pivot___exact_Caliper_hinge_ring_and_pin___pin" data-name="Telescope pivot — exact Caliper hinge ring and pin · pin">
+            <path id="Telescope_pivot___exact_Caliper_hinge_ring_and_pin___pin-2" data-name="Telescope pivot — exact Caliper hinge ring and pin · pin" d="M494.17 315.963 C494.17 307.129 501.332 299.967 510.166 299.967 C519.001 299.967 526.162 307.129 526.162 315.963 C526.162 324.798 519.001 331.959 510.166 331.959 C501.332 331.959 494.17 324.798 494.17 315.963 Z" fill="url(#linear-gradient-3)"/>
+          </g>
+          <path id="Telescope" d="M643.45 294.11 L643.45 288.36 L706.17 288.36 L706.17 343.56 L643.45 343.56 L643.45 337.81 L554.82 336.365 C557.665 330.152 559.25 323.241 559.25 315.96 C559.25 308.679 557.665 301.768 554.82 295.555 Z M431.77 297.56 L464.878 297.02 C462.438 302.848 461.09 309.247 461.09 315.96 C461.09 322.673 462.438 329.072 464.878 334.9 L431.77 334.36 L431.77 329.76 L353.37 329.76 L353.37 325.735 L314.17 325.735 L314.17 306.185 L353.37 306.185 L353.37 302.16 L431.77 302.16 Z" fill="url(#linear-gradient-4)"/>
+          <g id="A-stand___whole_left_leg_over_bow_and_right_leg" data-name="A-stand — whole left leg over bow and right leg">
+            <path id="A-stand___whole_left_leg_over_bow_and_right_leg-2" data-name="A-stand — whole left leg over bow and right leg" d="M483.646 358.499 C484.252 357.423 485.617 357.042 486.693 357.648 C500.166 365.244 516.543 365.792 530.432 359.299 C532.476 358.343 534.495 360.705 533.232 362.576 L250.884 780.916 C250.213 781.91 248.877 782.198 247.856 781.567 C246.835 780.937 246.494 779.613 247.082 778.568 Z" fill="url(#linear-gradient-2)"/>
+          </g>
+          <g id="Right_leg___behind_left_leg_and_extended_circular_bow" data-name="Right leg — behind left leg and extended circular bow">
+            <path id="Right_leg___behind_left_leg_and_extended_circular_bow-2" data-name="Right leg — behind left leg and extended circular bow" d="M538.595 368.485 C539.524 367.11 541.583 367.193 542.397 368.639 L646.643 553.75 C647.215 554.766 646.911 556.051 645.943 556.702 C640.126 560.617 634.139 564.282 627.996 567.686 C626.982 568.248 625.707 567.942 625.059 566.981 L515.686 404.93 C515.176 404.174 515.176 403.184 515.686 402.428 Z M662.433 587.426 C663.49 586.437 665.199 586.7 665.909 587.961 L773.25 778.568 C773.839 779.613 773.498 780.937 772.477 781.567 C771.456 782.198 770.12 781.91 769.449 780.916 L648.655 601.942 C648.003 600.976 648.202 599.671 649.114 598.944 C653.692 595.291 658.136 591.45 662.433 587.426 Z" fill="url(#linear-gradient-2)"/>
+          </g>
+          <g id="Bow___62_degree_circle_crescent__behind_left_and_over_right" data-name="Bow — 62 degree circle crescent, behind left and over right">
+            <path id="Bow___62_degree_circle_crescent__behind_left_and_over_right-2" data-name="Bow — 62 degree circle crescent, behind left and over right" d="M320.389 522.825 C321.313 522.176 322.575 522.318 323.332 523.155 C334.662 535.688 347.195 547.011 360.723 556.976 C361.632 557.646 361.899 558.889 361.345 559.874 L355.384 570.459 C354.64 571.779 352.823 571.992 351.794 570.881 C339.23 557.305 328.432 542.129 319.699 525.705 C319.169 524.708 319.465 523.473 320.389 522.825 Z M696.402 523.155 C697.159 522.318 698.421 522.176 699.345 522.825 C700.269 523.473 700.565 524.708 700.035 525.705 C670.401 581.439 617.767 621.39 556.117 634.945 C496.696 648.009 434.487 635.315 384.944 600.039 C383.956 599.335 383.709 597.972 384.388 596.967 L395.425 580.613 C396.051 579.685 397.267 579.364 398.271 579.861 C465.247 613.029 543.586 614.682 611.915 584.342 L611.915 584.342 C644.045 570.077 672.826 549.232 696.402 523.155 Z" fill="url(#linear-gradient-2)"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

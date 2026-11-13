@@ -2,7 +2,7 @@
 
 This folder is the single source of the Sternbild style: colour, type, spacing, rules, corners, motion and the
 application metrics. The website and every application will reference it by version instead of copying the style by
-hand. The style guide page, `site/design/index.html`, documents it for people; the generated files are the contract
+hand. The style guide page, `app/design/page.tsx`, documents it for people; the generated files are the contract
 for software. How other projects reference the hosted files is described in
 [`docs/referencing-the-style-guide.md`](../docs/referencing-the-style-guide.md).
 
@@ -13,21 +13,32 @@ for software. How other projects reference the hosted files is described in
 | `design/tokens.json` | The tokens, in the W3C Design Tokens Community Group format (2025.10), with the version |
 | `design/build.mjs` | The build: plain Node 18 or later, no dependencies |
 | `design/README.md` | This file |
-| `site/design/v1/` | `sternbild.css` and `tokens.json` for the latest 1.x release |
-| `site/design/<version>/` | The same two files for each release, frozen |
-| `site/design/index.html` | The style guide page; it links `v1/sternbild.css` |
+| `public/design/v1/` | `sternbild.css` and `tokens.json` for the latest 1.x release, published at `design/v1/` |
+| `public/design/<version>/` | The same two files for each release, frozen, published at `design/<version>/` |
+| `lib/tokens.ts` | The same tokens as a typed module for the site's own pages; generated, not part of a release |
+| `app/design/page.tsx` | The style guide page, published at `design/`; it links `v1/sternbild.css` |
 
 ## Building
 
 ```
-node design/build.mjs           # write the release to site/design/v1/ and site/design/<version>/
-node design/build.mjs --check   # exit 1 if the published files differ from what the tokens produce
+npm run tokens         # write the release to public/design/v1/ and public/design/<version>/, and lib/tokens.ts
+npm run tokens:check   # exit 1 if the generated files differ from what the tokens produce
 ```
+
+The same build runs on its own before `npm run dev` and `npm run build` (the `predev` and `prebuild` scripts), so the
+site always serves the current tokens. Without npm, `node design/build.mjs` and `node design/build.mjs --check` do
+the same.
 
 The build reads the version from `$extensions["org.sternbild"].version` in `tokens.json`. It writes `sternbild.css`
 and a byte-for-byte copy of `tokens.json` into `v<major>/` and into the numbered folder. A rerun of the same version
 writes identical files. The build refuses to change a numbered folder that already exists with different content,
-and it refuses to move `v<major>/` back to an older version. Commit the generated files with the tokens.
+and it refuses to move `v<major>/` back to an older version. It also writes `lib/tokens.ts`, which the style guide
+page imports: each token's custom property name, type, resolved value and CSS value, with the helpers `cssVar`, `hex`
+and `amount`. That module is not part of a release, so it can change without a new version. Commit the generated
+files with the tokens.
+
+Everything in `public/` is published as it is by the Next.js static export, so the release folders keep their
+URLs: `design/v1/sternbild.css`, `design/v1/tokens.json` and `design/1.0.0/…` under the site's address.
 
 ## Names
 
@@ -54,13 +65,17 @@ Three extensions carry what the format does not:
   from a numbered folder when they are built and generate their theme from it.
 - Release 1.0.0 is built but not tagged. The repository has no remote yet.
 - Generators for C++ (Dear ImGui), Rust and other platforms will read `tokens.json`; they are not built yet.
-- The fonts and the marks stay in `site/assets/` for now, and the generated CSS reaches the fonts by relative path
-  (`../../assets/fonts/`). Moving them to `site/design/fonts/` and `site/design/marks/` is a later step; it changes
-  the font URLs in the CSS, so it needs a new release.
+- The fonts and the marks are in `public/assets/`, published at `assets/`, and the generated CSS reaches the fonts by
+  relative path (`../../assets/fonts/`). Moving them into the release folders is a later step; it changes the font
+  URLs in the CSS, so it needs a new release.
+- The font-face files in `tokens.json` 1.0.0 are written `site/assets/fonts/…`, after the folder the site was
+  published from before the move to Next.js. The build reads a leading `site/` or `public/` as the published root,
+  `public/`, so the frozen 1.0.0 files stay unchanged. A later release can write the paths as `assets/fonts/…`.
 
 ## Where the values came from
 
-Every token names its source in `org.sternbild.source`. In summary:
+Every token names its source in `org.sternbild.source`. The citations of `site/index.html` and `site/assets/` refer
+to the static site as it stood before the move to Next.js, at commit `4fd6d1a`. In summary:
 
 | Tokens | Values | Source |
 |---|---|---|
@@ -95,7 +110,7 @@ Sources read, all local and read-only:
   was copied from it.
 
 Where sources disagreed, Caliper's theme was preferred for application interfaces and the organization site for the
-website. No value was invented. `site/assets/loggia-icon.svg` is internal and is deliberately left out of the guide.
+website. No value was invented. `public/assets/loggia-icon.svg` is internal and is deliberately left out of the guide.
 
 ## Checks done for 1.0.0
 
@@ -105,7 +120,7 @@ website. No value was invented. `site/assets/loggia-icon.svg` is internal and is
 - The page was checked in headless Chrome at 1440 and 390 px wide: no horizontal scrolling, both fonts loaded, no
   failed or external requests.
 - Font licences: IBM Plex Sans Condensed is under the SIL Open Font License 1.1, and its licence is in
-  `site/assets/fonts/OFL-ibmplexsanscondensed.txt`. Sternbild Display has no licence file (see question 13).
+  `public/assets/fonts/OFL-ibmplexsanscondensed.txt`. Sternbild Display has no licence file (see question 13).
 
 ## Open questions
 

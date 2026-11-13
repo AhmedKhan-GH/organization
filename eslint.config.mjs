@@ -10,6 +10,8 @@ export default defineConfig([
     "out/**",
     "node_modules/**",
     "site/**",
+    // Published as it is: the opening script (gate.js, kept byte for byte) and the generated releases.
+    "public/**",
     "reference/**",
     "next-env.d.ts",
   ]),
