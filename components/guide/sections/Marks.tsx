@@ -6,13 +6,10 @@ import { Section } from "../Section";
 export function MarksSection() {
   return (
     <Section id="marks">
-      <p>Each application and research project has a mark. Every mark is drawn in the seal&apos;s own system and sits in a frame that shows its kind. Applications and the knowledge base wear a square with 45° corner cuts, research projects wear a hexagon with its points up and down, and the flat-topped diamond belongs to the house alone.</p>
+      <p>Each application and research project has a mark. Every mark is drawn in the seal&apos;s own system and sits in a frame that shows its kind. Applications wear a square with 45° corner cuts, research projects wear a hexagon with its points up and down, and the flat-topped diamond belongs to the house alone.</p>
 
       <h3>Applications</h3>
-      <MarkList className="four" keys={["alidade", "astrolabe", "compass", "caliper"]} />
-
-      <h3>Knowledge base</h3>
-      <MarkList className="lead" keys={["atlas"]} />
+      <MarkList keys={["atlas", "alidade", "astrolabe", "compass", "caliper"]} />
 
       <h3>Research</h3>
       <MarkList keys={["alioth", "polaris", "nebula", "orion", "quasar"]} />
@@ -37,7 +34,7 @@ export function MarksSection() {
       <p className="source">From the logo notes and the marks briefs in the brand folders.</p>
 
       <h3>At 32 px</h3>
-      <SmallMarks keys={["alidade", "astrolabe", "compass", "caliper", "atlas", "alioth", "polaris", "nebula", "orion", "quasar"]} />
+      <SmallMarks keys={["atlas", "alidade", "astrolabe", "compass", "caliper", "alioth", "polaris", "nebula", "orion", "quasar"]} />
     </Section>
   );
 }

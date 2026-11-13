@@ -5,7 +5,7 @@ import { Section } from "../Section";
 export function SternbildSection() {
   return (
     <Section id="sternbild">
-      <p>Sternbild is an organization that builds applications and runs research projects. Its name means constellation. The applications are Alidade, Astrolabe, Compass and Caliper. The research projects are Alioth, Polaris, Nebula, Orion and Quasar, each named after a star or an object in the sky. Atlas is the organization&apos;s knowledge base.</p>
+      <p>Sternbild is an organization that builds applications and runs research projects. Its name means constellation. The applications are Atlas, Alidade, Astrolabe, Compass and Caliper. The research projects are Alioth, Polaris, Nebula, Orion and Quasar, each named after a star or an object in the sky.</p>
       <p>The identity is small and consistent. It has one logo, one seal and one drawing system for every mark, a warm night palette with bronze as its only accent, two typefaces in a single weight, square corners and 1&nbsp;px rules.</p>
       <DataTable
         columns={[{ label: "Part", td: "key" }, { label: "What it is" }, { label: "Section", th: "hide-narrow", td: "hide-narrow muted" }]}

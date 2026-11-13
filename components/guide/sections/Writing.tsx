@@ -23,9 +23,8 @@ export function WritingSection() {
         columns={[{ label: "Term" }, { label: "Meaning" }]}
         rows={[
           ["Sternbild", "The organization"],
-          ["application", "Alidade, Astrolabe, Compass or Caliper"],
+          ["application", "Atlas, Alidade, Astrolabe, Compass or Caliper"],
           ["research project", "Alioth, Polaris, Nebula, Orion or Quasar"],
-          ["knowledge base", "Atlas"],
           ["logo", <>The shaded diamond drawing, <code>sternbild-logo.svg</code></>],
           ["seal", <>The flat white drawing, <code>sternbild-seal.svg</code></>],
           ["mark", "The drawing that stands for one application or research project"],

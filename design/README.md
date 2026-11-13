@@ -196,9 +196,8 @@ Layout and writing
     landing pages use rule-faint #2c2b28.
 24. **The colour of light.** #fff6e8 is named the opening's one colour of light, but the site's beams are #e9f0ff and
     the product landing pages' beams are parchment.
-25. **Atlas.** The site lists Atlas first under "Applications", and every item there carries the kicker "Project".
-    The guide treats Atlas as the knowledge base, apart from the applications and the research projects. Should the
-    site's grouping and kickers change?
+25. **Atlas.** Resolved: Atlas is an application. The guide now lists it with the other applications, as the site
+    already did. The site's lists still give every item the kicker "Project".
 
 Publishing
 
