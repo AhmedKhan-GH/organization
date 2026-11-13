@@ -2,8 +2,8 @@ import { version } from "@/lib/tokens";
 import { DataTable } from "../DataTable";
 import { Section } from "../Section";
 
-const building = `node design/build.mjs           # write the release to v1/ and to its numbered folder
-node design/build.mjs --check   # fail if the published files differ from the tokens`;
+const building = `npm run tokens         # write the release to v1/ and to its numbered folder
+npm run tokens:check   # fail if the published files differ from the tokens`;
 
 const webPage = `<link rel="stylesheet" href="design/v1/sternbild.css">
 
@@ -19,16 +19,17 @@ export function UsingSection() {
         rows={[
           [<code key="f">design/tokens.json</code>, "The source: the tokens in the W3C Design Tokens format, each with its source, and the version"],
           [<code key="f">design/build.mjs</code>, "The build, in plain Node with no dependencies"],
-          [<code key="f">site/design/v1/</code>, <><code>sternbild.css</code> and <code>tokens.json</code> for the latest 1.x release</>],
-          [<code key="f">{`site/design/${version}/`}</code>, `The same two files for release ${version}, frozen`],
-          [<code key="f">site/design/index.html</code>, "This page"],
+          [<code key="f">public/design/v1/</code>, <><code>sternbild.css</code> and <code>tokens.json</code> for the latest 1.x release</>],
+          [<code key="f">{`public/design/${version}/`}</code>, `The same two files for release ${version}, frozen`],
+          [<code key="f">lib/tokens.ts</code>, "The same tokens as a typed module for this site's pages"],
+          [<code key="f">app/design/page.tsx</code>, "This page"],
           [<code key="f">design/README.md</code>, "Where each value came from, the versioning plan and the open questions"],
         ]}
       />
 
       <h3>Building</h3>
       <pre>{building}</pre>
-      <p>The build reads the version from the tokens file. It refuses to change a numbered folder that already exists, so any change to a value needs a new version.</p>
+      <p>The build reads the version from the tokens file. It refuses to change a numbered folder that already exists, so any change to a value needs a new version. It also runs on its own whenever the site is started for development or built.</p>
 
       <h3>On a web page</h3>
       <p>Link the style sheet, then use the roles. Each token becomes a custom property named after its path, such as <code>--sb-palette-deep</code> or <code>--sb-font-size-body</code>; roles carry no group name, so <code>role.text</code> is <code>--sb-text</code>. On the hosted site the path below sits under the organization&apos;s GitHub Pages address.</p>
