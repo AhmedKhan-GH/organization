@@ -100,7 +100,7 @@ h3 { margin: var(--sb-space-12) 0 var(--sb-space-4); font-family: var(--sb-font-
 .name { font-family: var(--sb-font-family-display); text-transform: uppercase; font-size: var(--sb-font-size-name); letter-spacing: var(--sb-tracking-name); line-height: var(--sb-leading-solid); }
 .role { font-size: var(--sb-font-size-small); line-height: var(--sb-leading-tight); color: var(--sb-text-faint); }
 
-/* II. Logo and seal */
+/* Logo and seal */
 .specimen { width: 160px; height: 160px; }
 .clear { width: 100%; max-width: 300px; height: auto; }
 .clear .zone { fill: none; stroke: var(--sb-palette-construction); stroke-dasharray: 2 6; }
@@ -113,7 +113,7 @@ h3 { margin: var(--sb-space-12) 0 var(--sb-space-4); font-family: var(--sb-font-
 .rules-list li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 14em); gap: var(--sb-space-6); padding: 10px 0; border-bottom: var(--sb-rule-width) solid var(--sb-rule-faint); }
 .rules-list .source { text-align: right; }
 
-/* III. Marks */
+/* Marks */
 .marks { --n: 5; }
 .marks.four { --n: 4; }
 .marks li { display: flex; flex-direction: column; align-items: flex-start; gap: var(--sb-space-2); }
@@ -125,12 +125,12 @@ h3 { margin: var(--sb-space-12) 0 var(--sb-space-4); font-family: var(--sb-font-
 .small-marks { display: flex; flex-wrap: wrap; gap: var(--sb-space-4); align-items: center; margin: 0 0 var(--sb-space-3); padding: 0; list-style: none; }
 .small-marks img { width: 32px; height: 32px; }
 
-/* IV. Colour */
+/* Colour */
 .contrast td.key { color: var(--sb-text-muted); }
 .bronze-uses { margin: 0 0 var(--sb-space-6); padding: 0; list-style: none; border-top: var(--sb-rule-width) solid var(--sb-rule); }
 .bronze-uses li { padding: 8px 0; border-bottom: var(--sb-rule-width) solid var(--sb-rule-faint); }
 
-/* V. Typography */
+/* Typography */
 .glyphs { font-size: 40px; letter-spacing: var(--sb-tracking-heading); line-height: var(--sb-leading-heading); overflow-wrap: anywhere; margin: 0 0 var(--sb-space-4); }
 .glyphs.text { font-family: var(--sb-font-family-text); text-transform: none; font-size: var(--sb-font-size-heading); letter-spacing: 0; }
 .ladder { margin: 0 0 var(--sb-space-6); padding: 0; list-style: none; border-top: var(--sb-rule-width) solid var(--sb-rule); }
@@ -151,7 +151,7 @@ h3 { margin: var(--sb-space-12) 0 var(--sb-space-4); font-family: var(--sb-font-
 .s-caption { font-size: var(--sb-font-size-caption); color: var(--sb-text-faint); }
 .s-label-s { font-size: var(--sb-font-size-label-s); letter-spacing: var(--sb-tracking-ui-label); text-transform: uppercase; color: var(--sb-text-muted); }
 
-/* VI. Layout and rules */
+/* Layout and rules */
 .scale { margin: 0 0 var(--sb-space-6); padding: 0; list-style: none; border-top: var(--sb-rule-width) solid var(--sb-rule); }
 .scale li { display: grid; grid-template-columns: 5.5em 4em minmax(0, 1fr); align-items: center; gap: var(--sb-space-3); padding: 3px 0;
             font-size: var(--sb-font-size-caption); font-variant-numeric: tabular-nums; }
@@ -162,7 +162,7 @@ h3 { margin: var(--sb-space-12) 0 var(--sb-space-4); font-family: var(--sb-font-
 .rule-demo li { display: grid; grid-template-columns: 9em minmax(0, 1fr); align-items: center; gap: var(--sb-space-4); padding: var(--sb-space-3) 0; font-size: var(--sb-font-size-caption); color: var(--sb-text-faint); }
 .rule-demo .line { height: var(--sb-rule-width); }
 
-/* VII. Application interface: a pane at the application's own metrics. */
+/* Application interface: a pane at the application's own metrics. */
 .principles { margin: 0 0 var(--sb-space-6); padding: 0; border-top: var(--sb-rule-width) solid var(--sb-rule); }
 .principles > div { display: grid; grid-template-columns: 11em minmax(0, 1fr); column-gap: var(--sb-space-6); padding: var(--sb-space-4) 0; border-bottom: var(--sb-rule-width) solid var(--sb-rule-faint); }
 .principles dt { font-family: var(--sb-font-family-display); text-transform: uppercase; font-size: var(--sb-font-size-label); letter-spacing: var(--sb-tracking-label); color: var(--sb-text-muted); line-height: var(--sb-leading-body); }
@@ -210,7 +210,7 @@ h3 { margin: var(--sb-space-12) 0 var(--sb-space-4); font-family: var(--sb-font-
 .status span + span::before { content: "\00a0·\00a0"; color: var(--sb-text-faint); }
 .caption { font-size: var(--sb-font-size-caption); line-height: var(--sb-leading-desc); color: var(--sb-text-faint); max-width: 68ch; }
 
-/* VIII and IX */
+/* Writing, and using the guide */
 .terms td:first-child { white-space: nowrap; }
 pre { margin: 0 0 var(--sb-space-6); padding: var(--sb-space-3) 0; border-top: var(--sb-rule-width) solid var(--sb-rule); border-bottom: var(--sb-rule-width) solid var(--sb-rule-faint);
       font-family: var(--sb-font-family-mono); font-size: 13px; line-height: var(--sb-leading-desc); color: var(--sb-text-muted); white-space: pre-wrap; overflow-wrap: anywhere; }

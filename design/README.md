@@ -203,5 +203,5 @@ Layout and writing
 Publishing
 
 26. **Tagging.** Release 1.0.0 is ready to tag as `design-v1.0.0` once it is approved.
-27. **The interface principles.** Section VII of the page follows `docs/wiki/explanation/ui-principles.md` in
+27. **The interface principles.** Section 7 of the page follows `docs/wiki/explanation/ui-principles.md` in
     Caliper, which is not committed there yet.
