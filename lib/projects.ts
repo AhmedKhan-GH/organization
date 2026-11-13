@@ -32,7 +32,7 @@ const all = {
   },
   compass: {
     name: "Compass",
-    role: "Practice platform",
+    role: "Technical skill practice platform",
     mark: "compass-icon.svg?v=20261113",
     description: "Practice technical skills from the absolute basics. Understand first, then accelerate.",
     href: "https://ahmedkhan-gh.github.io/compass/",
