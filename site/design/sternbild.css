@@ -60,6 +60,17 @@
   --sb-data-madder: #a35a74;
   --sb-data-slate: #55524c;
 
+  /* mark */
+  --sb-mark-tile-light: #36332d;
+  --sb-mark-tile: #211f1b;
+  --sb-mark-tile-dark: #141311;
+  --sb-mark-parchment-light: #f6f0e4;
+  --sb-mark-parchment: #e8e0d0;
+  --sb-mark-parchment-shade: #cfc3aa;
+  --sb-mark-bronze-light: #d8b27a;
+  --sb-mark-bronze: #b38b59;
+  --sb-mark-bronze-shade: #8d6a3e;
+
   /* gradient */
   --sb-gradient-aura: radial-gradient(120% 90% at 50% 100%, var(--sb-palette-aura) 0%, var(--sb-palette-deep) 62%);
 
@@ -118,6 +129,10 @@
   --sb-layout-section: 110px;
   --sb-layout-section-narrow: var(--sb-space-18);
   --sb-layout-breakpoint: 820px;
+
+  /* logo */
+  --sb-logo-min-size: 40px;
+  --sb-logo-clear-space: 0.5;
 
   /* rule */
   --sb-rule-width: 1px;
