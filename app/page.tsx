@@ -5,6 +5,7 @@ import { Gate, GateClass, GateScript } from "@/components/landing/Gate";
 import { Masthead } from "@/components/landing/Masthead";
 import { IndexSection, ProjectList } from "@/components/landing/ProjectList";
 import { applications, projects } from "@/lib/projects";
+import { asset, favicons } from "@/lib/site";
 import "./landing.css";
 
 const description = "Sternbild is an organization dedicated to advancing human-centered values with AI.";
@@ -18,6 +19,8 @@ export const metadata: Metadata = {
     images: "https://sternbild.org/assets/og.png",
   },
   twitter: { card: "summary_large_image" },
+  // A page's icons replace the layout's, so the landing page repeats the tab icons beside its home-screen icon.
+  icons: { icon: favicons, apple: asset("sternbild-180.png") },
 };
 
 export default function Home() {

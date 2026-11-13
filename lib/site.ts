@@ -7,5 +7,11 @@ export const asset = (file: string) => `${basePath}/assets/${file}`;
 /** The published URL of a page, such as "/" or "/design/". */
 export const page = (path: string) => `${basePath}${path}`;
 
+/** The browser-tab icons, on every page. */
+export const favicons = [
+  { url: asset("sternbild-32.png"), sizes: "32x32" },
+  { url: asset("sternbild-logo.svg"), type: "image/svg+xml" },
+];
+
 export const github = "https://github.com/AhmedKhan-GH";
 export const contact = "mailto:emailahmedebadkhan@gmail.com";

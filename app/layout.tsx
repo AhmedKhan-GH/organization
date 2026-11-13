@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { asset } from "@/lib/site";
+import { favicons } from "@/lib/site";
 
 export const viewport: Viewport = {
   themeColor: "#12110f",
@@ -7,13 +7,7 @@ export const viewport: Viewport = {
 
 // Next.js does not add the base path to metadata URLs, so the icons name their published paths.
 export const metadata: Metadata = {
-  icons: {
-    icon: [
-      { url: asset("sternbild-32.png"), sizes: "32x32" },
-      { url: asset("sternbild-logo.svg"), type: "image/svg+xml" },
-    ],
-    apple: asset("sternbild-180.png"),
-  },
+  icons: { icon: favicons },
 };
 
 /*
