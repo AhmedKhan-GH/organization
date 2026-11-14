@@ -40,7 +40,7 @@ const all = {
   caliper: {
     name: "Caliper",
     role: "Machine learning visualization framework",
-    mark: "caliper-icon.svg?v=20261113",
+    mark: "caliper-icon.svg?v=20261114",
     description: "A native app for interpretability. Observe models directly from the GPU in real time.",
     href: "https://ahmedkhan-gh.github.io/caliper/",
   },
