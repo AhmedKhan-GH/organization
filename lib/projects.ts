@@ -59,7 +59,7 @@ const all = {
   nebula: {
     name: "Nebula",
     role: "Semiconductor design",
-    mark: "nebula-icon.svg?v=20261107",
+    mark: "nebula-icon.svg?v=20261114",
     description: "From first hardware programs to a full GPU for graphics and machine learning.",
   },
   orion: {
