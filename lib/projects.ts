@@ -53,7 +53,7 @@ const all = {
   polaris: {
     name: "Polaris",
     role: "Business systems",
-    mark: "polaris-icon.svg?v=20261107",
+    mark: "polaris-icon.svg?v=20261114",
     description: "Ontology-driven business systems, and the security to protect their data at scale.",
   },
   nebula: {
