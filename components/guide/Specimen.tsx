@@ -8,7 +8,7 @@ export function Specimen({ file, alt, name, spec }: { file: string; alt: string;
     <figure style={{ margin: 0 }}>
       <AssetImage className="specimen" file={file} alt={alt} />
       <figcaption>
-        <div className="name">{name}</div>
+        <div className="name specimen-name">{name}</div>
         <Spec rows={spec} />
       </figcaption>
     </figure>

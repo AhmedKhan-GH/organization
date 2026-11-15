@@ -6,8 +6,8 @@ export function Section({ id, children }: { id: SectionId; children: React.React
   return (
     <section className="sec" id={id} aria-labelledby={`h-${id}`}>
       <div className="sec-head">
-        <span className="n display" aria-hidden="true">{number}</span>
-        <h2 className="display" id={`h-${id}`}>{title}</h2>
+        <span className="n heading" aria-hidden="true">{number}</span>
+        <h2 className="heading" id={`h-${id}`}>{title}</h2>
       </div>
       {children}
     </section>

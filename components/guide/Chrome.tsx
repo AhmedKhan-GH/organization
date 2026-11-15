@@ -13,7 +13,7 @@ export function GuideMasthead() {
           <AssetImage file="sternbild-logo.svg" />
           <span className="display">Sternbild</span>
         </a>
-        <span className="doc display">Style guide</span>
+        <span className="doc heading">Style guide</span>
         <span className="ver">{`Version ${version}`}</span>
       </div>
     </header>
@@ -25,7 +25,7 @@ export function GuideOpening() {
   return (
     <div className="opening">
       <div className="opening-in">
-        <h1 className="display">Style guide</h1>
+        <h1 className="heading">Style guide</h1>
         <p className="intro">This guide describes how Sternbild looks and reads: the logo and the seal, the marks of the applications and research projects, colour, type, layout, the interface of the applications, and the writing. Every value on this page comes from one file of design tokens, and every token names the existing source it was taken from.</p>
         <dl className="facts">
           <div><dt className="label">Version</dt><dd>{`${version}, not yet tagged`}</dd></div>

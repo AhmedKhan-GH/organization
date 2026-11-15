@@ -63,7 +63,7 @@ Three extensions carry what the format does not:
   removes a role and is published under a new folder, `v2/`, while projects stay on `v1/` until they are moved.
 - Sites that should follow every 1.x release link `v1/sternbild.css`. Native applications download `tokens.json`
   from a numbered folder when they are built and generate their theme from it.
-- Release 1.0.0 is built but not tagged. The repository has no remote yet.
+- Release 1.0.1 only rewrites descriptions to state which face sets which text, with no value changed. Releases 1.0.0 and 1.0.1 are built but not tagged. The repository has no remote yet.
 - Generators for C++ (Dear ImGui), Rust and other platforms will read `tokens.json`; they are not built yet.
 - The fonts and the marks are in `public/assets/`, published at `assets/`, and the generated CSS reaches the fonts by
   relative path (`../../assets/fonts/`). Moving them into the release folders is a later step; it changes the font
@@ -85,7 +85,7 @@ to the static site as it stood before the move to Next.js, at commit `4fd6d1a`. 
 | `data` | smalt #4677ad, verdigris #3ca99c, olive ochre #867424, madder #a35a74, slate #55524c | Caliper's theme (`sternbild_theme.h:42-46`) and the Caliper interface specification, which names the pigments |
 | `mark` | tile #36332d / #211f1b / #141311, parchment #f6f0e4 / #e8e0d0 / #cfc3aa, bronze #d8b27a / #b38b59 / #8d6a3e | The marks brief and the mark files in `site/assets/` |
 | `gradient.aura` | radial, 120% 90% at 50% 100%, #1b1a17 to deep at 62% | Organization site (`site/index.html:177`) |
-| `font.family` | Sternbild Display; IBM Plex Sans Condensed; Source Code Pro | Organization site (`site/index.html:25-26, 43-44`); Caliper's fonts (`sternbild_fonts.h:9-11`) |
+| `font.family` | Sternbild Display, only for the names of Sternbild, its applications and its projects, never for headings; IBM Plex Sans Condensed for everything else; Source Code Pro | Organization site (`site/index.html:25-26, 43-44`); Caliper's fonts (`sternbild_fonts.h:9-11`) |
 | `font.size` | 12, 13, 14, 15, 16, 17, 19, 24, 28 px; hero `clamp(40px, 5.6vw, 84px)` | Organization site; 24 px headings from the Caliper site, docs and brand book |
 | `tracking` | 0.3, 0.26, 0.22, 0.18, 0.1, 0.08, 0.06 em | Organization site; Caliper's theme for 0.1 and 0.08; the Caliper site and docs for 0.06 |
 | `leading` | 1, 1.2, 1.35, 1.55, 1.65 | Organization site; the Caliper site and docs for 1.2 |

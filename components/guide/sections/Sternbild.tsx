@@ -15,7 +15,7 @@ export function SternbildSection() {
           ["Seal", "The same drawing in flat white, with no ground", sectionNumbers("logo")],
           ["Marks", "One for each application and research project, in the seal's drawing system", sectionNumbers("marks")],
           ["Colour", "Night grounds, parchment text in three strengths, bronze used rarely", sectionNumbers("colour")],
-          ["Type", "Sternbild Display for names; IBM Plex Sans Condensed for everything else", sectionNumbers("type")],
+          ["Type", "Sternbild Display only for the names of Sternbild, its applications and its projects; IBM Plex Sans Condensed for everything else, including every heading", sectionNumbers("type")],
           ["Structure", "Alignment, 1 px rules and type instead of boxes; square corners", sectionNumbers("layout", "interface")],
         ]}
       />

@@ -94,7 +94,7 @@ html.gated .gate, .gate.is-settling { display: block; }
   /* directly under the seal, midway between its base and the name */
   position: absolute; left: 50%; top: calc((var(--gate-center-y) + var(--seal-size) * .3704 + var(--name-top)) / 2); margin: 0;
   transform: translate(-50%, -50%);
-  font: clamp(14px, 1.15vw, 17px)/1 var(--display); letter-spacing: .34em; padding-left: .34em; text-transform: uppercase; white-space: nowrap; color: #fff;
+  font: clamp(14px, 1.15vw, 17px)/1 var(--text); letter-spacing: .34em; padding-left: .34em; text-transform: uppercase; white-space: nowrap; color: #fff;
   opacity: .75; pointer-events: none;
 }
 .gate-hint .touch { display: none; }
@@ -145,7 +145,7 @@ html.gated .gate, .gate.is-settling { display: block; }
 .brand { display: flex; align-items: center; gap: 14px; }
 .brand img { width: 38px; height: 38px; }
 .brand span { font: 17px/1 var(--display); letter-spacing: .3em; padding-top: 2px; }
-.mast .links { display: flex; gap: 28px; margin-left: auto; color: var(--secondary); font: 13px/1 var(--display); letter-spacing: .18em; text-transform: uppercase; }
+.mast .links { display: flex; gap: 28px; margin-left: auto; color: var(--secondary); font: 13px/1 var(--text); letter-spacing: .18em; text-transform: uppercase; }
 .mast .links a:hover { color: var(--parchment); }
 
 /* The two flows, drawn on the seal's own construction: five rays at 0, 18 and 36 degrees either side of the
@@ -159,7 +159,7 @@ html.gated .gate, .gate.is-settling { display: block; }
        margin: 0 auto calc(max(760px, min(100%, calc((100svh - 64px - 178px) * 1.6 / 1.108))) * .0674); }
 /* The name under the logo, and the mission under the name; the sky above is sized to leave them room on the first screen. */
 .title-block { position: relative; text-align: center; padding: 10px 18px 54px; }
-.title-block h1 { margin: 0; font: clamp(40px, 5.6vw, 84px)/1 var(--display); font-weight: normal; letter-spacing: .3em; padding-left: .3em; text-transform: uppercase; color: #fff;
+.title-block h1 { margin: 0; font: clamp(40px, 5.6vw, 84px)/1 var(--text); font-weight: normal; letter-spacing: .3em; padding-left: .3em; text-transform: uppercase; color: #fff;
                   text-shadow: 0 0 10px rgba(255, 255, 255, .35), 0 0 28px rgba(255, 255, 255, .22), 0 0 60px rgba(255, 255, 255, .12); }
 .mission { margin: 20px auto 0; color: #fff; font-size: clamp(17px, 1.6vw, 21px); white-space: nowrap; }
 .sky > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; will-change: transform; }
@@ -167,7 +167,7 @@ html.gated .gate, .gate.is-settling { display: block; }
 @keyframes sky-breathe { 0%, 100% { opacity: .58; } 50% { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .sky > svg.beam { animation: none; opacity: .8; } }
 .construction { fill: none; stroke: #6a655a; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
-.arc-label { font-family: var(--display); font-size: 15px; letter-spacing: .34em; fill: var(--bronze); text-anchor: middle; }
+.arc-label { font-family: var(--text); font-size: 15px; letter-spacing: .34em; fill: var(--bronze); text-anchor: middle; }
 .flow-line { stroke: var(--bronze); stroke-width: 2; vector-effect: non-scaling-stroke; }
 .flow-head { fill: var(--bronze); }
 .group { display: contents; }
@@ -177,7 +177,7 @@ html.gated .gate, .gate.is-settling { display: block; }
 .node .text { position: absolute; top: 50%; transform: translateY(-50%); width: 17cqw; display: flex; flex-direction: column; gap: .5cqw; }
 .node.west .text { right: calc(100% + 1.5cqw); text-align: right; align-items: flex-end; }
 .node.east .text { left: calc(100% + 1.5cqw); }
-.node .step { display: block; font: clamp(9px, .72cqw, 12px)/1 var(--display); letter-spacing: .26em; color: var(--bronze); text-transform: uppercase; }
+.node .step { display: block; font: clamp(9px, .72cqw, 12px)/1 var(--text); letter-spacing: .26em; color: var(--bronze); text-transform: uppercase; }
 .node .name { font: 1.7cqw/1 var(--display); letter-spacing: .22em; text-transform: uppercase; transition: color .15s; }
 .node .role { font-size: clamp(12px, 1.12cqw, 17px); line-height: 1.35; color: var(--faint); }
 .node:hover .name, .node:focus-visible .name { color: var(--bronze-hover); }
@@ -186,7 +186,7 @@ html.gated .gate, .gate.is-settling { display: block; }
 .note { position: absolute; top: 59.54%; width: 17cqw; margin: 0; transform: translateY(-50%); font-size: clamp(12px, 1.08cqw, 16px); line-height: 1.5; color: var(--secondary); }
 /* A halo in the sky's colour keeps the rings from running through the notes, as a map keeps its lines off its labels. */
 .node.r { width: 6%; }
-.node.r .step { display: block; font: clamp(9px, .72cqw, 12px)/1 var(--display); letter-spacing: .26em; color: var(--bronze); text-transform: uppercase; }
+.node.r .step { display: block; font: clamp(9px, .72cqw, 12px)/1 var(--text); letter-spacing: .26em; color: var(--bronze); text-transform: uppercase; }
 .node.r.lead { width: 8.6%; }
 .node.r.lead .text { top: calc(100% + .6cqw); }
 .node.r.lead .name { font-size: 2.4cqw; }
@@ -194,7 +194,7 @@ html.gated .gate, .gate.is-settling { display: block; }
 .node.core { width: 8.6%; }
 .node.core .name { font-size: 2.4cqw; }
 .node.core .role { font-size: clamp(13px, 1.3cqw, 19px); }
-.node.core .step { display: block; font: clamp(9px, .72cqw, 12px)/1 var(--display); letter-spacing: .26em; color: var(--bronze); text-transform: uppercase; }
+.node.core .step { display: block; font: clamp(9px, .72cqw, 12px)/1 var(--text); letter-spacing: .26em; color: var(--bronze); text-transform: uppercase; }
 .node.south .text { top: calc(100% + 1.2cqw); left: 50%; transform: translateX(-50%); width: 24cqw; text-align: center; align-items: center; }
 .note, .node .text { text-shadow: 0 0 2px #161512, 0 0 4px #161512, 0 0 7px #161512, 0 0 10px #161512; }
 .note.west { right: 68.70%; text-align: right; }
@@ -205,7 +205,7 @@ html.gated .gate, .gate.is-settling { display: block; }
 .index { padding: 110px 0 0; background: var(--deep); }
 .label { display: flex; align-items: center; gap: 14px; margin-bottom: 30px; }
 .label::before { content: ""; width: 28px; height: 1px; background: var(--bronze); }
-.eyebrow { font: 13px/1 var(--display); letter-spacing: .26em; color: var(--bronze); text-transform: uppercase; }
+.eyebrow { font: 13px/1 var(--text); letter-spacing: .26em; color: var(--bronze); text-transform: uppercase; }
 .rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
 .rows a { display: grid; grid-template-columns: 64px minmax(200px, .9fr) minmax(0, 1.6fr) 40px; gap: 28px; align-items: center;
           padding: 26px 8px; border-bottom: 1px solid var(--rule-faint); transition: background .15s; }
@@ -228,7 +228,7 @@ html.gated .gate, .gate.is-settling { display: block; }
 .projects li.lead + li { border-left: 0; padding-left: 8px; }
 .projects img { width: 88px; height: 88px; margin-bottom: 14px; }
 .projects img[src$="placeholder-hexagon.svg"] { opacity: .9; }
-.projects .kicker { font: 11px/1 var(--display); letter-spacing: .26em; color: var(--bronze); text-transform: uppercase; }
+.projects .kicker { font: 11px/1 var(--text); letter-spacing: .26em; color: var(--bronze); text-transform: uppercase; }
 .projects .name { font: 19px/1 var(--display); letter-spacing: .22em; text-transform: uppercase; }
 .projects .role { color: var(--faint); font-size: 15px; line-height: 1.35; }
 .projects .desc { color: var(--secondary); font-size: 16px; line-height: 1.55; margin-top: 4px; max-width: 34ch; }
@@ -251,7 +251,7 @@ footer { margin-top: 140px; border-top: 1px solid var(--rule-faint); background:
 .house-url { font: 15px/1 var(--text); letter-spacing: .04em; color: var(--faint); }
 .cols { display: flex; gap: 72px; }
 .cols div { display: flex; flex-direction: column; gap: 12px; }
-.col-h { font: 12px/1 var(--display); letter-spacing: .24em; text-transform: uppercase; color: var(--bronze); margin-bottom: 4px; }
+.col-h { font: 12px/1 var(--text); letter-spacing: .24em; text-transform: uppercase; color: var(--bronze); margin-bottom: 4px; }
 .cols a { color: var(--secondary); }
 .cols a:hover { color: var(--parchment); }
 .colophon { margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--rule-faint); }
@@ -271,7 +271,7 @@ footer { margin-top: 140px; border-top: 1px solid var(--rule-faint); background:
   .node { display: grid; grid-template-columns: 76px 1fr; gap: 18px; align-items: center; }
   .node img { filter: none; }
   .node .text, .node.west .text { position: static; transform: none; width: auto; text-align: left; align-items: flex-start; gap: 6px; }
-  .node .step { display: block; font: 11px/1 var(--display); letter-spacing: .26em; color: var(--bronze); text-transform: uppercase; }
+  .node .step { display: block; font: 11px/1 var(--text); letter-spacing: .26em; color: var(--bronze); text-transform: uppercase; }
   .node .name { font-size: 20px; }
   .node .role { font-size: 15px; }
   .note, .note.west { order: 4; margin-top: 18px; text-align: left; font-size: 15px; }
