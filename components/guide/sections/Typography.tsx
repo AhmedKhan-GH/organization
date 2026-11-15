@@ -3,7 +3,7 @@ import { Spec } from "../Spec";
 
 /** The type scale: each size's token, how it is set, and a sample. */
 const ladder = [
-  { token: "hero", meta: "Text, 40 to 84 px with the window, tracked 0.3 em", sample: "heading s-hero", text: "Sternbild" },
+  { token: "hero", meta: "Display, 40 to 84 px with the window, tracked 0.3 em", sample: "display s-hero", text: "Sternbild" },
   { token: "heading-l", meta: "Display 28 px, tracked 0.22 em", sample: "display s-heading-l", text: "Alioth" },
   { token: "heading", meta: "Text 24/1.2, tracked 0.06 em", sample: "heading s-heading", text: "Typography" },
   { token: "name", meta: "Display 19 px, tracked 0.22 em", sample: "display s-name", text: "Caliper" },
@@ -19,13 +19,13 @@ const ladder = [
 export function TypographySection() {
   return (
     <Section id="type">
-      <p>Two typefaces in one weight. Sternbild Display sets only the names of Sternbild, its applications and its projects: wordmarks, name lockups, a name beside its mark, and the imprint. IBM Plex Sans Condensed sets everything else, including every heading and page title, even one that is a product name, and all labels, navigation and numerals. Hierarchy comes from size, colour, case and tracking, never from bold or italic.</p>
+      <p>Two typefaces in one weight. Sternbild Display sets only the names of Sternbild, its applications and its projects: wordmarks, name lockups, a name beside its mark, and the imprint. IBM Plex Sans Condensed sets everything else, including every heading, page title, label, navigation link and numeral. A title that is a product name, such as the hero on a landing page, is the name and uses Sternbild Display; all other headings and page titles use Plex. Hierarchy comes from size, colour, case and tracking, never from bold or italic.</p>
 
       <h3>Sternbild Display</h3>
       <p className="glyphs display">ABCDEFGHIJKLM NOPQRSTUVWXYZ<br />0123456789 . , : ; · – - ’ &apos; ? !</p>
       <Spec
         rows={[
-          ["Role", "The names of Sternbild, its applications and its projects, as wordmarks and beside their marks. Never a heading, a label, navigation, a numeral or running text."],
+          ["Role", "The names of Sternbild, its applications and its projects, as wordmarks, as the product-name title on a landing page, and beside their marks. Never an ordinary heading, a label, navigation, a numeral or running text."],
           ["Coverage", "48 characters: the 26 capitals, the ten figures, the space and eleven marks of punctuation. It has no lowercase, no slash, no number sign and no ampersand, so it is always set in capitals and never given identifiers."],
           ["Figures", "The figures are tabular, so they align in columns."],
           ["Tracking", "Always tracked: 0.3 em for STERNBILD on the website, 0.22 em for application and project names, 0.1 em for an application's wordmark."],

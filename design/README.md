@@ -63,7 +63,7 @@ Three extensions carry what the format does not:
   removes a role and is published under a new folder, `v2/`, while projects stay on `v1/` until they are moved.
 - Sites that should follow every 1.x release link `v1/sternbild.css`. Native applications download `tokens.json`
   from a numbered folder when they are built and generate their theme from it.
-- Release 1.0.1 only rewrites descriptions to state which face sets which text, with no value changed. Releases 1.0.0 and 1.0.1 are built but not tagged. The repository has no remote yet.
+- Releases 1.0.1 and 1.0.2 only rewrite descriptions to state which face sets which text, with no value changed; 1.0.2 corrects 1.0.1 by setting a product-name title in Sternbild Display. Releases 1.0.0, 1.0.1 and 1.0.2 are built but not tagged. The repository has no remote yet.
 - Generators for C++ (Dear ImGui), Rust and other platforms will read `tokens.json`; they are not built yet.
 - The fonts and the marks are in `public/assets/`, published at `assets/`, and the generated CSS reaches the fonts by
   relative path (`../../assets/fonts/`). Moving them into the release folders is a later step; it changes the font
