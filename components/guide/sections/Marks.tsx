@@ -23,7 +23,7 @@ export function MarksSection() {
           ["Stars", "Four straight triangular arms with concave sides. Only the inner corners are softened."],
           ["Blades", "Tapered, filled and sharp, with their ends cut at the seal's angles."],
           ["Weights", "Two only: the frame's line and the filled blades."],
-          ["Frame", "A parchment line 22.5 units wide on the 1024 canvas, its outer edge on the edge of the tile."],
+          ["Frame", "A line 22.5 units wide on the 1024 canvas, its outer edge on the edge of the tile. Research marks draw it in parchment. Each application draws it in its own Minerals colour, shaded from light at the top to dark at the foot."],
           ["Colour", `Shaded parchment shapes on a shaded charcoal tile, with exactly one bronze accent. The colours are in section ${sectionNumbers("colour")}.`],
           ["Crossings", "Where one part passes over another, an even gap of about 11 units on the 1024 canvas."],
           ["Proportion", "The drawing fills 65 to 75% of the frame's height and is centred by eye, not by its bounding box."],

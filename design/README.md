@@ -64,6 +64,7 @@ Three extensions carry what the format does not:
 - Sites that should follow every 1.x release link `v1/sternbild.css`. Native applications download `tokens.json`
   from a numbered folder when they are built and generate their theme from it.
 - Releases 1.0.1 and 1.0.2 only rewrite descriptions to state which face sets which text, with no value changed; 1.0.2 corrects 1.0.1 by setting a product-name title in Sternbild Display. Releases 1.0.0, 1.0.1 and 1.0.2 are built but not tagged. The repository has no remote yet.
+- Release 1.1.0 adds the Minerals app icons, which give each application's frame line its own colour: `<app>-icon-minerals.svg` in `public/assets/`, with PNGs at 32, 180, 256, 512, 1024 and 2048 px beside them as `<app>-icon-minerals-<size>.png`. The site and the guide show them. No token value changes; only the description of `mark.parchment` now says it frames research marks. The earlier icons stay in place. 1.1.0 is built but not tagged.
 - Generators for C++ (Dear ImGui), Rust and other platforms will read `tokens.json`; they are not built yet.
 - The fonts and the marks are in `public/assets/`, published at `assets/`, and the generated CSS reaches the fonts by
   relative path (`../../assets/fonts/`). Moving them into the release folders is a later step; it changes the font
