@@ -26,7 +26,7 @@ const all = {
   astrolabe: {
     name: "Astrolabe",
     role: "AI augmented productivity framework",
-    mark: "astrolabe-icon-minerals.svg?v=20261116",
+    mark: "astrolabe-icon-minerals.svg?v=20261117",
     description: "One app for specialized work. Move between your tools, with agents where you choose.",
     href: "https://ahmedkhan-gh.github.io/astrolabe/",
   },
