@@ -9,6 +9,7 @@ on:
       - 'lib/**'
       - 'public/**'
       - 'design/**'
+      - 'packages/**'
       - 'scripts/**'
       - 'packages/sternbild-docs/sternbild_docs/assets/brand/**'
       - 'package.json'
@@ -18,6 +19,7 @@ on:
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 permissions:
+  actions: read
   contents: read
   pages: write
   id-token: write
