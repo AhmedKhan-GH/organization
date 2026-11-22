@@ -270,3 +270,17 @@ features:
     assert "https://example.org/org/project/blob/main/design/plan.md#details" in cor02
     cor01 = generated["roadmap/cor-01.md"]
     assert "[#12](https://example.org/org/project/issues/12)" in cor01
+
+
+def test_username_check_skips_ci_and_generic_accounts(monkeypatch):
+    from sternbild_docs.roadmap_check import _privacy_hits
+
+    title = "CLI Quota and Probe Runner"
+    monkeypatch.delenv("CI", raising=False)
+    monkeypatch.setenv("USER", "runner")
+    assert "local username" not in _privacy_hits(title)
+
+    monkeypatch.setenv("USER", "probe")
+    assert "local username" in _privacy_hits(title)
+    monkeypatch.setenv("CI", "true")
+    assert "local username" not in _privacy_hits(title)

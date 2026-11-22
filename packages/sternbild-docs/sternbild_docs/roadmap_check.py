@@ -63,13 +63,18 @@ def _todo_fields(feature: dict) -> list[str]:
     return [k for k, v in feature.items() if _has_todo(v)]
 
 
+GENERIC_USERS = {"runner", "root", "ubuntu", "admin", "user", "github", "docker", "vscode", "jenkins", "build"}
+
+
 def _privacy_hits(text: str) -> list[str]:
     hits: list[str] = []
     for label, pattern in PRIVACY_PATTERNS:
         if pattern.search(text):
             hits.append(label)
     current_user = os.environ.get("USER") or ""
-    if len(current_user) >= 4:
+    # The username check protects a developer's own name. CI machines and system accounts run under generic names
+    # such as "runner", which also occur as ordinary words in feature titles, so the check skips them.
+    if len(current_user) >= 4 and current_user.lower() not in GENERIC_USERS and not os.environ.get("CI"):
         if re.search(r"\b%s\b" % re.escape(current_user), text, re.I):
             hits.append("local username")
     return hits
