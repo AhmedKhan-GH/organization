@@ -52,7 +52,7 @@ Canonical brand files stay in `sternbild_docs/assets/brand/`. The plugin exposes
 | Source Path in Package | Built Site Path | Contents |
 |---|---|---|
 | `assets/brand/*.svg` | `assets/brand/<filename>` | Product Minerals icons and `sternbild-seal.svg`. |
-| `assets/brand/fonts/*` | `assets/fonts/<filename>` | `SternbildDisplay-Regular.woff2`, `IBMPlexSansCondensed-Regular.ttf`, `SourceCodePro-Regular.ttf`, and OFL license texts. |
+| `assets/brand/fonts/*` | `assets/fonts/<filename>` | `SternbildDisplay-Regular.otf`, `SternbildDisplay-Regular.woff2`, `IBMPlexSansCondensed-Regular.ttf`, `SourceCodePro-Regular.ttf`, and OFL license texts. |
 
 ## Command Line Interface
 

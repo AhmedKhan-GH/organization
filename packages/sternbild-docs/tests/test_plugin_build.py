@@ -198,6 +198,7 @@ def test_mkdocs_strict_build_with_roadmap_icon_and_accent(tmp_path: Path):
     assert len(registry["features"]) == 2
 
     # Canonical fonts and brand icons served from assets/brand/
+    assert (site_dir / "assets" / "fonts" / "SternbildDisplay-Regular.otf").is_file()
     assert (site_dir / "assets" / "fonts" / "SternbildDisplay-Regular.woff2").is_file()
     assert (
         site_dir / "assets" / "fonts" / "IBMPlexSansCondensed-Regular.ttf"

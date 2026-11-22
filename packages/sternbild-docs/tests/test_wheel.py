@@ -2,12 +2,20 @@
 
 from __future__ import annotations
 
+import re
 import subprocess
 import sys
 import zipfile
 from pathlib import Path
 
 PACKAGE_ROOT = Path(__file__).resolve().parent.parent
+
+
+def _package_version() -> str:
+    text = (PACKAGE_ROOT / "pyproject.toml").read_text(encoding="utf-8")
+    match = re.search(r'^version\s*=\s*"([^"]+)"', text, re.MULTILINE)
+    assert match is not None, "version not found in pyproject.toml"
+    return match.group(1)
 
 
 def test_wheel_contains_all_package_data(tmp_path: Path):
@@ -31,7 +39,8 @@ def test_wheel_contains_all_package_data(tmp_path: Path):
     )
     assert result.returncode == 0, result.stdout + result.stderr
 
-    wheels = list(wheel_dir.glob("sternbild_docs-1.0.0-*.whl"))
+    version = _package_version()
+    wheels = list(wheel_dir.glob(f"sternbild_docs-{version}-*.whl"))
     assert len(wheels) == 1, list(wheel_dir.iterdir())
 
     with zipfile.ZipFile(wheels[0]) as archive:
@@ -49,6 +58,7 @@ def test_wheel_contains_all_package_data(tmp_path: Path):
         "sternbild_docs/assets/brand/fonts/OFL-ibmplexsanscondensed.txt",
         "sternbild_docs/assets/brand/fonts/SourceCodePro-Regular.ttf",
         "sternbild_docs/assets/brand/fonts/OFL-sourcecodepro.txt",
+        "sternbild_docs/assets/brand/fonts/SternbildDisplay-Regular.otf",
         "sternbild_docs/assets/brand/fonts/SternbildDisplay-Regular.woff2",
         # Optional candidate assets
         "sternbild_docs/assets/candidates/candidates.css",
