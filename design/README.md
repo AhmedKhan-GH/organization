@@ -111,7 +111,7 @@ Sources read, all local and read-only:
   was copied from it.
 
 Where sources disagreed, Caliper's theme was preferred for application interfaces and the organization site for the
-website. No value was invented. `public/assets/loggia-icon.svg` is internal and is deliberately left out of the guide.
+website. No value was invented.
 
 ## Checks done for 1.0.0
 

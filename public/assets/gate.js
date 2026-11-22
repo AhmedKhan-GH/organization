@@ -1,7 +1,8 @@
-// The opening, ported from the Loggia gate (web/src: Login.tsx, PortalLight.tsx, PortalGlare.tsx, portalOpening.ts,
-// portalSpace.ts, portalExposure.ts) without React: the white seal over five breathing beams along its construction
-// rays; the seal lifts a little when the pointer comes near (only a click or tap, or Enter or Space, opens it). Entering tips the beams towards the viewer about the seal's base until their light fills the screen; then the
-// white fades and the eye adjusts to the night site underneath. Once per browser session, and never for a deep link.
+// Gate animation: the white seal rests over five light beams along its construction rays.
+// The seal lifts when the pointer moves near it. Only a click, tap, Enter key, or Space key opens the gate.
+// Activation tips the beams toward the viewer around the seal base until light fills the screen.
+// The white screen then fades away to show the dark site underneath.
+// The gate runs once per browser session and skips deep links.
 (() => {
   const root = document.documentElement;
   const gate = document.getElementById("gate");

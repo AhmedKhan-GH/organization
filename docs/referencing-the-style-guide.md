@@ -53,7 +53,7 @@ does not match its checksum, the build stops with an error.
 | Compass and the organization site (Next.js) | A `prebuild` script |
 | Static landing pages | A step in the Pages workflow, before the upload |
 | Caliper (CMake) | `file(DOWNLOAD … EXPECTED_HASH SHA256=…)`, which CMake checks itself |
-| Astrolabe and Artisan Apps (Rust) | A small sync script that updates the vendored file; `build.rs` only reads it, because downloading inside `build.rs` is discouraged in Rust |
+| Astrolabe (Rust) | A small sync script that updates the vendored file; `build.rs` only reads it, because downloading inside `build.rs` is discouraged in Rust |
 | Atlas | Its Python build |
 
 ## Roles, not values
