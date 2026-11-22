@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Chart } from "@/components/landing/Chart";
 import { Footer } from "@/components/landing/Footer";
-import { Gate, GateClass, GateScript } from "@/components/landing/Gate";
 import { Masthead } from "@/components/landing/Masthead";
 import { IndexSection, ProjectList } from "@/components/landing/ProjectList";
 import { applications, projects } from "@/lib/projects";
@@ -26,10 +25,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <GateClass />
-      <Gate />
-      {/* gate.js makes the site inert while the opening plays, before React hydrates. */}
-      <div id="site" suppressHydrationWarning>
+      <div id="site">
         <Masthead />
         <main id="top">
           <Chart />
@@ -42,7 +38,6 @@ export default function Home() {
         </main>
         <Footer />
       </div>
-      <GateScript />
     </>
   );
 }
