@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "sternbild-docs"
-version = "1.0.0"
+version = "1.0.1"
 description = "Shared MkDocs theme, roadmap plugin, brand assets, and documentation checks for Sternbild projects."
 readme = "README.md"
 requires-python = ">=3.10"
