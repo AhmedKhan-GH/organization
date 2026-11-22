@@ -15,11 +15,11 @@ export function IndexSection({ id, className, label, children }: { id: string; c
   );
 }
 
-function Entry({ project, size }: { project: Project; size: string }) {
+function Entry({ project, size, kicker }: { project: Project; size: string; kicker?: string }) {
   return (
     <>
       <AssetImage file={project.mark} width={size} height={size} />
-      <span className="kicker">Project</span>
+      {kicker ? <span className="kicker">{kicker}</span> : null}
       <span className="name">{project.name}</span>
       <span className="role">{project.role}</span>
       <span className="desc">{project.description}</span>
@@ -27,25 +27,30 @@ function Entry({ project, size }: { project: Project; size: string }) {
   );
 }
 
+/** The entry, as a link to the project's own site when it has one; the whole entry is the link. */
+function Linked({ project, size, kicker }: { project: Project; size: string; kicker?: string }) {
+  return project.href ? (
+    <a className="card" href={project.href}>
+      <Entry project={project} size={size} kicker={kicker} />
+    </a>
+  ) : (
+    <Entry project={project} size={size} kicker={kicker} />
+  );
+}
+
 /**
- * A lead project on its own row, then the others side by side. A project with its own site links to it; the whole
- * entry is the link.
+ * A lead project on its own row, then the others side by side. Each entry shows the mark, the name and the subtitle
+ * under it; `kicker` adds a label above the name, which the applications leave out.
  */
-export function ProjectList({ lead, rest }: { lead: Project; rest: Project[] }) {
+export function ProjectList({ lead, rest, kicker }: { lead: Project; rest: Project[]; kicker?: string }) {
   return (
     <ul className="projects">
       <li className="lead">
-        <Entry project={lead} size="128" />
+        <Linked project={lead} size="128" kicker={kicker} />
       </li>
       {rest.map(project => (
         <li key={project.name}>
-          {project.href ? (
-            <a className="card" href={project.href}>
-              <Entry project={project} size="88" />
-            </a>
-          ) : (
-            <Entry project={project} size="88" />
-          )}
+          <Linked project={project} size="88" kicker={kicker} />
         </li>
       ))}
     </ul>

@@ -131,7 +131,7 @@ export function Chart() {
         <ChartNode project={projects.nebula} className="r east" href="#research" x="68.058%" y="16.191%" />
 
         {/* Atlas, the organization's central knowledge base, on the upright between the first and second rings. */}
-        <ChartNode project={projects.atlas} className="south core" x="50.000%" y="47.000%" />
+        <ChartNode project={projects.atlas} className="south core" href={projects.atlas.href} x="50.000%" y="47.000%" />
 
         <div className="group">
           <ChartNode project={projects.alidade} className="west learn" href={projects.alidade.href} x="37.072%" y="76.646%" />

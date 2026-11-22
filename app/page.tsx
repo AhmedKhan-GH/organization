@@ -37,7 +37,7 @@ export default function Home() {
             <ProjectList lead={projects.atlas} rest={applications.map(key => projects[key])} />
           </IndexSection>
           <IndexSection className="research" id="research" label="Research">
-            <ProjectList lead={projects.alioth} rest={[projects.polaris, projects.nebula, projects.orion, projects.quasar]} />
+            <ProjectList lead={projects.alioth} rest={[projects.polaris, projects.nebula, projects.orion, projects.quasar]} kicker="Project" />
           </IndexSection>
         </main>
         <Footer />
