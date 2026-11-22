@@ -21,14 +21,15 @@ const beams = [
   { cycle: "8.8s", phase: "-4.8s", points: "828.4,1009.4 1550.8,-97.2 1660.0,-17.8 830.8,1011.2", from: ["903.5", "908.5"], to: ["1482.9", "111.2"] },
 ];
 
-/** One place on the drawing: a mark with its kicker, name and role, at (x, y) in percent of the drawing. */
-function ChartNode({ project, className, x, y, href }: { project: Project; className: string; x: string; y: string; href?: string }) {
+/** One place on the drawing: a mark with its kicker, name and role, at (x, y) in percent of the drawing. The
+ * kicker is "App" for the applications and "Project" for the research projects. */
+function ChartNode({ project, className, x, y, href, step = "Project" }: { project: Project; className: string; x: string; y: string; href?: string; step?: string }) {
   const style = { "--x": x, "--y": y } as CSSProperties;
   const inner = (
     <>
       <AssetImage file={project.mark} width="120" height="120" />
       <span className="text">
-        <span className="step">Project</span>
+        <span className="step">{step}</span>
         <span className="name">{project.name}</span>
         <span className="role">{project.role}</span>
       </span>
@@ -131,16 +132,16 @@ export function Chart() {
         <ChartNode project={projects.nebula} className="r east" href="#research" x="68.058%" y="16.191%" />
 
         {/* Atlas, the organization's central knowledge base, on the upright between the first and second rings. */}
-        <ChartNode project={projects.atlas} className="south core" href={projects.atlas.href} x="50.000%" y="47.000%" />
+        <ChartNode project={projects.atlas} step="App" className="south core" href={projects.atlas.href} x="50.000%" y="47.000%" />
 
         <div className="group">
-          <ChartNode project={projects.alidade} className="west learn" href={projects.alidade.href} x="37.072%" y="76.646%" />
-          <ChartNode project={projects.astrolabe} className="west work" href={projects.astrolabe.href} x="26.635%" y="53.659%" />
+          <ChartNode project={projects.alidade} step="App" className="west learn" href={projects.alidade.href} x="37.072%" y="76.646%" />
+          <ChartNode project={projects.astrolabe} step="App" className="west work" href={projects.astrolabe.href} x="26.635%" y="53.659%" />
         </div>
 
         <div className="group">
-          <ChartNode project={projects.compass} className="east learn" href={projects.compass.href} x="62.928%" y="76.646%" />
-          <ChartNode project={projects.caliper} className="east work" href={projects.caliper.href} x="73.365%" y="53.659%" />
+          <ChartNode project={projects.compass} step="App" className="east learn" href={projects.compass.href} x="62.928%" y="76.646%" />
+          <ChartNode project={projects.caliper} step="App" className="east work" href={projects.caliper.href} x="73.365%" y="53.659%" />
         </div>
       </div>
       <div className="title-block">
