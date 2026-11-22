@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sternbild Roadmap Coverage Ledger",
+  "description": "One group of roadmap sources: a plan page, branch map, worktree list, notes, docs, or pull requests. Each entry maps a source item to registry ids or gives a reason it is not a feature.",
+  "type": "object",
+  "required": ["title", "kind", "summary", "entries"],
+  "additionalProperties": false,
+  "properties": {
+    "title": {
+      "description": "Group name shown on feature pages.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "kind": {
+      "description": "page: plan page under design/. branches: branch map. worktrees: uncommitted work. notes: project notes. docs: docs pages. github: pull requests and issues.",
+      "enum": ["page", "branches", "worktrees", "notes", "docs", "github"]
+    },
+    "source": {
+      "description": "For a page: its path from the repository root.",
+      "type": "string",
+      "pattern": "^design/[a-z0-9/_-]+\\.md$"
+    },
+    "ref": {
+      "description": "Branch name where the group was read.",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._/-]+$"
+    },
+    "summary": {
+      "description": "One or two sentences that describe the group.",
+      "type": "string",
+      "minLength": 1
+    },
+    "not_features": {
+      "description": "For a page: headings that hold no feature, written without leading # characters.",
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "entries": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/entry" }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": ["kind"],
+        "properties": { "kind": { "const": "page" } }
+      },
+      "then": {
+        "required": ["source"],
+        "properties": { "entries": { "items": { "required": ["heading"] } } }
+      },
+      "else": { "properties": { "source": false, "not_features": false } }
+    },
+    {
+      "if": {
+        "required": ["kind"],
+        "properties": { "kind": { "const": "docs" } }
+      },
+      "then": { "properties": { "entries": { "items": { "required": ["page"] } } } }
+    },
+    {
+      "if": {
+        "required": ["kind"],
+        "properties": { "kind": { "const": "github" } }
+      },
+      "then": { "properties": { "entries": { "items": { "required": ["pr"] } } } }
+    },
+    {
+      "if": {
+        "required": ["kind"],
+        "properties": { "kind": { "enum": ["branches", "worktrees"] } }
+      },
+      "then": { "properties": { "entries": { "items": { "required": ["branch", "state"] } } } }
+    },
+    {
+      "if": {
+        "required": ["kind"],
+        "properties": { "kind": { "const": "notes" } }
+      },
+      "then": { "properties": { "entries": { "items": { "required": ["file"] } } } }
+    }
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}-[0-9]{2,3}$"
+    },
+    "branch": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._/-]+$"
+    },
+    "entry": {
+      "type": "object",
+      "required": ["item"],
+      "additionalProperties": false,
+      "oneOf": [
+        { "required": ["ids"], "not": { "required": ["reason"] } },
+        { "required": ["reason"], "not": { "required": ["ids"] } }
+      ],
+      "properties": {
+        "item": {
+          "description": "Source item description.",
+          "type": "string",
+          "minLength": 1
+        },
+        "ids": {
+          "description": "Registry ids that this item implements or supports.",
+          "type": "array",
+          "items": { "$ref": "#/$defs/id" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "reason": {
+          "description": "Reason the item maps to no feature.",
+          "enum": [
+            "maintenance",
+            "test",
+            "docs",
+            "merged",
+            "on-main",
+            "contained",
+            "superseded",
+            "abandoned",
+            "out-of-scope",
+            "context"
+          ]
+        },
+        "heading": {
+          "description": "For a page: heading text without leading # characters.",
+          "type": "string",
+          "minLength": 1
+        },
+        "ref": {
+          "description": "For a page: branch name when it differs from the group ref.",
+          "$ref": "#/$defs/branch"
+        },
+        "page": {
+          "description": "For docs: page path from the repository root with an optional anchor.",
+          "type": "string",
+          "pattern": "^docs/[a-z0-9/_-]+\\.md(#[a-z0-9_-]+)?$"
+        },
+        "pr": {
+          "description": "Pull request number.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "branch": {
+          "description": "Branch name for branch maps and worktrees.",
+          "$ref": "#/$defs/branch"
+        },
+        "state": {
+          "description": "Branch or worktree state.",
+          "enum": ["on-main", "contained", "superseded", "abandoned", "unique", "uncommitted", "clean"]
+        },
+        "in": {
+          "description": "Branches that contain a contained or superseded branch.",
+          "type": "array",
+          "items": { "$ref": "#/$defs/branch" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "wip": {
+          "description": "True when unique branch work is unfinished.",
+          "type": "boolean"
+        },
+        "commits": {
+          "description": "Commit hashes and count covered by the entry.",
+          "type": "string",
+          "minLength": 1
+        },
+        "file": {
+          "description": "Note file path relative to the notes folder.",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9._/-]+$"
+        },
+        "note": {
+          "description": "Additional reader context.",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

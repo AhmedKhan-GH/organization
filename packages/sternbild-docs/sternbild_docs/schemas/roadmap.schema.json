@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sternbild Roadmap Pillar",
+  "description": "One pillar of a project roadmap registry and its features. Each YAML file under the roadmap folder holds one pillar.",
+  "type": "object",
+  "required": ["prefix", "title", "order", "summary", "features"],
+  "additionalProperties": false,
+  "properties": {
+    "prefix": {
+      "description": "Three capital letters that begin the id of every feature in this pillar.",
+      "type": "string",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "title": {
+      "description": "Pillar name shown in the graph and on the pillar page.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60,
+      "pattern": "^[^:]+$"
+    },
+    "order": {
+      "description": "Display order of the pillar, starting at 1.",
+      "type": "integer",
+      "minimum": 1
+    },
+    "summary": {
+      "description": "One or two sentences that describe what the pillar covers.",
+      "type": "string",
+      "minLength": 1
+    },
+    "features": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/feature" }
+    }
+  },
+  "$defs": {
+    "id": {
+      "description": "Pillar prefix, hyphen, and two or three digits.",
+      "type": "string",
+      "pattern": "^[A-Z]{3}-[0-9]{2,3}$"
+    },
+    "feature": {
+      "type": "object",
+      "required": ["id", "title", "status", "scope", "summary", "depends_on"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "title": {
+          "description": "Short name in plain words without a colon.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80,
+          "pattern": "^[^:]+$"
+        },
+        "status": {
+          "description": "shipped: released on the default branch. built: implemented on a branch. planned: scheduled for future work. idea: undecided proposal. decision: open question that blocks dependent features.",
+          "enum": ["shipped", "built", "planned", "idea", "decision"]
+        },
+        "scope": {
+          "description": "Role on the product path: core, supporting, or peripheral.",
+          "enum": ["core", "supporting", "peripheral"]
+        },
+        "summary": {
+          "description": "One sentence on what the feature does.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "depends_on": {
+          "description": "Feature ids that this entry directly requires. Each id forms a graph edge.",
+          "type": "array",
+          "items": { "$ref": "#/$defs/id" },
+          "uniqueItems": true
+        },
+        "sprint": {
+          "description": "Optional sprint label as a positive integer or a point sprint string such as \"3.2\".",
+          "anyOf": [
+            { "type": "integer", "minimum": 1 },
+            { "type": "string", "pattern": "^[1-9][0-9]*\\.[0-9]+$" },
+            { "type": "null" }
+          ]
+        },
+        "docs": {
+          "description": "Documentation path from the repository root with an optional heading anchor. Required for shipped features.",
+          "type": ["string", "null"],
+          "pattern": "^docs/[a-z0-9/_-]+\\.md(#[a-z0-9_-]+)?$"
+        },
+        "branches": {
+          "description": "For built work, each branch that holds it, most complete first.",
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[A-Za-z0-9._/-]+$" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "in_progress": {
+          "description": "For built work only: true while the work on its branches is unfinished.",
+          "type": "boolean"
+        },
+        "design": {
+          "description": "Design page that proposes the feature, from the repository root, with an optional anchor.",
+          "type": ["string", "null"],
+          "pattern": "^design/[a-z0-9/_-]+\\.md(#[a-z0-9_-]+)?$"
+        },
+        "issue": {
+          "description": "Issue number that tracks the feature.",
+          "type": ["integer", "null"],
+          "minimum": 1
+        },
+        "draft": {
+          "description": "True while the dependencies of the entry are a first draft.",
+          "type": "boolean"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["status"],
+            "properties": { "status": { "const": "shipped" } }
+          },
+          "then": {
+            "required": ["docs"],
+            "properties": { "docs": { "type": "string" } }
+          }
+        },
+        {
+          "if": {
+            "required": ["status"],
+            "properties": { "status": { "const": "built" } }
+          },
+          "then": {
+            "required": ["branches"]
+          }
+        },
+        {
+          "if": {
+            "required": ["in_progress"],
+            "properties": { "in_progress": { "const": true } }
+          },
+          "then": {
+            "properties": { "status": { "const": "built" } }
+          }
+        }
+      ]
+    }
+  }
+}

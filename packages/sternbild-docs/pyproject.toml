@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sternbild-docs"
+version = "1.0.0"
+description = "Shared MkDocs theme, roadmap plugin, brand assets, and documentation checks for Sternbild projects."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mkdocs>=1.6,<2",
+    "mkdocs-material>=9.5",
+    "mkdocs-awesome-nav>=3.0",
+    "pymdown-extensions>=10.0",
+    "PyYAML>=6.0",
+    "Markdown>=3.5",
+    "jsonschema>=4.20",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+]
+
+[project.entry-points."mkdocs.plugins"]
+sternbild = "sternbild_docs.plugin:SternbildPlugin"
+
+[project.scripts]
+sternbild-docs = "sternbild_docs.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["sternbild_docs"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/sternbild_docs",
+    "/tests",
+    "/README.md",
+    "/pyproject.toml",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

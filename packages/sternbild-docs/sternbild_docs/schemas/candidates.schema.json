@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sternbild Roadmap Candidates Pillar",
+  "description": "Candidates for one pillar: ideas outside the active roadmap registry. A proposed pillar includes a description and an optional fold-in alternative.",
+  "type": "object",
+  "required": ["pillar", "title", "proposed", "candidates"],
+  "additionalProperties": false,
+  "properties": {
+    "pillar": {
+      "description": "Registry prefix of an existing pillar, or the proposed prefix of a new pillar.",
+      "type": "string",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "title": {
+      "description": "Pillar name in Title Case.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "proposed": {
+      "description": "True for a pillar that is not in the active registry.",
+      "type": "boolean"
+    },
+    "description": {
+      "description": "For a proposed pillar: one sentence on what it holds.",
+      "type": "string",
+      "minLength": 1
+    },
+    "alternative": {
+      "description": "For a proposed pillar: where its candidates could fold in instead.",
+      "type": "string",
+      "minLength": 1
+    },
+    "candidates": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/candidate" }
+    }
+  },
+  "$defs": {
+    "candidate": {
+      "type": "object",
+      "required": ["key", "title", "summary", "serves", "origin", "depends_on"],
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "description": "Stable lower-case identifier, unique across all candidate files.",
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+        },
+        "title": {
+          "description": "Title Case noun phrase under the docs title rule.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "summary": {
+          "description": "What the candidate is.",
+          "type": "string",
+          "minLength": 1
+        },
+        "serves": {
+          "description": "What the candidate is for.",
+          "type": "string",
+          "minLength": 1
+        },
+        "origin": {
+          "description": "cut: a scope cut. plan-idea: an idea in a plan. adjacent-work: from neighboring work. field: from comparable tools.",
+          "enum": ["cut", "plan-idea", "adjacent-work", "field"]
+        },
+        "depends_on": {
+          "description": "Registry feature ids that the candidate builds on.",
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[A-Z]{3}-[0-9]{2,3}$" },
+          "uniqueItems": true
+        }
+      }
+    }
+  }
+}
