@@ -9,6 +9,9 @@
     "dev": "next dev",
     "prebuild": "npm run brand:sync && node design/build.mjs",
     "build": "next build",
+    "test:packages": "node tools/test-packages.mjs",
+    "release": "node tools/release.mjs",
+    "bump": "node tools/bump.mjs",
     "lint": "eslint .",
     "typecheck": "next typegen && tsc --noEmit"
   },

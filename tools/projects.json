@@ -1,0 +1,50 @@
+{
+  "projects": [
+    {
+      "id": "astrolabe",
+      "name": "Astrolabe",
+      "path": "/Users/ahmed/RustroverProjects/astrolabe",
+      "switched": true,
+      "targets": {
+        "design": {
+          "file": "crates/astrolabe-kit/Cargo.toml",
+          "matchPattern": "https://github\\.com/AhmedKhan-GH/organization(?:\\.git)?\"[^\\n]*tag\\s*=\\s*\"design-v[0-9]+\\.[0-9]+\\.[0-9]+\"",
+          "replacePattern": "tag\\s*=\\s*\"design-v[0-9]+\\.[0-9]+\\.[0-9]+\"",
+          "replaceWith": "tag = \"design-v${version}\"",
+          "lockFiles": [
+            "Cargo.lock"
+          ],
+          "checkCommand": "nice -n 10 cargo test -j 8 && nice -n 10 cargo clippy -j 8 --workspace --all-targets -- -D warnings",
+          "captureCommand": "ASTROLABE_KIT_SAMPLE_PATH=\"$CAPTURE_DIR/kit-sample.png\" nice -n 10 cargo test -j 8 -p astrolabe-kit showcase_renders_offscreen_png && ASTROLABE_CAPTURE_DIR=\"$CAPTURE_DIR\" nice -n 10 cargo test -j 8 -p astrolabe offscreen_capture_repos_and_agents_demo_pngs"
+        },
+        "docs": {
+          "file": ".github/workflows/pages.yml",
+          "matchPattern": "git\\+https://github\\.com/AhmedKhan-GH/organization(?:\\.git)?@docs-v[0-9]+\\.[0-9]+\\.[0-9]+#subdirectory=packages/sternbild-docs",
+          "replacePattern": "@docs-v[0-9]+\\.[0-9]+\\.[0-9]+#subdirectory=packages/sternbild-docs",
+          "replaceWith": "@docs-v${version}#subdirectory=packages/sternbild-docs",
+          "lockFiles": [],
+          "checkCommand": "PATH=\"$PATH:$HOME/.worktrees/astrolabe/scratch/shared-docs/venv-pkg/bin\" sternbild-docs check-headings && PATH=\"$PATH:$HOME/.worktrees/astrolabe/scratch/shared-docs/venv-pkg/bin\" sternbild-docs check-roadmap --strict-titles --strict-core-scope && PATH=\"$PATH:$HOME/.worktrees/astrolabe/scratch/shared-docs/venv-pkg/bin\" mkdocs build --strict -d build/docs-site",
+          "captureCommand": "PATH=\"$PATH:$HOME/.worktrees/astrolabe/scratch/shared-docs/venv-pkg/bin\" mkdocs build --strict -d \"$CAPTURE_DIR/docs-site\""
+        }
+      }
+    },
+    {
+      "id": "caliper",
+      "name": "Caliper",
+      "path": "/Users/ahmed/.worktrees/caliper/playground",
+      "switched": false,
+      "targets": {
+        "design": {
+          "file": "CMakeLists.txt",
+          "description": "FetchContent sternbild-tokens pin using SOURCE_SUBDIR packages/sternbild-tokens-c",
+          "plannedPin": "FetchContent_Declare(sternbild-tokens GIT_REPOSITORY https://github.com/AhmedKhan-GH/organization.git GIT_TAG design-v${version} SOURCE_SUBDIR packages/sternbild-tokens-c)"
+        },
+        "docs": {
+          "file": ".github/workflows/pages.yml",
+          "description": "Pinned sternbild-docs pip requirement",
+          "plannedPin": "git+https://github.com/AhmedKhan-GH/organization@docs-v${version}#subdirectory=packages/sternbild-docs"
+        }
+      }
+    }
+  ]
+}
