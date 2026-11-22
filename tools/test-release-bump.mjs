@@ -66,7 +66,7 @@ function createWorkingTreeClone(dest) {
   runChecked("git", ["config", "user.email", "test@sternbild.invalid"], { cwd: dest, env });
 }
 
-console.log("=== 1/3: Testing release.mjs (design 1.1.0 -> 1.1.1) on isolated clone ===");
+console.log("=== 1/3: Testing release.mjs (design 1.1.x -> 1.1.99, a test-only version) on isolated clone ===");
 const orgClone = join(scratchBase, "organization-clone");
 createWorkingTreeClone(orgClone);
 
@@ -76,26 +76,26 @@ const releaseEnv = {
   CARGO_TARGET_DIR: join(scratchBase, "cargo-target"),
 };
 
-runChecked(process.execPath, [join(orgClone, "tools", "release.mjs"), "design", "1.1.1"], {
+runChecked(process.execPath, [join(orgClone, "tools", "release.mjs"), "design", "1.1.99"], {
   cwd: orgClone,
   env: releaseEnv,
 });
 
-// Verify version bump, generated files, commit, and tag design-v1.1.1 on the clone.
+// Verify version bump, generated files, commit, and tag design-v1.1.99 on the clone.
 const bumpedTokens = JSON.parse(readFileSync(join(orgClone, "design", "tokens.json"), "utf8"));
-assert.equal(bumpedTokens.$extensions["org.sternbild"].version, "1.1.1");
-assert.ok(existsSync(join(orgClone, "public", "design", "1.1.1", "sternbild.css")));
-assert.ok(existsSync(join(orgClone, "public", "design", "1.1.1", "tokens.json")));
-assert.ok(readFileSync(join(orgClone, "packages", "sternbild-tokens", "Cargo.toml"), "utf8").includes('version = "1.1.1"'));
-assert.ok(readFileSync(join(orgClone, "packages", "sternbild-tokens", "src", "tokens.rs"), "utf8").includes('pub const VERSION: &str = "1.1.1";'));
-assert.ok(readFileSync(join(orgClone, "packages", "sternbild-tokens-c", "CMakeLists.txt"), "utf8").includes("project(sternbild-tokens VERSION 1.1.1 LANGUAGES NONE)"));
-assert.ok(readFileSync(join(orgClone, "packages", "sternbild-tokens-c", "include", "sternbild_tokens.h"), "utf8").includes('#define STERNBILD_TOKENS_VERSION "1.1.1"'));
+assert.equal(bumpedTokens.$extensions["org.sternbild"].version, "1.1.99");
+assert.ok(existsSync(join(orgClone, "public", "design", "1.1.99", "sternbild.css")));
+assert.ok(existsSync(join(orgClone, "public", "design", "1.1.99", "tokens.json")));
+assert.ok(readFileSync(join(orgClone, "packages", "sternbild-tokens", "Cargo.toml"), "utf8").includes('version = "1.1.99"'));
+assert.ok(readFileSync(join(orgClone, "packages", "sternbild-tokens", "src", "tokens.rs"), "utf8").includes('pub const VERSION: &str = "1.1.99";'));
+assert.ok(readFileSync(join(orgClone, "packages", "sternbild-tokens-c", "CMakeLists.txt"), "utf8").includes("project(sternbild-tokens VERSION 1.1.99 LANGUAGES NONE)"));
+assert.ok(readFileSync(join(orgClone, "packages", "sternbild-tokens-c", "include", "sternbild_tokens.h"), "utf8").includes('#define STERNBILD_TOKENS_VERSION "1.1.99"'));
 
-const tagSha = runCapture("git", ["rev-parse", "refs/tags/design-v1.1.1"], { cwd: orgClone, env }).stdout.trim();
+const tagSha = runCapture("git", ["rev-parse", "refs/tags/design-v1.1.99"], { cwd: orgClone, env }).stdout.trim();
 const headSha = runCapture("git", ["rev-parse", "HEAD"], { cwd: orgClone, env }).stdout.trim();
-assert.equal(tagSha, headSha, "design-v1.1.1 tag should point at clone HEAD");
+assert.equal(tagSha, headSha, "design-v1.1.99 tag should point at clone HEAD");
 const commitMsg = runCapture("git", ["log", "-1", "--pretty=%B"], { cwd: orgClone, env }).stdout.trim();
-assert.equal(commitMsg, "Release Sternbild design 1.1.1");
+assert.equal(commitMsg, "Release Sternbild design 1.1.99");
 const cloneStatus = runCapture("git", ["status", "--porcelain"], { cwd: orgClone, env }).stdout.trim();
 assert.equal(cloneStatus, "", `Clone working tree should be clean, got:\n${cloneStatus}`);
 
@@ -103,7 +103,7 @@ assert.equal(cloneStatus, "", `Clone working tree should be clean, got:\n${clone
 const origCargo = readFileSync(join(orgClone, "packages", "sternbild-tokens", "Cargo.toml"), "utf8");
 writeFileSync(
   join(orgClone, "packages", "sternbild-tokens", "Cargo.toml"),
-  origCargo.replace('version = "1.1.1"', 'version = "0.0.0"'),
+  origCargo.replace('version = "1.1.99"', 'version = "0.0.0"'),
   "utf8",
 );
 const driftCheck = runCapture(process.execPath, [join(orgClone, "design", "build.mjs"), "--check"], {
@@ -112,20 +112,20 @@ const driftCheck = runCapture(process.execPath, [join(orgClone, "design", "build
 });
 assert.notEqual(driftCheck.status, 0, "design/build.mjs --check should fail when Cargo.toml version drifts");
 writeFileSync(join(orgClone, "packages", "sternbild-tokens", "Cargo.toml"), origCargo, "utf8");
-console.log("release.mjs design clone test passed (design-v1.1.1) and --check drift detection verified.");
+console.log("release.mjs design clone test passed (design-v1.1.99) and --check drift detection verified.");
 
-console.log("\n=== 2/3: Testing release.mjs (docs 1.0.0 -> 1.0.1) on isolated clone ===");
-runChecked(process.execPath, [join(orgClone, "tools", "release.mjs"), "docs", "1.0.1"], {
+console.log("\n=== 2/3: Testing release.mjs (docs 1.0.x -> 1.0.99, a test-only version) on isolated clone ===");
+runChecked(process.execPath, [join(orgClone, "tools", "release.mjs"), "docs", "1.0.99"], {
   cwd: orgClone,
   env: releaseEnv,
 });
-assert.ok(readFileSync(join(orgClone, "packages", "sternbild-docs", "pyproject.toml"), "utf8").includes('version = "1.0.1"'));
-assert.ok(readFileSync(join(orgClone, "packages", "sternbild-docs", "sternbild_docs", "__init__.py"), "utf8").includes('__version__ = "1.0.1"'));
-const docsTagSha = runCapture("git", ["rev-parse", "refs/tags/docs-v1.0.1"], { cwd: orgClone, env }).stdout.trim();
+assert.ok(readFileSync(join(orgClone, "packages", "sternbild-docs", "pyproject.toml"), "utf8").includes('version = "1.0.99"'));
+assert.ok(readFileSync(join(orgClone, "packages", "sternbild-docs", "sternbild_docs", "__init__.py"), "utf8").includes('__version__ = "1.0.99"'));
+const docsTagSha = runCapture("git", ["rev-parse", "refs/tags/docs-v1.0.99"], { cwd: orgClone, env }).stdout.trim();
 const docsHeadSha = runCapture("git", ["rev-parse", "HEAD"], { cwd: orgClone, env }).stdout.trim();
-assert.equal(docsTagSha, docsHeadSha, "docs-v1.0.1 tag should point at clone HEAD");
+assert.equal(docsTagSha, docsHeadSha, "docs-v1.0.99 tag should point at clone HEAD");
 assert.equal(runCapture("git", ["status", "--porcelain"], { cwd: orgClone, env }).stdout.trim(), "");
-console.log("release.mjs docs clone test passed (docs-v1.0.1).");
+console.log("release.mjs docs clone test passed (docs-v1.0.99).");
 
 console.log("\n=== 3/3: Testing bump.mjs on mock switched project + print-only Caliper entry ===");
 const mockApp = join(scratchBase, "mock-rust-app");
@@ -145,8 +145,8 @@ writeFileSync(
   "utf8",
 );
 // Tag the pre-bump commit in orgClone as design-v1.1.0 so before-capture compiles against 1.1.0!
-const parentSha = runCapture("git", ["rev-parse", "design-v1.1.1~1"], { cwd: orgClone, env }).stdout.trim();
-runChecked("git", ["tag", "design-v1.1.0", parentSha], { cwd: orgClone, env });
+const parentSha = runCapture("git", ["rev-parse", "design-v1.1.99~1"], { cwd: orgClone, env }).stdout.trim();
+runChecked("git", ["tag", "-f", "design-v1.1.0", parentSha], { cwd: orgClone, env });
 
 writeFileSync(
   join(mockApp, "src", "main.rs"),
@@ -232,7 +232,7 @@ const bumpRes = runCapture(
   [
     join(repoRoot, "tools", "bump.mjs"),
     "design",
-    "1.1.1",
+    "1.1.99",
     "--projects",
     mockProjectsPath,
     "--capture-root",
@@ -242,16 +242,18 @@ const bumpRes = runCapture(
 );
 assert.equal(bumpRes.status, 0, `bump.mjs failed:\n${bumpRes.stdout}\n${bumpRes.stderr}`);
 
+// The bump returns the project to its original branch and leaves the change on the bump branch for review.
 const branch = runCapture("git", ["rev-parse", "--abbrev-ref", "HEAD"], { cwd: mockApp, env }).stdout.trim();
-assert.equal(branch, "sternbild-design-1.1.1");
-const cargoAfter = readFileSync(join(mockApp, "Cargo.toml"), "utf8");
-assert.ok(cargoAfter.includes('tag = "design-v1.1.1"'));
-const beforeCapture = readFileSync(join(captureRoot, "mock-app-design-1.1.1", "before", "version.txt"), "utf8").trim();
-const afterCapture = readFileSync(join(captureRoot, "mock-app-design-1.1.1", "after", "version.txt"), "utf8").trim();
+assert.equal(branch, "main");
+assert.ok(bumpRes.stdout.includes("git merge --ff-only sternbild-design-1.1.99"));
+const cargoAfter = runCapture("git", ["show", "sternbild-design-1.1.99:Cargo.toml"], { cwd: mockApp, env }).stdout;
+assert.ok(cargoAfter.includes('tag = "design-v1.1.99"'));
+const beforeCapture = readFileSync(join(captureRoot, "mock-app-design-1.1.99", "before", "version.txt"), "utf8").trim();
+const afterCapture = readFileSync(join(captureRoot, "mock-app-design-1.1.99", "after", "version.txt"), "utf8").trim();
 assert.equal(beforeCapture, "1.1.0");
-assert.equal(afterCapture, "1.1.1");
+assert.equal(afterCapture, "1.1.99");
 assert.ok(bumpRes.stdout.includes("print-only (switched: false; repository untouched)"));
-assert.ok(bumpRes.stdout.includes("GIT_TAG design-v1.1.1"));
+assert.ok(bumpRes.stdout.includes("GIT_TAG design-v1.1.99"));
 assert.equal(runCapture("git", ["status", "--porcelain"], { cwd: mockApp, env }).stdout.trim(), "");
 
 console.log(bumpRes.stdout.trim());

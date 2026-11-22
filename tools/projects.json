@@ -24,7 +24,10 @@
           "replaceWith": "@docs-v${version}#subdirectory=packages/sternbild-docs",
           "lockFiles": [],
           "checkCommand": "PATH=\"$PATH:$HOME/.worktrees/astrolabe/scratch/shared-docs/venv-pkg/bin\" sternbild-docs check-headings && PATH=\"$PATH:$HOME/.worktrees/astrolabe/scratch/shared-docs/venv-pkg/bin\" sternbild-docs check-roadmap --strict-titles --strict-core-scope && PATH=\"$PATH:$HOME/.worktrees/astrolabe/scratch/shared-docs/venv-pkg/bin\" mkdocs build --strict -d build/docs-site",
-          "captureCommand": "PATH=\"$PATH:$HOME/.worktrees/astrolabe/scratch/shared-docs/venv-pkg/bin\" mkdocs build --strict -d \"$CAPTURE_DIR/docs-site\""
+          "captureCommand": "PATH=\"$PATH:$HOME/.worktrees/astrolabe/scratch/shared-docs/venv-pkg/bin\" mkdocs build --strict -d \"$CAPTURE_DIR/docs-site\"",
+          "extraFiles": [
+            "docs/development/development-basics.md"
+          ]
         }
       }
     },
@@ -42,7 +45,14 @@
         "docs": {
           "file": ".github/workflows/pages.yml",
           "description": "Pinned sternbild-docs pip requirement",
-          "plannedPin": "git+https://github.com/AhmedKhan-GH/organization@docs-v${version}#subdirectory=packages/sternbild-docs"
+          "plannedPin": "git+https://github.com/AhmedKhan-GH/organization@docs-v${version}#subdirectory=packages/sternbild-docs",
+          "extraFiles": [
+            "CONTRIBUTING.md",
+            "docs/development/development-basics.md",
+            "tools/prepush.sh",
+            ".github/workflows/docs.yml",
+            ".github/workflows/build.yml"
+          ]
         }
       }
     }

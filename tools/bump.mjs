@@ -155,6 +155,17 @@ function updateSinglePinnedLine(filePath, target, version) {
   return { lineNumber: lineIndex + 1, oldLine, newLine };
 }
 
+/** Update every occurrence of the pin in a secondary file, such as a docs page with the same install command. */
+function updateExtraPins(filePath, target, version) {
+  const raw = readFileSync(filePath, "utf8");
+  const replaceRe = new RegExp(target.replacePattern, "g");
+  const replacement = interpolate(target.replaceWith, version);
+  const updated = raw.replace(replaceRe, replacement);
+  if (updated === raw) return 0;
+  writeFileSync(filePath, updated, "utf8");
+  return (raw.match(replaceRe) || []).length;
+}
+
 function bumpSwitchedProject(project, kind, version, captureRoot) {
   const target = project.targets?.[kind];
   if (!target) {
@@ -194,6 +205,8 @@ function bumpSwitchedProject(project, kind, version, captureRoot) {
     env: { ...env, CAPTURE_DIR: beforeDir },
   });
 
+  const originalBranch = runCapture("git", ["rev-parse", "--abbrev-ref", "HEAD"], { cwd: project.path, env }).stdout.trim();
+
   console.log(`--- ${project.name}: creating branch ${branchName} ---`);
   runChecked("git", ["checkout", "-b", branchName], { cwd: project.path, env });
 
@@ -206,6 +219,17 @@ function bumpSwitchedProject(project, kind, version, captureRoot) {
   console.log(`  - ${edit.oldLine}`);
   console.log(`  + ${edit.newLine}`);
 
+  const extraFiles = [];
+  for (const extra of target.extraFiles ?? []) {
+    const extraPath = join(project.path, extra);
+    if (!existsSync(extraPath)) continue;
+    const count = updateExtraPins(extraPath, target, version);
+    if (count > 0) {
+      extraFiles.push(extra);
+      console.log(`Updated ${extra} (${count} pin${count === 1 ? "" : "s"})`);
+    }
+  }
+
   console.log(`--- ${project.name}: running check command ---`);
   runShellChecked(target.checkCommand, { cwd: project.path, env });
 
@@ -217,7 +241,7 @@ function bumpSwitchedProject(project, kind, version, captureRoot) {
 
   const comparison = compareCaptures(beforeDir, afterDir);
 
-  const stageFiles = [target.file];
+  const stageFiles = [target.file, ...extraFiles];
   const lockSet = new Set(target.lockFiles ?? []);
   const postStatus = runCapture("git", ["status", "--porcelain", "--untracked-files=no"], {
     cwd: project.path,
@@ -231,7 +255,7 @@ function bumpSwitchedProject(project, kind, version, captureRoot) {
 
   const unexpected = [];
   for (const file of modifiedTracked) {
-    if (file === target.file) continue;
+    if (file === target.file || extraFiles.includes(file)) continue;
     if (lockSet.has(file)) {
       stageFiles.push(file);
     } else {
@@ -245,6 +269,12 @@ function bumpSwitchedProject(project, kind, version, captureRoot) {
   runChecked("git", ["add", "--", ...stageFiles], { cwd: project.path, env });
   runChecked("git", ["commit", "-m", `Bump Sternbild ${kind} to ${version}`], { cwd: project.path, env });
   const commitSha = runCapture("git", ["rev-parse", "HEAD"], { cwd: project.path, env }).stdout.trim();
+
+  // Leave the project on the branch it was on. The bump stays on its own branch for review and merging.
+  if (originalBranch && originalBranch !== "HEAD") {
+    runChecked("git", ["checkout", originalBranch], { cwd: project.path, env });
+    console.log(`Returned ${project.name} to ${originalBranch}. Merge with: git merge --ff-only ${branchName}`);
+  }
 
   return {
     id: project.id,
