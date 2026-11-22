@@ -122,6 +122,9 @@ img { display: block; max-width: 100%; height: auto; }
 .projects .name { font: 19px/1 var(--display); letter-spacing: .22em; text-transform: uppercase; }
 .projects .role { color: var(--faint); font-size: 15px; line-height: 1.35; }
 .projects .desc { color: var(--secondary); font-size: 16px; line-height: 1.55; margin-top: 4px; max-width: 34ch; }
+.projects .url { color: var(--bronze); font-size: 14px; letter-spacing: .06em; margin-top: 6px; white-space: nowrap; }
+.projects li.lead .url { grid-column: 2; }
+.projects li:has(a.card:hover) .url { color: var(--bronze-hover); }
 .projects li.lead { grid-column: 1 / -1; display: grid; grid-template-columns: 128px minmax(0, 1fr); column-gap: 36px; row-gap: 10px;
                     align-items: center; padding: 44px 8px; border-bottom: 1px solid var(--rule-faint);
                     background: linear-gradient(90deg, rgba(179, 139, 89, .07), rgba(179, 139, 89, 0) 60%); }

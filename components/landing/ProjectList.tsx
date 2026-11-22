@@ -23,6 +23,7 @@ function Entry({ project, size, kicker }: { project: Project; size: string; kick
       <span className="name">{project.name}</span>
       <span className="role">{project.role}</span>
       <span className="desc">{project.description}</span>
+      {project.href ? <span className="url">{new URL(project.href).host} ↗</span> : null}
     </>
   );
 }
