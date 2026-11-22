@@ -9,6 +9,8 @@ on:
       - 'lib/**'
       - 'public/**'
       - 'design/**'
+      - 'scripts/**'
+      - 'packages/sternbild-docs/sternbild_docs/assets/brand/**'
       - 'package.json'
       - 'package-lock.json'
       - 'next.config.ts'
@@ -35,7 +37,7 @@ jobs:
           node-version: 26
           cache: npm
       - run: npm ci
-      # The prebuild script generates the design tokens, then next build writes the export to out/.
+      # The prebuild script syncs the brand assets and generates the design tokens. Next.js then writes the static export to out/.
       - run: npm run build
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5

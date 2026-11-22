@@ -2,11 +2,12 @@
   "name": "organization",
   "private": true,
   "scripts": {
-    "tokens": "node design/build.mjs",
-    "tokens:check": "node design/build.mjs --check",
-    "predev": "node design/build.mjs",
+    "brand:sync": "node scripts/sync-brand-assets.mjs",
+    "tokens": "npm run brand:sync && node design/build.mjs",
+    "tokens:check": "npm run brand:sync && node design/build.mjs --check",
+    "predev": "npm run brand:sync && node design/build.mjs",
     "dev": "next dev",
-    "prebuild": "node design/build.mjs",
+    "prebuild": "npm run brand:sync && node design/build.mjs",
     "build": "next build",
     "lint": "eslint .",
     "typecheck": "next typegen && tsc --noEmit"
