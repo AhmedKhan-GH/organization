@@ -1,96 +1,124 @@
-# Referencing the style guide
+# Style Guide Reference
 
-This page explains how Sternbild's other projects use the style guide. Each project takes a pinned release of the
-guide when it is built and keeps a copy in its own repository. Nothing loads from the organization site at runtime,
-so a project keeps its style even if the organization site is down, moved or broken, and no agent has to read the
-guide page to apply it.
+This document explains how Sternbild projects consume design tokens, brand assets, and documentation tools from this repository. Each project pins a versioned Git tag or stylesheet path instead of vendor copies. Nothing loads from an external service at runtime for native applications.
 
-The guide is not hosted yet. This page describes the plan for when it is.
+## Package Distribution
 
-## Source and published files
+This repository owns the design tokens, brand assets, and shared documentation theme in one place. Projects consume those files through four distribution paths.
 
-| Folder | What it holds | Published |
-|---|---|---|
-| `design/` | The source: `tokens.json`, the build script and the README | No; it stays in the repository |
-| The site's `design/` output | The style guide page, and each release of the generated files | Yes, by the Pages workflow |
+| Target | Package or Path | Pin Format | Consumers |
+|---|---|---|---|
+| Rust | `packages/sternbild-tokens` | `tag = "design-v<version>"` | Astrolabe and Rust crates |
+| C and C++ | `packages/sternbild-tokens-c` | `GIT_TAG design-v<version>` | Caliper and CMake builds |
+| Docs | `packages/sternbild-docs` | `@docs-v<version>#subdirectory=packages/sternbild-docs` | MkDocs sites across projects |
+| Web | `public/design/<version>/sternbild.css` | `design/<version>/sternbild.css` or `design/v1/sternbild.css` | Organization site and landing pages |
 
-The guide page is for people. The release files are the contract for software.
+The style guide page at `app/design/page.tsx` documents the rules for readers. The generated packages and stylesheets form the software contract.
 
-## A release
+## Rust Dependency
 
-Each release is published once, in a folder named by its version, and never changes afterwards. It holds ready-made
-files for every platform, so no project has to run a generator:
+Rust projects depend on `sternbild-tokens` through a pinned Cargo Git dependency in `Cargo.toml`:
 
-```
-design/1.0.0/
-    manifest.json         every file in the release with its SHA-256 checksum
-    sternbild.css         CSS custom properties and @font-face rules, for the web
-    tokens.json           the values as data
-    tokens.ts             typed tokens, for web applications
-    sternbild_tokens.h    for Caliper
-    sternbild_tokens.rs   for the Rust applications
-    sternbild.tex         a LaTeX preamble, for Atlas
-    fonts/                the font files
+```toml
+[dependencies]
+sternbild-tokens = { git = "https://github.com/sternbild/organization.git", tag = "design-v1.1.0" }
 ```
 
-The releases are served from `https://ahmedkhan-gh.github.io/organization/design/<version>/`. A `v1` folder that
-always holds the latest 1.x release may also be published for people browsing the guide, but no project depends on it.
+The crate has zero external runtime dependencies. It exports typed color roles, metrics, embedded font binaries, and Minerals icon assets from the canonical repository files.
 
-## The build step in each project
+## CMake Dependency
 
-Every project does the same three things when it builds:
+C and C++ projects load the `sternbild::tokens` interface target through `FetchContent` in `CMakeLists.txt`:
 
-1. It reads the pinned version from one line of its own configuration, for example `sternbild-design = "1.0.0"`.
-2. It downloads that release's files for its platform and checks each one against the checksums in `manifest.json`.
-3. It writes them into a vendored folder, such as `vendor/sternbild/1.0.0/`, which is committed to the project's
-   repository. The project's code uses only that folder.
+```cmake
+include(FetchContent)
+FetchContent_Declare(
+  sternbild-tokens
+  GIT_REPOSITORY https://github.com/sternbild/organization.git
+  GIT_TAG design-v1.1.0
+  SOURCE_SUBDIR packages/sternbild-tokens-c
+)
+FetchContent_MakeAvailable(sternbild-tokens)
 
-If the organization site cannot be reached, the build uses the committed copy and does not fail. If a downloaded file
-does not match its checksum, the build stops with an error.
+target_link_libraries(my_app PRIVATE sternbild::tokens)
+```
 
-| Project | Where the build step goes |
-|---|---|
-| Compass and the organization site (Next.js) | A `prebuild` script |
-| Static landing pages | A step in the Pages workflow, before the upload |
-| Caliper (CMake) | `file(DOWNLOAD … EXPECTED_HASH SHA256=…)`, which CMake checks itself |
-| Astrolabe (Rust) | A small sync script that updates the vendored file; `build.rs` only reads it, because downloading inside `build.rs` is discouraged in Rust |
-| Atlas | Its Python build |
+The target provides `sternbild_tokens.h` for C11 and C++20 builds. It also attaches target properties that point to the canonical fonts, SVGs, and PNG rasters inside the checkout. Targets call `sternbild_tokens_copy_assets` when a build copies fonts or icons beside an executable.
 
-## Roles, not values
+## Documentation Dependency
 
-Projects use role names such as `--sb-surface`, `--sb-text` and `--sb-accent`, never raw colour values. Changing what
-a role looks like is therefore a value change, and every project follows it at its next version bump without any edit
-to its own code.
+Documentation builds install `sternbild-docs` from the same repository with a pinned `docs-v<version>` tag:
 
-## Versions
+```sh
+pip install "git+https://github.com/sternbild/organization@docs-v1.0.0#subdirectory=packages/sternbild-docs"
+```
 
-- **Patch** (1.3.0 to 1.3.1): corrections to values.
-- **Minor** (1.3 to 1.4): new roles or new values. Nothing existing is removed.
-- **Major** (1.x to 2.0): a role is renamed or removed. Projects stay on 1.x until they are migrated.
+The package supplies the `sternbild` MkDocs plugin, shared templates, brand icons, web fonts, and the `sternbild-docs` command line checks.
 
-Each release is tagged in this repository as `design-v<version>`.
+## Web Stylesheets
 
-## Releasing a change
+Each design release writes `sternbild.css` and `tokens.json` into two folders under `public/design/`:
 
-1. Edit `design/tokens.json` and raise its version.
-2. Run the build, which writes the new release folder with every platform's files and its manifest.
-3. Check the style guide page in screenshots.
-4. Commit, tag `design-v<version>` and push. Pages publishes the release.
-5. A bot such as Renovate, or one script across the repositories, opens a version bump in each project. The vendored
-   copy updates, and its diff shows exactly which values changed. Merge each bump after a screenshot check, so a bad
-   release reaches one project at a time rather than all of them at once.
+- `public/design/<version>/`: Frozen files for one exact release.
+- `public/design/v<major>/`: Latest release inside that major series.
 
-## When an agent is needed
+Static pages that follow all minor and patch updates link `design/v1/sternbild.css`. Pages that require an exact release link `design/<version>/sternbild.css`.
 
-- **First wiring of a project:** adding the build step and the vendored folder, mapping the project's existing colours
-  and fonts onto the roles, and checking screenshots.
-- **A major version:** updating a project's code for renamed or removed roles, then checking screenshots.
+## Role Names
 
-Ordinary releases need no agent and no hand edits.
+Projects reference semantic role names such as `--sb-surface`, `role::SURFACE`, and `sternbild::tokens::role::surface` rather than raw palette values. Because a role maps to a palette entry in `design/tokens.json`, a visual adjustment changes the role value once. Downstream projects receive the change at the next version bump with no source edits.
 
-## Before this works
+## Semantic Versions
 
-- **Hosting:** the repository needs to be on GitHub with Pages turned on.
-- **Fonts:** publishing the fonts makes Sternbild Display downloadable by anyone, so its licence needs deciding first.
-- **The build:** it writes `sternbild.css` and `tokens.json` today. It still needs to write `manifest.json` and the
-  files for the other platforms.
+Token and documentation releases follow semantic versioning:
+
+- Patch (`1.1.0` to `1.1.1`): Value corrections or bug fixes with no removals.
+- Minor (`1.1.0` to `1.2.0`): New roles, metrics, assets, or options with full compatibility.
+- Major (`1.x` to `2.0.0`): Renamed or removed roles, targets, or configuration keys.
+
+Design releases use the Git tag `design-v<version>`. Documentation releases use the Git tag `docs-v<version>`.
+
+## Release Command
+
+Run the release script inside this repository to build, test, commit, and tag a new release locally:
+
+```sh
+npm run release -- design 1.1.0
+npm run release -- docs 1.0.1
+```
+
+The release command executes six steps in sequence:
+
+1. Validate the release kind, semantic version, working tree state, and target tag.
+2. Update the version field in `design/tokens.json` or `packages/sternbild-docs/pyproject.toml`.
+3. Run `npm run tokens` and `npm run tokens:check` to regenerate and verify outputs.
+4. Run `cargo test`, the CMake consumer tests, and the `sternbild-docs` pytest suite.
+5. Commit managed release files when the staged diff is not empty.
+6. Create the local Git tag `design-v<version>` or `docs-v<version>` without a remote push.
+
+## Project Bump Command
+
+The registry `tools/projects.json` lists downstream repositories, their pinned files, their check commands, and their capture commands. Run the bump command to advance project pins to a tagged release:
+
+```sh
+npm run bump -- design 1.1.0
+npm run bump -- docs 1.0.1
+```
+
+For each switched project in `tools/projects.json`, the bump command executes six steps:
+
+1. Verify that the target repository has a clean working tree.
+2. Capture visual output into a `before` folder.
+3. Create branch `sternbild-<kind>-<version>` and update the single pinned line.
+4. Run the project build and check commands.
+5. Capture visual output into an `after` folder and compare file hashes.
+6. Commit the pinned file change and updated lock files on the new branch.
+
+For projects marked `"switched": false` in `tools/projects.json`, the command never edits files or runs build tools. It prints the target path, file name, and planned pin line only.
+
+## Agent Scope
+
+Routine patch and minor releases need no agent work and no manual edits in downstream code. An agent is necessary in two cases only:
+
+- Initial project setup: Add the Cargo, CMake, or MkDocs dependency, map interface code onto semantic roles, and inspect visual captures.
+- Major version migration: Update downstream code for renamed or removed roles, then verify build checks and visual captures.
