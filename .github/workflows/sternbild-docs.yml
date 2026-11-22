@@ -17,5 +17,5 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m pip install --upgrade pip
-      - run: python -m pip install ./packages/sternbild-docs pytest
+      - run: python -m pip install ./packages/sternbild-docs pytest hatchling
       - run: pytest packages/sternbild-docs/tests
