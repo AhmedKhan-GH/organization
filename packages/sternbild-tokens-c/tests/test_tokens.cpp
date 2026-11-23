@@ -21,7 +21,7 @@ static_assert(st::mark::all.size() == 9);
 static_assert(st::space::s1 == 4.0f && st::space::s18 == 72.0f);
 static_assert(st::app::command_bar == 28.0f);
 static_assert(st::app::font_size::display == 16.0f);
-static_assert(st::RADIUS == 0.0f && st::CUT == 6.0f);
+static_assert(st::RADIUS == 0.0f);
 static_assert(st::rule::width == 1.0f);
 static_assert(st::motion::duration::fast_ms == 150u);
 static_assert(st::motion::easing::standard.size() == 4);

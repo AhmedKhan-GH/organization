@@ -1,4 +1,3 @@
-import { sectionNumbers } from "@/lib/guide";
 import { amount, cssVar, type DimensionPath } from "@/lib/tokens";
 import { DataTable } from "../DataTable";
 import { Section } from "../Section";
@@ -50,7 +49,7 @@ export function LayoutSection() {
       <p>A list opens with a rule and divides its rows with faint rules. A table is set as a technical book sets it: a faint rule above, a rule under the heads, nothing between the rows and a faint rule below. The tables on this page follow that rule.</p>
 
       <h3>Corners</h3>
-      <p>{`Corners are square everywhere: panes, fields, menus, plot fields, images and buttons. The one shaped corner is the 45° cut of 6\u00a0px on an application's primary action, shown in section ${sectionNumbers("interface")}. Circles are kept for data points.`}</p>
+      <p>{`Corners are square everywhere: panes, fields, menus, plot fields, images and buttons, including the primary action. The cut-corner octagon belongs to the app logos and is never used on a control. Circles are kept for data points.`}</p>
 
       <h3>Density</h3>
       <p>The website sets running text at 17&nbsp;px with a line height of 1.65, in a column no wider than about 68 characters. An application is denser: rows of 22&nbsp;px, pane headers of 24&nbsp;px, pane padding of 8&nbsp;px and 16&nbsp;px between items on the status line. Empty space stays empty, with no badges, counters or filler.</p>

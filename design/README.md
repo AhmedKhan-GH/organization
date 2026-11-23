@@ -92,7 +92,7 @@ to the static site as it stood before the move to Next.js, at commit `4fd6d1a`. 
 | `leading` | 1, 1.2, 1.35, 1.55, 1.65 | Organization site; the Caliper site and docs for 1.2 |
 | `space` | 4 to 72 px on a 4 px base | Values that recur in the organization site and Caliper's theme |
 | `layout` | max 1160, gutter 28, narrow 18, masthead 64, section 110 and 72, breakpoint 820 | Organization site |
-| `rule`, `radius`, `cut` | 1 px, 0, 6 px | Organization site and Caliper's theme; the cut belongs to the app logo frames only, and no control uses it |
+| `rule`, `radius` | 1 px, 0 | Organization site and Caliper's theme; corners are square, and no control uses a cut corner |
 | `logo` | minimum 40 px, clear space half the diamond's width | The October site study (`~/Creative/sternbild-site/research/TYPOGRAPHY.md:33`); see question 6 |
 | `motion` | 150 ms, 300 ms, `cubic-bezier(0.2, 0.65, 0.3, 1)` | Organization site |
 | `app` | row 22, pane header 24, command bar 28, status bar 22, pad 8, gap 16, key button 20, focus offset 3, scrollbar 8, mark 18; font sizes 15, 14, 15, 16 | Caliper's theme and fonts (`sternbild_theme.h:54-62`, `sternbild_theme.cpp`, `sternbild_fonts.h:38-41`) |

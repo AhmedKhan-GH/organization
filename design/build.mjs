@@ -472,9 +472,8 @@ function rustModule() {
   out.push("}");
   out.push("");
 
-  // radius and cut
+  // radius
   out.push(`pub const RADIUS: f32 = ${fmtF32(resolveDimension(requireToken("radius")))};`);
-  out.push(`pub const CUT: f32 = ${fmtF32(resolveDimension(requireToken("cut")))};`);
   out.push("");
 
   // motion
@@ -656,8 +655,8 @@ function cHeader() {
   }
   out.push("");
 
-  // Logo, rule, radius, cut
-  out.push("/* logo, rule, radius, cut */");
+  // Logo, rule, radius
+  out.push("/* logo, rule, radius */");
   for (const t of tokensInGroup("logo")) {
     const val = t.type === "dimension" ? resolveDimension(t) : resolve(t.value);
     out.push(`#define SB_LOGO_${toUpperIdent(t.path[1])} ${fmtCFloat(val)}`);
@@ -666,7 +665,6 @@ function cHeader() {
     out.push(`#define SB_RULE_${toUpperIdent(t.path[1])} ${fmtCFloat(resolveDimension(t))}`);
   }
   out.push(`#define SB_RADIUS ${fmtCFloat(resolveDimension(requireToken("radius")))}`);
-  out.push(`#define SB_CUT ${fmtCFloat(resolveDimension(requireToken("cut")))}`);
   out.push("");
 
   // Motion
@@ -786,7 +784,7 @@ function cHeader() {
   out.push("}  // namespace logo");
   out.push("");
 
-  // C++ rule, RADIUS, CUT
+  // C++ rule, RADIUS
   out.push("namespace rule {");
   for (const t of tokensInGroup("rule")) {
     out.push(`inline constexpr float ${toLowerIdent(t.path[1])} = SB_RULE_${toUpperIdent(t.path[1])};`);
@@ -794,7 +792,6 @@ function cHeader() {
   out.push("}  // namespace rule");
   out.push("");
   out.push("inline constexpr float RADIUS = SB_RADIUS;");
-  out.push("inline constexpr float CUT = SB_CUT;");
   out.push("");
 
   // C++ motion

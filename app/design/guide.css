@@ -189,9 +189,8 @@ h3 { margin: var(--sb-space-12) 0 var(--sb-space-4); font-family: var(--sb-font-
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sb-space-4); margin-top: var(--sb-space-3); }
 .plate-btn { position: relative; display: inline-grid; place-items: center; width: 96px; height: var(--sb-app-pane-header); padding: 0; border: 0; background: none;
              color: var(--sb-text); font: inherit; font-size: 12px; cursor: pointer; }
-.plate-btn svg { position: absolute; inset: 0; }
-.plate-btn polygon { fill: none; stroke: var(--sb-text); stroke-width: var(--sb-rule-width); }
-.plate-btn:hover polygon { fill: var(--sb-surface-hover); }
+.plate-btn { border: var(--sb-rule-width) solid var(--sb-text); }
+.plate-btn:hover { background: var(--sb-surface-hover); }
 .plate-btn span { position: relative; }
 .plate-btn .k { color: var(--sb-accent); font-family: var(--sb-font-family-mono); margin-right: 6px; }
 .key-btn { display: inline-flex; align-items: center; gap: 6px; height: var(--sb-app-key-button); padding: 0 var(--sb-space-2); border: var(--sb-rule-width) solid var(--sb-rule);

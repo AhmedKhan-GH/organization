@@ -291,7 +291,6 @@ mod tests {
         assert_eq!(logo::CLEAR_SPACE, 0.5);
         assert_eq!(rule::WIDTH, 1.0);
         assert_eq!(RADIUS, 0.0);
-        assert_eq!(CUT, 6.0);
         assert_eq!(motion::duration::FAST_MS, 150);
         assert_eq!(motion::duration::MOVE_MS, 300);
         assert_eq!(motion::easing::STANDARD, [0.2, 0.65, 0.3, 1.0]);

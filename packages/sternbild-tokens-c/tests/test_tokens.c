@@ -93,7 +93,6 @@ int main(void) {
   check_cond(SB_APP_COMMAND_BAR == 28.0f, "command bar");
   check_cond(SB_APP_FONT_SIZE_DISPLAY == 16.0f, "display font size");
   check_cond(SB_RADIUS == 0.0f, "radius");
-  check_cond(SB_CUT == 6.0f, "cut");
   check_cond(SB_RULE_WIDTH == 1.0f, "rule width");
   check_cond(SB_MOTION_DURATION_FAST_MS == 150u, "fast ms");
   check_cond(SB_MOTION_DURATION_MOVE_MS == 300u, "move ms");

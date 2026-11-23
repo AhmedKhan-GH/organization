@@ -42,9 +42,6 @@ export function PaneExample() {
         </table>
         <div className="actions">
           <button className="plate-btn" type="button">
-            <svg viewBox="0 0 96 24" width="96" height="24" aria-hidden="true">
-              <polygon points="6.5,0.5 89.5,0.5 95.5,6.5 95.5,17.5 89.5,23.5 6.5,23.5 0.5,17.5 0.5,6.5" />
-            </svg>
             <span><span className="k">⏎</span>Copy</span>
           </button>
           <button className="key-btn" type="button"><span className="k">⌘K</span>Command</button>

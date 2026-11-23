@@ -61,7 +61,7 @@ export function InterfaceSection() {
 
       <h3>A pane, built from the tokens</h3>
       <PaneExample />
-      <p className="caption">The pane has focus, so its title, key and closing rule are bronze. The table is set in booktabs at 22&nbsp;px rows, and the selected row sits on plate with its text in bronze. The primary action is the one plate with cut corners; the key button pairs a key with its action, the secondary action is a bare word, and an action that cannot run says why. The status line sits on deep under a rule.</p>
+      <p className="caption">The pane has focus, so its title, key and closing rule are bronze. The table is set in booktabs at 22&nbsp;px rows, and the selected row sits on plate with its text in bronze. The primary action is the one outlined plate; the key button pairs a key with its action, the secondary action is a bare word, and an action that cannot run says why. The status line sits on deep under a rule.</p>
     </Section>
   );
 }
