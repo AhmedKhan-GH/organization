@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(sternbild-tokens VERSION 1.1.0 LANGUAGES NONE)
+project(sternbild-tokens VERSION 2.0.0 LANGUAGES NONE)
 
 if(NOT TARGET sternbild::tokens)
   add_library(sternbild_tokens INTERFACE)
